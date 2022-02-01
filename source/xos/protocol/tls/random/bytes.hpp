@@ -13,92 +13,83 @@
 /// or otherwise) arising in any way out of the use of this software, 
 /// even if advised of the possibility of such damage.
 ///
-///   File: version.hpp
+///   File: bytes.hpp
 ///
 /// Author: $author$
-///   Date: 1/31/2022
+///   Date: 2/1/2022
 ///////////////////////////////////////////////////////////////////////
-#ifndef XOS_PROTOCOL_TLS_PROTOCOL_VERSION_HPP
-#define XOS_PROTOCOL_TLS_PROTOCOL_VERSION_HPP
+#ifndef XOS_PROTOCOL_TLS_RANDOM_BYTES_HPP
+#define XOS_PROTOCOL_TLS_RANDOM_BYTES_HPP
 
 #include "xos/protocol/tls/message/part.hpp"
-
-#define XOS_PROTOCOL_TLS_PROTOCOL_VERSION_MAJOR 3
-#define XOS_PROTOCOL_TLS_PROTOCOL_VERSION_MINOR 3
+#include "xos/protocol/tls/pseudo/random/reader.hpp"
 
 namespace xos {
 namespace protocol {
 namespace tls {
-namespace protocol {
+namespace random {
 
-/// class versiont
+/// class bytest
 template 
-<typename TPart = uint8_t, class TMessagePart = tls::message::part,
+<size_t VSize = 48, 
+ class TRandomReader = tls::pseudo::random::reader, class TMessagePart = tls::message::part, 
  class TExtends = TMessagePart, class TImplements = typename TExtends::implements>
 
-class exported versiont: virtual public TImplements, public TExtends {
+class exported bytest: virtual public TImplements, public TExtends {
 public:
     typedef TImplements implements;
     typedef TExtends extends;
-    typedef versiont derives; 
+    typedef bytest derives; 
     
-    typedef TPart part_t;
+    enum { size = VSize };
+    typedef TRandomReader random_reader_t;
     typedef TMessagePart message_part_t;
-    
+
     /// constructors / destructor
-    versiont(const versiont& copy): major_(copy.major()), minor_(copy.minor) {
+    bytest(const bytest& copy): random_reader_(copy.random_reader_) {
         combine();
     }
-    versiont()
-    : major_(XOS_PROTOCOL_TLS_PROTOCOL_VERSION_MAJOR),
-      minor_(XOS_PROTOCOL_TLS_PROTOCOL_VERSION_MINOR) {
+    bytest(random_reader_t& random_reader): random_reader_(random_reader) {
         combine();
     }
-    virtual ~versiont() {
+    virtual ~bytest() {
     }
-    
+
     /// combine / separate
     virtual bool combine() {
         bool success = true;
-        to_msb(major_, minor_);
+        size_t remain = 0, length = 0;
+
+        if (size <= (this->set_length(length = size))) {
+            byte_t* bytes = 0;
+
+            if ((bytes = this->has_elements(length))) {
+                
+                for (remain = length; remain; remain -= length, bytes += length) {
+
+                    if (0 < (length = random_reader_.read(bytes, remain))) {
+                        continue;
+                    }
+                    this->set_length(0);
+                    return false;
+                }
+            }
+        }
         return success;
     }
     virtual bool separate() {
-        bool success = false;
+        bool success = true;
         return success;
     }
 
-    /// ...to_msb
-    using extends::to_msb;
-    virtual size_t& to_msb(const part_t& major, const part_t& minor) {
-        size_t length = 0, size = 0;
-        
-        this->set_length(length = 0);
-        if (sizeof(major_) <= (size = this->to_msb(major))) {
-            length += size;
-            if (sizeof(minor_) <= (size = this->to_msb(minor))) {
-                length += size;
-            }
-        }
-        return length;
-    }
-    
-    /// ...major / minor...
-    virtual part_t& major() const {
-        return (part_t&)major_;
-    }
-    virtual part_t& minor() const {
-        return (part_t&)minor_;
-    }
-
 protected:
-    part_t major_, minor_;
-}; /// class versiont
-typedef versiont<> version;
+    random_reader_t& random_reader_;
+}; /// class bytest
+typedef bytest<> bytes;
 
-} /// namespace protocol
+} /// namespace random
 } /// namespace tls
 } /// namespace protocol
 } /// namespace xos
 
-#endif /// XOS_PROTOCOL_TLS_PROTOCOL_VERSION_HPP
+#endif /// XOS_PROTOCOL_TLS_RANDOM_BYTES_HPP

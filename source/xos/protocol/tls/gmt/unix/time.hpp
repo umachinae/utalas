@@ -13,54 +13,49 @@
 /// or otherwise) arising in any way out of the use of this software, 
 /// even if advised of the possibility of such damage.
 ///
-///   File: version.hpp
+///   File: time.hpp
 ///
 /// Author: $author$
-///   Date: 1/31/2022
+///   Date: 2/1/2022
 ///////////////////////////////////////////////////////////////////////
-#ifndef XOS_PROTOCOL_TLS_PROTOCOL_VERSION_HPP
-#define XOS_PROTOCOL_TLS_PROTOCOL_VERSION_HPP
+#ifndef XOS_PROTOCOL_TLS_GMT_UNIX_TIME_HPP
+#define XOS_PROTOCOL_TLS_GMT_UNIX_TIME_HPP
 
 #include "xos/protocol/tls/message/part.hpp"
-
-#define XOS_PROTOCOL_TLS_PROTOCOL_VERSION_MAJOR 3
-#define XOS_PROTOCOL_TLS_PROTOCOL_VERSION_MINOR 3
 
 namespace xos {
 namespace protocol {
 namespace tls {
-namespace protocol {
+namespace gmt {
+namespace unix {
 
-/// class versiont
+/// class timet
 template 
-<typename TPart = uint8_t, class TMessagePart = tls::message::part,
+<class TGmtUnixTime = uint32_t, class TMessagePart = message::part, 
  class TExtends = TMessagePart, class TImplements = typename TExtends::implements>
-
-class exported versiont: virtual public TImplements, public TExtends {
+class exported timet: virtual public TImplements, public TExtends {
 public:
     typedef TImplements implements;
     typedef TExtends extends;
-    typedef versiont derives; 
+    typedef timet derives; 
     
-    typedef TPart part_t;
     typedef TMessagePart message_part_t;
+    typedef TGmtUnixTime gmt_unix_time_t;
     
     /// constructors / destructor
-    versiont(const versiont& copy): major_(copy.major()), minor_(copy.minor) {
+    timet(const timet& copy): gmt_unix_time_(copy.gmt_unix_time_) {
         combine();
     }
-    versiont()
-    : major_(XOS_PROTOCOL_TLS_PROTOCOL_VERSION_MAJOR),
-      minor_(XOS_PROTOCOL_TLS_PROTOCOL_VERSION_MINOR) {
-        combine();
+    timet(): gmt_unix_time_(0) {
+        set_now();
     }
-    virtual ~versiont() {
+    virtual ~timet() {
     }
-    
+
     /// combine / separate
     virtual bool combine() {
         bool success = true;
-        to_msb(major_, minor_);
+        extends::to_msb(gmt_unix_time_);
         return success;
     }
     virtual bool separate() {
@@ -68,37 +63,27 @@ public:
         return success;
     }
 
-    /// ...to_msb
-    using extends::to_msb;
-    virtual size_t& to_msb(const part_t& major, const part_t& minor) {
-        size_t length = 0, size = 0;
-        
-        this->set_length(length = 0);
-        if (sizeof(major_) <= (size = this->to_msb(major))) {
-            length += size;
-            if (sizeof(minor_) <= (size = this->to_msb(minor))) {
-                length += size;
-            }
-        }
-        return length;
+    /// ...now
+    virtual gmt_unix_time_t set_now() {
+        gmt_unix_time_ = now();
+        combine();
+        return gmt_unix_time_;
     }
-    
-    /// ...major / minor...
-    virtual part_t& major() const {
-        return (part_t&)major_;
-    }
-    virtual part_t& minor() const {
-        return (part_t&)minor_;
+    virtual gmt_unix_time_t now() const {
+        time_t unix_time = 0;
+        gmt_unix_time_t gmt_unix_time = ((gmt_unix_time_t)::time(&unix_time));
+        return gmt_unix_time;
     }
 
 protected:
-    part_t major_, minor_;
-}; /// class versiont
-typedef versiont<> version;
+    gmt_unix_time_t gmt_unix_time_;
+}; /// class timet
+typedef timet<> time;
 
-} /// namespace protocol
+} /// namespace unix
+} /// namespace gmt
 } /// namespace tls
 } /// namespace protocol
 } /// namespace xos
 
-#endif /// XOS_PROTOCOL_TLS_PROTOCOL_VERSION_HPP
+#endif /// XOS_PROTOCOL_TLS_GMT_UNIX_TIME_HPP
