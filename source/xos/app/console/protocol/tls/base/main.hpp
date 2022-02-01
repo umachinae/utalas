@@ -26,6 +26,7 @@
 #include "xos/protocol/tls/protocol/version.hpp"
 #include "xos/protocol/tls/gmt/unix/time.hpp"
 #include "xos/protocol/tls/random/bytes.hpp"
+#include "xos/protocol/tls/hello/random.hpp"
 
 #define XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_PSEUDO_RANDOM_SECRET "E5B62E66-8349-11EC-8C95-7F8924CBD8A2"
 #define XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_PSEUDO_RANDOM_SEED "ECBD992E-8349-11EC-9EC2-259E551AB68D"
@@ -93,10 +94,12 @@ protected:
         ::xos::protocol::tls::pseudo::random::reader random_reader(secret_, seed_);
         ::xos::protocol::tls::random::bytes random_bytes(random_reader);
         ::xos::protocol::tls::gmt::unix::time gmt_unix_time;
+        ::xos::protocol::tls::hello::random hello_random(random_reader, gmt_unix_time, random_bytes);
         int err = 0;
         this->output_hex_run(protocol_version_, argc, argv, env);
         this->output_hex_run(gmt_unix_time, argc, argv, env);
         this->output_hex_run(random_bytes, argc, argv, env);
+        this->output_hex_run(hello_random, argc, argv, env);
         return err;
     }
 

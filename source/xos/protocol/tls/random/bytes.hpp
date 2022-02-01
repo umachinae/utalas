@@ -31,7 +31,7 @@ namespace random {
 
 /// class bytest
 template 
-<size_t VSize = 48, 
+<size_t VSize = 28, 
  class TRandomReader = tls::pseudo::random::reader, class TMessagePart = tls::message::part, 
  class TExtends = TMessagePart, class TImplements = typename TExtends::implements>
 
@@ -46,8 +46,7 @@ public:
     typedef TMessagePart message_part_t;
 
     /// constructors / destructor
-    bytest(const bytest& copy): random_reader_(copy.random_reader_) {
-        combine();
+    bytest(const bytest& copy): extends(copy), random_reader_(copy.random_reader_) {
     }
     bytest(random_reader_t& random_reader): random_reader_(random_reader) {
         combine();
