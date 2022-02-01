@@ -61,6 +61,7 @@ $${UTALAS_SRC}/xos/protocol/tls/message/part.hpp \
 $${UTALAS_SRC}/xos/protocol/tls/protocol/version.hpp \
 $${UTALAS_SRC}/xos/protocol/tls/gmt/unix/time.hpp \
 $${UTALAS_SRC}/xos/protocol/tls/random/bytes.hpp \
+$${UTALAS_SRC}/xos/protocol/tls/hello/random.hpp \
 \
 $${UTALAS_SRC}/xos/app/console/talas/crypto/main_opt.hpp \
 $${UTALAS_SRC}/xos/app/console/talas/crypto/main.hpp \
@@ -77,6 +78,7 @@ $${UTALAS_SRC}/xos/protocol/tls/message/part.cpp \
 $${UTALAS_SRC}/xos/protocol/tls/protocol/version.cpp \
 $${UTALAS_SRC}/xos/protocol/tls/gmt/unix/time.cpp \
 $${UTALAS_SRC}/xos/protocol/tls/random/bytes.cpp \
+$${UTALAS_SRC}/xos/protocol/tls/hello/random.cpp \
 \
 $${UTALAS_SRC}/xos/app/console/protocol/tls/base/main_opt.cpp \
 $${UTALAS_SRC}/xos/app/console/protocol/tls/base/main.cpp \
