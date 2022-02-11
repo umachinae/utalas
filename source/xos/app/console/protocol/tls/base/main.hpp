@@ -38,6 +38,14 @@
 
 #include "xos/protocol/tls/premaster/secret/random.hpp"
 #include "xos/protocol/tls/premaster/secret/message.hpp"
+#include "xos/protocol/tls/pkcs1/encoded/message.hpp"
+#include "xos/protocol/tls/pkcs1/encoded/premaster/secret.hpp"
+
+#include "xos/protocol/tls/rsa/public_key.hpp"
+#include "xos/protocol/tls/rsa/bn/public_key.hpp"
+#include "xos/protocol/tls/rsa/gmp/public_key.hpp"
+#include "xos/protocol/tls/rsa/implemented/public_key.hpp"
+#include "xos/protocol/tls/encrypted/premaster/secret.hpp"
 
 #include "xos/protocol/tls/key/exchange/algorithm.hpp"
 #include "xos/protocol/tls/client/key/exchange/message.hpp"

@@ -65,8 +65,23 @@ public:
     virtual ~readert() {
     }
 
-    /// read
+    /// read...
     virtual ssize_t read(what_t* what, size_t size) {
+        sized_t* sized = 0;
+        if ((sized = (sized_t*)what) && (size)) {
+            ssize_t amount = 0, count = 0; size_t remain = 0; 
+            for (amount = size, remain = size; remain; remain -= amount, sized += amount) {
+                if (0 < (amount = read_more(sized, remain))) {
+                    count += amount;
+                    continue;
+                }
+                break;
+            }
+            return count;
+        }
+        return 0;
+    }
+    virtual ssize_t read_more(what_t* what, size_t size) {
         function_t& function = this->function();
         byte_array_t& array = this->array();
         size_t &length = this->length_, &tell = this->tell_;

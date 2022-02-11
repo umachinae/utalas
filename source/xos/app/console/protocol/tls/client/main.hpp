@@ -24,9 +24,9 @@
 #include "xos/app/console/protocol/tls/client/main_opt.hpp"
 
 #include "talas/app/console/rsa/public_key.hpp"
-#include "talas/crypto/rsa/public_key.hpp"
+/*#include "talas/crypto/rsa/public_key.hpp"
 #include "talas/crypto/rsa/bn/public_key.hpp"
-#include "talas/crypto/rsa/mp/public_key.hpp"
+#include "talas/crypto/rsa/mp/public_key.hpp"*/
 
 namespace xos {
 namespace app {
@@ -77,6 +77,30 @@ protected:
             err = (this->*run_)(argc, argv, env);
         } else {
             err = extends::run(argc, argv, env);
+        }
+        return err;
+    }
+
+    virtual int output_client_key_exchange_run(int argc, char_t** argv, char_t** env) {
+        int err = 0;
+        const byte_t* modulus = 0; size_t modulus_length = 0;
+        xos::protocol::tls::pseudo::random::reader random_reader(this->secret_, this->seed_);
+        xos::protocol::tls::premaster::secret::random premaster_secret_random(random_reader);
+        xos::protocol::tls::premaster::secret::message premaster_secret(this->protocol_version_, premaster_secret_random, random_reader);
+        
+        this->output_hex_run(premaster_secret, argc, argv, env);
+
+        if ((modulus = this->get_modulus(modulus_length))) {
+            const byte_t* exponent = 0; size_t exponent_length = 0;
+            xos::protocol::tls::pkcs1::encoded::premaster::secret encoded_premaster_secret(modulus_length, premaster_secret, random_reader);
+
+            this->output_hex_run(encoded_premaster_secret, argc, argv, env);
+            if ((exponent = this->get_exponent(exponent_length))) {
+                xos::protocol::tls::rsa::implemented::public_key public_key(modulus, modulus_length, exponent, exponent_length);
+                xos::protocol::tls::encrypted::premaster::secret encrypted_premaster_secret(public_key, encoded_premaster_secret);
+
+                this->output_hex_run(encrypted_premaster_secret, argc, argv, env);
+            }
         }
         return err;
     }

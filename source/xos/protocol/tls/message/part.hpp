@@ -112,11 +112,11 @@ public:
 
     /// combine / separate
     virtual bool combine() {
-        bool success = true;
+        bool success = false;
         return success;
     }
     virtual bool separate() {
-        bool success = true;
+        bool success = false;
         return success;
     }
 
