@@ -58,6 +58,7 @@ tlshello_HEADERS += \
 $${CIFRA_SRC}/xos/crypto/hash.hpp \
 \
 $${UTALAS_SRC}/xos/protocol/tls/message/part.hpp \
+$${UTALAS_SRC}/xos/protocol/tls/pseudo/random/reader.hpp \
 $${UTALAS_SRC}/xos/protocol/tls/protocol/version.hpp \
 $${UTALAS_SRC}/xos/protocol/tls/gmt/unix/time.hpp \
 $${UTALAS_SRC}/xos/protocol/tls/random/bytes.hpp \
@@ -74,10 +75,14 @@ $${UTALAS_SRC}/xos/protocol/tls/compression/methods.hpp \
 $${UTALAS_SRC}/xos/protocol/tls/client/hello.hpp \
 $${UTALAS_SRC}/xos/protocol/tls/premaster/secret/random.hpp \
 $${UTALAS_SRC}/xos/protocol/tls/premaster/secret/message.hpp \
+$${UTALAS_SRC}/xos/protocol/tls/pkcs1/encoded/message.hpp \
+$${UTALAS_SRC}/xos/protocol/tls/pkcs1/encoded/premaster/secret.hpp \
 $${UTALAS_SRC}/xos/protocol/tls/rsa/key.hpp \
 $${UTALAS_SRC}/xos/protocol/tls/rsa/public_key.hpp \
 $${UTALAS_SRC}/xos/protocol/tls/rsa/bn/public_key.hpp \
 $${UTALAS_SRC}/xos/protocol/tls/rsa/gmp/public_key.hpp \
+$${UTALAS_SRC}/xos/protocol/tls/rsa/implemented/public_key.hpp \
+$${UTALAS_SRC}/xos/protocol/tls/encrypted/premaster/secret.hpp \
 $${UTALAS_SRC}/xos/protocol/tls/client/key/exchange/message.hpp \
 \
 $${UTALAS_SRC}/xos/app/console/talas/crypto/main_opt.hpp \
@@ -110,7 +115,8 @@ $${UTALAS_SRC}/xos/protocol/tls/compression/method.cpp \
 $${UTALAS_SRC}/xos/protocol/tls/compression/methods.cpp \
 $${UTALAS_SRC}/xos/protocol/tls/client/hello.cpp \
 $${UTALAS_SRC}/xos/protocol/tls/rsa/key.cpp \
-$${UTALAS_SRC}/xos/protocol/tls/rsa/gmp/public_key.cpp \
+$${UTALAS_SRC}/xos/protocol/tls/rsa/implemented/public_key.cpp \
+$${UTALAS_SRC}/xos/protocol/tls/encrypted/premaster/secret.cpp \
 \
 $${UTALAS_SRC}/xos/app/console/protocol/tls/client/main_opt.cpp \
 $${UTALAS_SRC}/xos/app/console/protocol/tls/client/main.cpp \
@@ -124,7 +130,7 @@ $${talas_FRAMEWORKS} \
 # tlshello LIBS
 #
 tlshello_LIBS += \
-$${talas_LIBS} \
+$${talas_rsa_LIBS} \
 
 ########################################################################
 # NO Qt
