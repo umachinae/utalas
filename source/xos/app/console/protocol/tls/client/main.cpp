@@ -13,29 +13,39 @@
 /// or otherwise) arising in any way out of the use of this software, 
 /// even if advised of the possibility of such damage.
 ///
-///   File: part.cpp
+///   File: main.cpp
 ///
 /// Author: $author$
-///   Date: 2/1/2022
+///   Date: 2/10/2022
 ///////////////////////////////////////////////////////////////////////
-#include "xos/protocol/tls/message/part.hpp"
+#include "xos/app/console/protocol/tls/client/main.hpp"
 
-#if !defined(XOS_PROTOCOL_TLS_MESSAGE_PART_INSTANCE)
-///#define XOS_PROTOCOL_TLS_MESSAGE_PART_INSTANCE
-#endif /// !defined(XOS_PROTOCOL_TLS_MESSAGE_PART_INSTANCE)
+#if defined(XOS_CONSOLE_MAIN_MAIN)
+#include "xos/console/main_main.cpp"
+#if !defined(XOS_APP_CONSOLE_PROTOCOL_TLS_CLIENT_MAIN_INSTANCE)
+#define XOS_APP_CONSOLE_PROTOCOL_TLS_CLIENT_MAIN_INSTANCE
+#endif /// !defined(XOS_APP_CONSOLE_PROTOCOL_TLS_CLIENT_MAIN_NSTANCE)
+#endif /// defined(XOS_CONSOLE_MAIN_MAIN)
+
+#if !defined(XOS_APP_CONSOLE_PROTOCOL_TLS_CLIENT_MAIN_INSTANCE)
+///#define XOS_APP_CONSOLE_PROTOCOL_TLS_CLIENT_MAIN_INSTANCE
+#endif /// !defined(XOS_APP_CONSOLE_PROTOCOL_TLS_CLIENT_MAIN_NSTANCE)
 
 namespace xos {
+namespace app {
+namespace console {
 namespace protocol {
 namespace tls {
-namespace message {
+namespace client {
 
-///  Class: partt
-#if defined(XOS_PROTOCOL_TLS_MESSAGE_PART_INSTANCE)
-static part the_part;
-#endif /// defined(XOS_PROTOCOL_TLS_MESSAGE_PART_INSTANCE)
+/// class main
+#if defined(XOS_APP_CONSOLE_PROTOCOL_TLS_CLIENT_MAIN_INSTANCE)
+static main the_main;
+#endif /// defined(XOS_APP_CONSOLE_PROTOCOL_TLS_CLIENT_MAIN_INSTANCE)
 
-
-} /// namespace message
+} /// namespace client
 } /// namespace tls
 } /// namespace protocol
+} /// namespace console
+} /// namespace app
 } /// namespace xos

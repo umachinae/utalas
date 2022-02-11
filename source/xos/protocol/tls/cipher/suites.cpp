@@ -13,29 +13,29 @@
 /// or otherwise) arising in any way out of the use of this software, 
 /// even if advised of the possibility of such damage.
 ///
-///   File: part.cpp
+///   File: suites.cpp
 ///
 /// Author: $author$
-///   Date: 2/1/2022
+///   Date: 2/8/2022
 ///////////////////////////////////////////////////////////////////////
-#include "xos/protocol/tls/message/part.hpp"
+#include "xos/protocol/tls/cipher/suites.hpp"
 
-#if !defined(XOS_PROTOCOL_TLS_MESSAGE_PART_INSTANCE)
-///#define XOS_PROTOCOL_TLS_MESSAGE_PART_INSTANCE
-#endif /// !defined(XOS_PROTOCOL_TLS_MESSAGE_PART_INSTANCE)
+#if !defined(XOS_PROTOCOL_TLS_CIPHER_SUITES_INSTANCE)
+#define XOS_PROTOCOL_TLS_CIPHER_SUITES_INSTANCE
+#endif /// !defined(XOS_PROTOCOL_TLS_CIPHER_SUITES_INSTANCE)
 
 namespace xos {
 namespace protocol {
 namespace tls {
-namespace message {
+namespace cipher {
 
-///  Class: partt
-#if defined(XOS_PROTOCOL_TLS_MESSAGE_PART_INSTANCE)
-static part the_part;
-#endif /// defined(XOS_PROTOCOL_TLS_MESSAGE_PART_INSTANCE)
+///  Class: suitest
+#if defined(XOS_PROTOCOL_TLS_CIPHER_SUITES_INSTANCE)
+static suites the_suites;
+#endif /// defined(XOS_PROTOCOL_TLS_CIPHER_SUITES_INSTANCE)
 
 
-} /// namespace message
+} /// namespace cipher
 } /// namespace tls
 } /// namespace protocol
 } /// namespace xos

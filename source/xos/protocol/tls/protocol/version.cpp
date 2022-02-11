@@ -21,7 +21,7 @@
 #include "xos/protocol/tls/protocol/version.hpp"
 
 #if !defined(XOS_PROTOCOL_TLS_PROTOCOL_VERSION_INSTANCE)
-#define XOS_PROTOCOL_TLS_PROTOCOL_VERSION_INSTANCE
+///#define XOS_PROTOCOL_TLS_PROTOCOL_VERSION_INSTANCE
 #endif /// !defined(XOS_PROTOCOL_TLS_PROTOCOL_VERSION_INSTANCE)
 
 namespace xos {

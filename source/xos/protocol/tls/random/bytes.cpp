@@ -34,7 +34,6 @@ namespace random {
 static bytes the_bytes;
 #endif /// defined(XOS_PROTOCOL_TLS_RANDOM_BYTES_INSTANCE)
 
-
 } /// namespace random
 } /// namespace tls
 } /// namespace protocol

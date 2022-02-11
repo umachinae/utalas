@@ -13,29 +13,31 @@
 /// or otherwise) arising in any way out of the use of this software, 
 /// even if advised of the possibility of such damage.
 ///
-///   File: part.cpp
+///   File: public_key.cpp
 ///
 /// Author: $author$
-///   Date: 2/1/2022
+///   Date: 2/10/2022
 ///////////////////////////////////////////////////////////////////////
-#include "xos/protocol/tls/message/part.hpp"
+#include "xos/protocol/tls/rsa/gmp/public_key.hpp"
 
-#if !defined(XOS_PROTOCOL_TLS_MESSAGE_PART_INSTANCE)
-///#define XOS_PROTOCOL_TLS_MESSAGE_PART_INSTANCE
-#endif /// !defined(XOS_PROTOCOL_TLS_MESSAGE_PART_INSTANCE)
+#if !defined(XOS_PROTOCOL_TLS_RSA_GMP_PUBLIC_KEY_INSTANCE)
+///#define XOS_PROTOCOL_TLS_RSA_GMP_PUBLIC_KEY_INSTANCE
+#endif /// !defined(XOS_PROTOCOL_TLS_RSA_GMP_PUBLIC_KEY_INSTANCE)
 
 namespace xos {
 namespace protocol {
 namespace tls {
-namespace message {
+namespace rsa {
+namespace gmp {
 
-///  Class: partt
-#if defined(XOS_PROTOCOL_TLS_MESSAGE_PART_INSTANCE)
-static part the_part;
-#endif /// defined(XOS_PROTOCOL_TLS_MESSAGE_PART_INSTANCE)
+///  Class: public_keyt
+#if defined(XOS_PROTOCOL_TLS_RSA_GMP_PUBLIC_KEY_INSTANCE)
+static public_key the_public_key;
+#endif /// defined(XOS_PROTOCOL_TLS_RSA_GMP_PUBLIC_KEY_INSTANCE)
 
 
-} /// namespace message
+} /// namespace gmp
+} /// namespace rsa
 } /// namespace tls
 } /// namespace protocol
 } /// namespace xos

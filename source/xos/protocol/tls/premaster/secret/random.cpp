@@ -13,29 +13,31 @@
 /// or otherwise) arising in any way out of the use of this software, 
 /// even if advised of the possibility of such damage.
 ///
-///   File: part.cpp
+///   File: random.cpp
 ///
 /// Author: $author$
-///   Date: 2/1/2022
+///   Date: 2/9/2022
 ///////////////////////////////////////////////////////////////////////
-#include "xos/protocol/tls/message/part.hpp"
+#include "xos/protocol/tls/premaster/secret/random.hpp"
 
-#if !defined(XOS_PROTOCOL_TLS_MESSAGE_PART_INSTANCE)
-///#define XOS_PROTOCOL_TLS_MESSAGE_PART_INSTANCE
-#endif /// !defined(XOS_PROTOCOL_TLS_MESSAGE_PART_INSTANCE)
+#if !defined(XOS_PROTOCOL_TLS_PREMASTER_SECRET_RANDOM_INSTANCE)
+///#define XOS_PROTOCOL_TLS_PREMASTER_SECRET_RANDOM_INSTANCE
+#endif /// !defined(XOS_PROTOCOL_TLS_PREMASTER_SECRET_RANDOM_INSTANCE)
 
 namespace xos {
 namespace protocol {
 namespace tls {
-namespace message {
+namespace premaster {
+namespace secret {
 
-///  Class: partt
-#if defined(XOS_PROTOCOL_TLS_MESSAGE_PART_INSTANCE)
-static part the_part;
-#endif /// defined(XOS_PROTOCOL_TLS_MESSAGE_PART_INSTANCE)
+///  Class: randomt
+#if defined(XOS_PROTOCOL_TLS_PREMASTER_SECRET_RANDOM_INSTANCE)
+static random the_random;
+#endif /// defined(XOS_PROTOCOL_TLS_PREMASTER_SECRET_RANDOM_INSTANCE)
 
 
-} /// namespace message
+} /// namespace secret
+} /// namespace premaster
 } /// namespace tls
 } /// namespace protocol
 } /// namespace xos

@@ -46,7 +46,7 @@ public:
     typedef TMessagePart message_part_t;
     
     /// constructors / destructor
-    versiont(const versiont& copy): major_(copy.major()), minor_(copy.minor) {
+    versiont(const versiont& copy): major_(copy.major()), minor_(copy.minor()) {
         combine();
     }
     versiont()

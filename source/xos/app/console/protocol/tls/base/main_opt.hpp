@@ -23,24 +23,84 @@
 
 #include "xos/app/console/talas/crypto/main.hpp"
 
+#define XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_SECRET_OPT "secret"
+#define XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_SECRET_OPTARG_REQUIRED MAIN_OPT_ARGUMENT_OPTIONAL
+#define XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_SECRET_OPTARG_RESULT 0
+#define XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_SECRET_OPTARG "[string]"
+#define XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_SECRET_OPTUSE "pseudo random secret"
+#define XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_SECRET_OPTVAL_S "s::"
+#define XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_SECRET_OPTVAL_C 's'
+#define XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_SECRET_OPTION \
+   {XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_SECRET_OPT, \
+    XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_SECRET_OPTARG_REQUIRED, \
+    XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_SECRET_OPTARG_RESULT, \
+    XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_SECRET_OPTVAL_C}, \
+
+#define XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_SEED_OPT "seed"
+#define XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_SEED_OPTARG_REQUIRED MAIN_OPT_ARGUMENT_OPTIONAL
+#define XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_SEED_OPTARG_RESULT 0
+#define XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_SEED_OPTARG "[string]"
+#define XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_SEED_OPTUSE "pseudo random seed"
+#define XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_SEED_OPTVAL_S "e::"
+#define XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_SEED_OPTVAL_C 'e'
+#define XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_SEED_OPTION \
+   {XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_SEED_OPT, \
+    XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_SEED_OPTARG_REQUIRED, \
+    XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_SEED_OPTARG_RESULT, \
+    XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_SEED_OPTVAL_C}, \
+
 #define XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_PROTOCOL_OPT "protocol"
 #define XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_PROTOCOL_OPTARG_REQUIRED MAIN_OPT_ARGUMENT_OPTIONAL
 #define XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_PROTOCOL_OPTARG_RESULT 0
 #define XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_PROTOCOL_OPTARG "[number:number]"
 #define XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_PROTOCOL_OPTUSE "protocol version [major:minor]"
-#define XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_PROTOCOL_OPTVAL_S "p::"
-#define XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_PROTOCOL_OPTVAL_C 'p'
+#define XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_PROTOCOL_OPTVAL_S "o::"
+#define XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_PROTOCOL_OPTVAL_C 'o'
 #define XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_PROTOCOL_OPTION \
    {XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_PROTOCOL_OPT, \
     XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_PROTOCOL_OPTARG_REQUIRED, \
     XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_PROTOCOL_OPTARG_RESULT, \
     XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_PROTOCOL_OPTVAL_C}, \
 
+#define XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_BN_INTEGER_OPT "bn-integer"
+#define XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_BN_INTEGER_OPTARG_REQUIRED MAIN_OPT_ARGUMENT_NONE
+#define XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_BN_INTEGER_OPTARG_RESULT 0
+#define XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_BN_INTEGER_OPTARG ""
+#define XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_BN_INTEGER_OPTUSE "use bn integer library"
+#define XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_BN_INTEGER_OPTVAL_S "b"
+#define XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_BN_INTEGER_OPTVAL_C 'b'
+#define XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_BN_INTEGER_OPTION \
+   {XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_BN_INTEGER_OPT, \
+    XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_BN_INTEGER_OPTARG_REQUIRED, \
+    XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_BN_INTEGER_OPTARG_RESULT, \
+    XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_BN_INTEGER_OPTVAL_C}, \
+
+#define XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_GMP_INTEGER_OPT "gmp-integer"
+#define XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_GMP_INTEGER_OPTARG_REQUIRED MAIN_OPT_ARGUMENT_NONE
+#define XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_GMP_INTEGER_OPTARG_RESULT 0
+#define XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_GMP_INTEGER_OPTARG ""
+#define XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_GMP_INTEGER_OPTUSE "use gmp integer library"
+#define XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_GMP_INTEGER_OPTVAL_S "g"
+#define XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_GMP_INTEGER_OPTVAL_C 'g'
+#define XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_GMP_INTEGER_OPTION \
+   {XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_GMP_INTEGER_OPT, \
+    XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_GMP_INTEGER_OPTARG_REQUIRED, \
+    XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_GMP_INTEGER_OPTARG_RESULT, \
+    XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_GMP_INTEGER_OPTVAL_C}, \
+
 #define XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_OPTIONS_CHARS_EXTEND \
+    XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_SECRET_OPTVAL_S \
+    XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_SEED_OPTVAL_S \
    XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_PROTOCOL_OPTVAL_S \
+    XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_BN_INTEGER_OPTVAL_S \
+    XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_GMP_INTEGER_OPTVAL_S \
 
 #define XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_OPTIONS_OPTIONS_EXTEND \
+    XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_SECRET_OPTION \
+    XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_SEED_OPTION \
    XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_PROTOCOL_OPTION \
+    XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_BN_INTEGER_OPTION \
+    XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_GMP_INTEGER_OPTION \
 
 #define XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_OPTIONS_CHARS \
    XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_OPTIONS_CHARS_EXTEND \
@@ -106,6 +166,86 @@ protected:
         return err;
     }
 
+    /// ...output_random_secret_run
+    int (derives::*output_random_secret_run_)(int argc, char_t** argv, char_t** env);
+    virtual int output_random_secret_run(int argc, char_t** argv, char_t** env) {
+        int err = 0;
+        if (output_random_secret_run_) {
+            err = (this->*output_random_secret_run_)(argc, argv, env);
+        } else {
+            err = default_output_random_secret_run(argc, argv, env);
+        }
+        return err;
+    }
+    virtual int default_output_random_secret_run(int argc, char_t** argv, char_t** env) {
+        int err = 0;
+        return err;
+    }
+    virtual int before_output_random_secret_run(int argc, char_t** argv, char_t** env) {
+        int err = 0;
+        return err;
+    }
+    virtual int after_output_random_secret_run(int argc, char_t** argv, char_t** env) {
+        int err = 0;
+        return err;
+    }
+    virtual int all_output_random_secret_run(int argc, char_t** argv, char_t** env) {
+        int err = 0;
+        if (!(err = before_output_random_secret_run(argc, argv, env))) {
+            int err2 = 0;
+            err = output_random_secret_run(argc, argv, env);
+            if ((err2 = after_output_random_secret_run(argc, argv, env))) {
+                if (!(err)) err = err2;
+            }
+        }
+        return err;
+    }
+    virtual int set_output_random_secret_run(int argc, char_t** argv, char_t** env) {
+        int err = 0;
+        run_ = &derives::all_output_random_secret_run;
+        return err;
+    }
+
+    /// ...output_random_seed_run
+    int (derives::*output_random_seed_run_)(int argc, char_t** argv, char_t** env);
+    virtual int output_random_seed_run(int argc, char_t** argv, char_t** env) {
+        int err = 0;
+        if (output_random_seed_run_) {
+            err = (this->*output_random_seed_run_)(argc, argv, env);
+        } else {
+            err = default_output_random_seed_run(argc, argv, env);
+        }
+        return err;
+    }
+    virtual int default_output_random_seed_run(int argc, char_t** argv, char_t** env) {
+        int err = 0;
+        return err;
+    }
+    virtual int before_output_random_seed_run(int argc, char_t** argv, char_t** env) {
+        int err = 0;
+        return err;
+    }
+    virtual int after_output_random_seed_run(int argc, char_t** argv, char_t** env) {
+        int err = 0;
+        return err;
+    }
+    virtual int all_output_random_seed_run(int argc, char_t** argv, char_t** env) {
+        int err = 0;
+        if (!(err = before_output_random_seed_run(argc, argv, env))) {
+            int err2 = 0;
+            err = output_random_seed_run(argc, argv, env);
+            if ((err2 = after_output_random_seed_run(argc, argv, env))) {
+                if (!(err)) err = err2;
+            }
+        }
+        return err;
+    }
+    virtual int set_output_random_seed_run(int argc, char_t** argv, char_t** env) {
+        int err = 0;
+        run_ = &derives::all_output_random_seed_run;
+        return err;
+    }
+
     /// ...output_protocol_version_run
     virtual int output_protocol_version_run(int argc, char_t** argv, char_t** env) {
         int err = 0;
@@ -137,6 +277,50 @@ protected:
     }
 
     /// ...option...
+    virtual int on_set_random_secret_option
+    (const char_t* optarg, int optind, int argc, char_t** argv, char_t** env) {
+        int err = 0;
+        return err;
+    }
+    virtual int on_secret_option
+    (int optval, const char_t* optarg, const char_t* optname,
+     int optind, int argc, char_t**argv, char_t**env) {
+        int err = 0;
+        if ((optarg) && (optarg[0])) {
+            if (!(err = on_set_random_secret_option(optarg, optind, argc, argv, env))) {
+            }
+        } else {
+            err = set_output_random_secret_run(argc, argv, env);
+        }
+        return err;
+    }
+    virtual const char_t* secret_option_usage(const char_t*& optarg, const struct option* longopt) {
+        const char_t* chars = XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_SECRET_OPTUSE;
+        optarg = XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_SECRET_OPTARG;
+        return chars;
+    }
+    virtual int on_set_random_seed_option
+    (const char_t* optarg, int optind, int argc, char_t** argv, char_t** env) {
+        int err = 0;
+        return err;
+    }
+    virtual int on_seed_option
+    (int optval, const char_t* optarg, const char_t* optname,
+     int optind, int argc, char_t**argv, char_t**env) {
+        int err = 0;
+        if ((optarg) && (optarg[0])) {
+            if (!(err = on_set_random_seed_option(optarg, optind, argc, argv, env))) {
+            }
+        } else {
+            err = set_output_random_seed_run(argc, argv, env);
+        }
+        return err;
+    }
+    virtual const char_t* seed_option_usage(const char_t*& optarg, const struct option* longopt) {
+        const char_t* chars = XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_SEED_OPTUSE;
+        optarg = XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_SEED_OPTARG;
+        return chars;
+    }
     virtual int on_protocol_option
     (int optval, const char_t* optarg, const char_t* optname,
      int optind, int argc, char_t**argv, char_t**env) {
@@ -152,13 +336,47 @@ protected:
         optarg = XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_PROTOCOL_OPTARG;
         return chars;
     }
+    virtual int on_bn_integer_option
+    (int optval, const char_t* optarg, const char_t* optname,
+     int optind, int argc, char_t**argv, char_t**env) {
+        int err = 0;
+        return err;
+    }
+    virtual const char_t* bn_integer_option_usage(const char_t*& optarg, const struct option* longopt) {
+        const char_t* chars = XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_BN_INTEGER_OPTUSE;
+        optarg = XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_BN_INTEGER_OPTARG;
+        return chars;
+    }
+    virtual int on_gmp_integer_option
+    (int optval, const char_t* optarg, const char_t* optname,
+     int optind, int argc, char_t**argv, char_t**env) {
+        int err = 0;
+        return err;
+    }
+    virtual const char_t* gmp_integer_option_usage(const char_t*& optarg, const struct option* longopt) {
+        const char_t* chars = XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_GMP_INTEGER_OPTUSE;
+        optarg = XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_GMP_INTEGER_OPTARG;
+        return chars;
+    }
     virtual int on_option
     (int optval, const char_t* optarg, const char_t* optname,
      int optind, int argc, char_t**argv, char_t**env) {
         int err = 0;
         switch(optval) {
+        case XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_SECRET_OPTVAL_C:
+            err = this->on_secret_option(optval, optarg, optname, optind, argc, argv, env);
+            break;
+        case XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_SEED_OPTVAL_C:
+            err = this->on_seed_option(optval, optarg, optname, optind, argc, argv, env);
+            break;
         case XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_PROTOCOL_OPTVAL_C:
             err = this->on_protocol_option(optval, optarg, optname, optind, argc, argv, env);
+            break;
+        case XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_BN_INTEGER_OPTVAL_C:
+            err = this->on_bn_integer_option(optval, optarg, optname, optind, argc, argv, env);
+            break;
+        case XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_GMP_INTEGER_OPTVAL_C:
+            err = this->on_gmp_integer_option(optval, optarg, optname, optind, argc, argv, env);
             break;
         default:
             err = extends::on_option(optval, optarg, optname, optind, argc, argv, env);
@@ -168,8 +386,20 @@ protected:
     virtual const char_t* option_usage(const char_t*& optarg, const struct option* longopt) {
         const char_t* chars = "";
         switch(longopt->val) {
+        case XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_SECRET_OPTVAL_C:
+            chars = this->secret_option_usage(optarg, longopt);
+            break;
+        case XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_SEED_OPTVAL_C:
+            chars = this->seed_option_usage(optarg, longopt);
+            break;
         case XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_PROTOCOL_OPTVAL_C:
             chars = this->protocol_option_usage(optarg, longopt);
+            break;
+        case XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_BN_INTEGER_OPTVAL_C:
+            chars = this->bn_integer_option_usage(optarg, longopt);
+            break;
+        case XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_GMP_INTEGER_OPTVAL_C:
+            chars = this->gmp_integer_option_usage(optarg, longopt);
             break;
         default:
             chars = extends::option_usage(optarg, longopt);

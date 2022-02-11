@@ -13,29 +13,29 @@
 /// or otherwise) arising in any way out of the use of this software, 
 /// even if advised of the possibility of such damage.
 ///
-///   File: part.cpp
+///   File: hello.cpp
 ///
 /// Author: $author$
-///   Date: 2/1/2022
+///   Date: 2/7/2022
 ///////////////////////////////////////////////////////////////////////
-#include "xos/protocol/tls/message/part.hpp"
+#include "xos/protocol/tls/client/hello.hpp"
 
-#if !defined(XOS_PROTOCOL_TLS_MESSAGE_PART_INSTANCE)
-///#define XOS_PROTOCOL_TLS_MESSAGE_PART_INSTANCE
-#endif /// !defined(XOS_PROTOCOL_TLS_MESSAGE_PART_INSTANCE)
+#if !defined(XOS_PROTOCOL_TLS_CLIENT_HELLO_INSTANCE)
+///#define XOS_PROTOCOL_TLS_CLIENT_HELLO_INSTANCE
+#endif /// !defined(XOS_PROTOCOL_TLS_CLIENT_HELLO_INSTANCE)
 
 namespace xos {
 namespace protocol {
 namespace tls {
-namespace message {
+namespace client {
 
-///  Class: partt
-#if defined(XOS_PROTOCOL_TLS_MESSAGE_PART_INSTANCE)
-static part the_part;
-#endif /// defined(XOS_PROTOCOL_TLS_MESSAGE_PART_INSTANCE)
+///  Class: hellot
+#if defined(XOS_PROTOCOL_TLS_CLIENT_HELLO_INSTANCE)
+static hello the_hello;
+#endif /// defined(XOS_PROTOCOL_TLS_CLIENT_HELLO_INSTANCE)
 
 
-} /// namespace message
+} /// namespace client
 } /// namespace tls
 } /// namespace protocol
 } /// namespace xos

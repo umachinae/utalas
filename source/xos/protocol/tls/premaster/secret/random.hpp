@@ -13,29 +13,53 @@
 /// or otherwise) arising in any way out of the use of this software, 
 /// even if advised of the possibility of such damage.
 ///
-///   File: part.cpp
+///   File: random.hpp
 ///
 /// Author: $author$
-///   Date: 2/1/2022
+///   Date: 2/9/2022
 ///////////////////////////////////////////////////////////////////////
-#include "xos/protocol/tls/message/part.hpp"
+#ifndef XOS_PROTOCOL_TLS_PREMASTER_SECRET_RANDOM_HPP
+#define XOS_PROTOCOL_TLS_PREMASTER_SECRET_RANDOM_HPP
 
-#if !defined(XOS_PROTOCOL_TLS_MESSAGE_PART_INSTANCE)
-///#define XOS_PROTOCOL_TLS_MESSAGE_PART_INSTANCE
-#endif /// !defined(XOS_PROTOCOL_TLS_MESSAGE_PART_INSTANCE)
+#include "xos/protocol/tls/random/bytes.hpp"
 
 namespace xos {
 namespace protocol {
 namespace tls {
-namespace message {
+namespace premaster {
+namespace secret {
 
-///  Class: partt
-#if defined(XOS_PROTOCOL_TLS_MESSAGE_PART_INSTANCE)
-static part the_part;
-#endif /// defined(XOS_PROTOCOL_TLS_MESSAGE_PART_INSTANCE)
+/// class randomt
+template 
+<class TRandomBytes = tls::random::bytest<46>, 
+ class TExtends = TRandomBytes, class TImplements = typename TExtends::implements>
 
+class exported randomt: virtual public TImplements, public TExtends {
+public:
+    typedef TImplements implements;
+    typedef TExtends extends;
+    typedef randomt derives; 
+    
+    typedef TRandomBytes random_bytes_t;
+    typedef typename random_bytes_t::random_reader_t random_reader_t;
 
-} /// namespace message
+    /// constructors / destructor
+    randomt(const randomt& copy): extends(copy) {
+    }
+    randomt(random_reader_t& random_reader): extends(random_reader) {
+    }
+    randomt() {
+    }
+    virtual ~randomt() {
+    }
+
+}; /// class randomt
+typedef randomt<> random;
+
+} /// namespace secret
+} /// namespace premaster
 } /// namespace tls
 } /// namespace protocol
 } /// namespace xos
+
+#endif /// XOS_PROTOCOL_TLS_PREMASTER_SECRET_RANDOM_HPP

@@ -13,85 +13,84 @@
 /// or otherwise) arising in any way out of the use of this software, 
 /// even if advised of the possibility of such damage.
 ///
-///   File: bytes.hpp
+///   File: uinteger.hpp
 ///
 /// Author: $author$
-///   Date: 2/1/2022
+///   Date: 2/2/2022
 ///////////////////////////////////////////////////////////////////////
-#ifndef XOS_PROTOCOL_TLS_RANDOM_BYTES_HPP
-#define XOS_PROTOCOL_TLS_RANDOM_BYTES_HPP
+#ifndef XOS_PROTOCOL_TLS_UINTEGER_HPP
+#define XOS_PROTOCOL_TLS_UINTEGER_HPP
 
 #include "xos/protocol/tls/message/part.hpp"
-#include "xos/protocol/tls/pseudo/random/reader.hpp"
 
 namespace xos {
 namespace protocol {
 namespace tls {
-namespace random {
 
-/// class bytest
+/// class uintegert
 template 
-<size_t VSize = 28, 
- class TRandomReader = tls::pseudo::random::reader, class TMessagePart = tls::message::part, 
+<typename TUinteger = unsigned, size_t VSizeOf = sizeof (TUinteger), 
+ class TMessagePart = tls::message::part, 
  class TExtends = TMessagePart, class TImplements = typename TExtends::implements>
 
-class exported bytest: virtual public TImplements, public TExtends {
+class exported uintegert: virtual public TImplements, public TExtends {
 public:
     typedef TImplements implements;
     typedef TExtends extends;
-    typedef bytest derives; 
+    typedef uintegert derives; 
     
-    enum { size = VSize };
-    typedef TRandomReader random_reader_t;
-    typedef TMessagePart message_part_t;
-
+    typedef TUinteger uinteger_t;
+    enum {size_of = VSizeOf};
+    
     /// constructors / destructor
-    bytest(const bytest& copy): extends(copy), random_reader_(copy.random_reader_) {
-    }
-    bytest(random_reader_t& random_reader): random_reader_(random_reader) {
+    uintegert(const uintegert& copy): value_(copy.value_) {
         combine();
     }
-    bytest(): random_reader_(this_random_reader_) {
+    uintegert(const uinteger_t& value): value_(value) {
         combine();
     }
-    virtual ~bytest() {
+    uintegert(): value_(0) {
+        combine();
+    }
+    virtual ~uintegert() {
     }
 
     /// combine / separate
     virtual bool combine() {
-        bool success = true;
-        size_t remain = 0, length = 0;
-
-        if (size <= (this->set_length(length = size))) {
-            byte_t* bytes = 0;
-
-            if ((bytes = this->has_elements(length))) {
-                
-                for (remain = length; remain; remain -= length, bytes += length) {
-
-                    if (0 < (length = random_reader_.read(bytes, remain))) {
-                        continue;
-                    }
-                    this->set_length(0);
-                    return false;
-                }
-            }
+        bool success = false;
+        if ((this->to_msb(value_, size_of))) {
+            success = true;
         }
         return success;
     }
     virtual bool separate() {
-        bool success = true;
+        bool success = false;
         return success;
     }
 
-protected:
-    random_reader_t this_random_reader_, &random_reader_;
-}; /// class bytest
-typedef bytest<> bytes;
+    /// ...value
+    virtual const uinteger_t& set_value(const uinteger_t& to) {
+        value_ = to;
+        combine();
+        return value_;
+    }
+    virtual const uinteger_t& value() const {
+        return value_;
+    }
 
-} /// namespace random
+protected:
+    uinteger_t value_;
+}; /// class uintegert
+typedef uintegert<> uinteger;
+
+typedef uintegert<uint8_t> uint8;
+typedef uintegert<uint16_t> uint16;
+typedef uintegert<uint32_t, 3> uint24;
+typedef uintegert<uint32_t> uint32;
+typedef uintegert<uint64_t> uint64;
+
 } /// namespace tls
 } /// namespace protocol
 } /// namespace xos
 
-#endif /// XOS_PROTOCOL_TLS_RANDOM_BYTES_HPP
+#endif /// XOS_PROTOCOL_TLS_UINTEGER_HPP

@@ -30,9 +30,39 @@
 #include "talas/base/array.hpp"
 #include "talas/base/string.hpp"
 
+#define XOS_APP_CONSOLE_TALAS_CRYPTO_MAIN_FILE_INPUT_OPT "file-input"
+#define XOS_APP_CONSOLE_TALAS_CRYPTO_MAIN_FILE_INPUT_OPTARG_REQUIRED MAIN_OPT_ARGUMENT_NONE
+#define XOS_APP_CONSOLE_TALAS_CRYPTO_MAIN_FILE_INPUT_OPTARG_RESULT 0
+#define XOS_APP_CONSOLE_TALAS_CRYPTO_MAIN_FILE_INPUT_OPTARG ""
+#define XOS_APP_CONSOLE_TALAS_CRYPTO_MAIN_FILE_INPUT_OPTUSE "input from file"
+#define XOS_APP_CONSOLE_TALAS_CRYPTO_MAIN_FILE_INPUT_OPTVAL_S "f"
+#define XOS_APP_CONSOLE_TALAS_CRYPTO_MAIN_FILE_INPUT_OPTVAL_C 'f'
+#define XOS_APP_CONSOLE_TALAS_CRYPTO_MAIN_FILE_INPUT_OPTION \
+   {XOS_APP_CONSOLE_TALAS_CRYPTO_MAIN_FILE_INPUT_OPT, \
+    XOS_APP_CONSOLE_TALAS_CRYPTO_MAIN_FILE_INPUT_OPTARG_REQUIRED, \
+    XOS_APP_CONSOLE_TALAS_CRYPTO_MAIN_FILE_INPUT_OPTARG_RESULT, \
+    XOS_APP_CONSOLE_TALAS_CRYPTO_MAIN_FILE_INPUT_OPTVAL_C}, \
+
+#define XOS_APP_CONSOLE_TALAS_CRYPTO_MAIN_STRING_INPUT_OPT "string-input"
+#define XOS_APP_CONSOLE_TALAS_CRYPTO_MAIN_STRING_INPUT_OPTARG_REQUIRED MAIN_OPT_ARGUMENT_NONE
+#define XOS_APP_CONSOLE_TALAS_CRYPTO_MAIN_STRING_INPUT_OPTARG_RESULT 0
+#define XOS_APP_CONSOLE_TALAS_CRYPTO_MAIN_STRING_INPUT_OPTARG ""
+#define XOS_APP_CONSOLE_TALAS_CRYPTO_MAIN_STRING_INPUT_OPTUSE "input from literal string"
+#define XOS_APP_CONSOLE_TALAS_CRYPTO_MAIN_STRING_INPUT_OPTVAL_S "t"
+#define XOS_APP_CONSOLE_TALAS_CRYPTO_MAIN_STRING_INPUT_OPTVAL_C 't'
+#define XOS_APP_CONSOLE_TALAS_CRYPTO_MAIN_STRING_INPUT_OPTION \
+   {XOS_APP_CONSOLE_TALAS_CRYPTO_MAIN_STRING_INPUT_OPT, \
+    XOS_APP_CONSOLE_TALAS_CRYPTO_MAIN_STRING_INPUT_OPTARG_REQUIRED, \
+    XOS_APP_CONSOLE_TALAS_CRYPTO_MAIN_STRING_INPUT_OPTARG_RESULT, \
+    XOS_APP_CONSOLE_TALAS_CRYPTO_MAIN_STRING_INPUT_OPTVAL_C}, \
+
 #define XOS_APP_CONSOLE_TALAS_CRYPTO_MAIN_OPTIONS_CHARS_EXTEND \
+    XOS_APP_CONSOLE_TALAS_CRYPTO_MAIN_FILE_INPUT_OPTVAL_S \
+    XOS_APP_CONSOLE_TALAS_CRYPTO_MAIN_STRING_INPUT_OPTVAL_S \
 
 #define XOS_APP_CONSOLE_TALAS_CRYPTO_MAIN_OPTIONS_OPTIONS_EXTEND \
+    XOS_APP_CONSOLE_TALAS_CRYPTO_MAIN_FILE_INPUT_OPTION \
+    XOS_APP_CONSOLE_TALAS_CRYPTO_MAIN_STRING_INPUT_OPTION \
 
 #define XOS_APP_CONSOLE_TALAS_CRYPTO_MAIN_OPTIONS_CHARS \
    XOS_APP_CONSOLE_TALAS_CRYPTO_MAIN_OPTIONS_CHARS_EXTEND \
@@ -178,12 +208,167 @@ protected:
         return err;
     }
 
+    /// ...on_set_text_literal
+    int (derives::*on_set_text_literal_)(::talas::byte_array_t &array, ::talas::string_t &literal, int argc, char_t** argv, char_t** env);
+    virtual int on_set_text_literal(::talas::byte_array_t &array, ::talas::string_t &literal, int argc, char_t** argv, char_t** env) {
+        int err = 0;
+        if (on_set_text_literal_) {
+            err = (this->*on_set_text_literal_)(array, literal, argc, argv, env);
+        } else {
+            err = default_on_set_text_literal(array, literal, argc, argv, env);
+        }
+        return err;
+    }
+    virtual int default_on_set_text_literal(::talas::byte_array_t &array, ::talas::string_t &literal, int argc, char_t** argv, char_t** env) {
+        int err = 0;
+        err = on_set_text_string_literal(array, literal, argc, argv, env);
+        return err;
+    }
+    virtual int on_set_text_string_literal(::talas::byte_array_t &array, ::talas::string_t &literal, int argc, char_t** argv, char_t** env) {
+        int err = 0;
+        return err;
+    }
+    virtual int on_set_text_file_literal(::talas::byte_array_t &array, ::talas::string_t &literal, int argc, char_t** argv, char_t** env) {
+        int err = 0;
+        return err;
+    }
+    virtual int set_on_set_text_string_literal(int argc, char_t** argv, char_t** env) {
+        int err = 0;
+        on_set_text_literal_ = &derives::on_set_text_string_literal;
+        return err;
+    }
+    virtual int set_on_set_text_file_literal(int argc, char_t** argv, char_t** env) {
+        int err = 0;
+        on_set_text_literal_ = &derives::on_set_text_file_literal;
+        return err;
+    }
+
+    /// ...on_set_hex_literal
+    int (derives::*on_set_hex_literal_)(::talas::byte_array_t &array, ::talas::string_t &literal, int argc, char_t** argv, char_t** env);
+    virtual int on_set_hex_literal(::talas::byte_array_t &array, ::talas::string_t &literal, int argc, char_t** argv, char_t** env) {
+        int err = 0;
+        if (on_set_hex_literal_) {
+            err = (this->*on_set_hex_literal_)(array, literal, argc, argv, env);
+        } else {
+            err = default_on_set_hex_literal(array, literal, argc, argv, env);
+        }
+        return err;
+    }
+    virtual int default_on_set_hex_literal(::talas::byte_array_t &array, ::talas::string_t &literal, int argc, char_t** argv, char_t** env) {
+        int err = 0;
+        err = on_set_hex_string_literal(array, literal, argc, argv, env);
+        return err;
+    }
+    virtual int on_set_hex_string_literal(::talas::byte_array_t &array, ::talas::string_t &literal, int argc, char_t** argv, char_t** env) {
+        int err = 0;
+        return err;
+    }
+    virtual int on_set_hex_file_literal(::talas::byte_array_t &array, ::talas::string_t &literal, int argc, char_t** argv, char_t** env) {
+        int err = 0;
+        return err;
+    }
+    virtual int set_on_set_hex_string_literal(int argc, char_t** argv, char_t** env) {
+        int err = 0;
+        on_set_hex_literal_ = &derives::on_set_hex_string_literal;
+        return err;
+    }
+    virtual int set_on_set_hex_file_literal(int argc, char_t** argv, char_t** env) {
+        int err = 0;
+        on_set_hex_literal_ = &derives::on_set_hex_file_literal;
+        return err;
+    }
+
+    /// ...on_set_hex_literals
+    int (derives::*on_set_hex_literals_)
+    (::talas::io::hex::read_to_byte_arrays &to_arrays, 
+     ::talas::string_t &literal, int argc, char_t** argv, char_t** env);
+    virtual int on_set_hex_literals
+    (::talas::io::hex::read_to_byte_arrays &to_arrays, 
+     ::talas::string_t &literal, int argc, char_t** argv, char_t** env) {
+        int err = 0;
+        if (on_set_hex_literals_) {
+            err = (this->*on_set_hex_literals_)(to_arrays, literal, argc, argv, env);
+        } else {
+            err = default_on_set_hex_literals(to_arrays, literal, argc, argv, env);
+        }
+        return err;
+    }
+    virtual int default_on_set_hex_literals
+    (::talas::io::hex::read_to_byte_arrays &to_arrays, 
+     ::talas::string_t &literal, int argc, char_t** argv, char_t** env) {
+        int err = 0;
+        err = on_set_hex_string_literals(to_arrays, literal, argc, argv, env);
+        return err;
+    }
+    virtual int on_set_hex_string_literals
+    (::talas::io::hex::read_to_byte_arrays &to_arrays, 
+     ::talas::string_t &literal, int argc, char_t** argv, char_t** env) {
+        int err = 0;
+        return err;
+    }
+    virtual int on_set_hex_file_literals
+    (::talas::io::hex::read_to_byte_arrays &to_arrays, 
+     ::talas::string_t &literal, int argc, char_t** argv, char_t** env) {
+        int err = 0;
+        return err;
+    }
+    virtual int set_on_set_hex_string_literals(int argc, char_t** argv, char_t** env) {
+        int err = 0;
+        on_set_hex_literals_ = &derives::on_set_hex_string_literals;
+        return err;
+    }
+    virtual int set_on_set_hex_file_literals(int argc, char_t** argv, char_t** env) {
+        int err = 0;
+        on_set_hex_literals_ = &derives::on_set_hex_file_literals;
+        return err;
+    }
+
     /// ...option...
+    virtual int on_file_input_option
+    (int optval, const char_t* optarg, const char_t* optname,
+     int optind, int argc, char_t**argv, char_t**env) {
+        int err = 0;
+        if (!(err = set_on_set_hex_file_literal(argc, argv, env))) {
+            if (!(err = set_on_set_hex_file_literals(argc, argv, env))) {
+                if (!(err = set_on_set_text_file_literal(argc, argv, env))) {
+                }
+            }
+        }
+        return err;
+    }
+    virtual const char_t* file_input_option_usage(const char_t*& optarg, const struct option* longopt) {
+        const char_t* chars = XOS_APP_CONSOLE_TALAS_CRYPTO_MAIN_FILE_INPUT_OPTUSE;
+        optarg = XOS_APP_CONSOLE_TALAS_CRYPTO_MAIN_FILE_INPUT_OPTARG;
+        return chars;
+    }
+    virtual int on_string_input_option
+    (int optval, const char_t* optarg, const char_t* optname,
+     int optind, int argc, char_t**argv, char_t**env) {
+        int err = 0;
+        if (!(err = set_on_set_hex_string_literal(argc, argv, env))) {
+            if (!(err = set_on_set_hex_string_literals(argc, argv, env))) {
+                if (!(err = set_on_set_text_string_literal(argc, argv, env))) {
+                }
+            }
+        }
+        return err;
+    }
+    virtual const char_t* string_input_option_usage(const char_t*& optarg, const struct option* longopt) {
+        const char_t* chars = XOS_APP_CONSOLE_TALAS_CRYPTO_MAIN_STRING_INPUT_OPTUSE;
+        optarg = XOS_APP_CONSOLE_TALAS_CRYPTO_MAIN_STRING_INPUT_OPTARG;
+        return chars;
+    }
     virtual int on_option
     (int optval, const char_t* optarg, const char_t* optname,
      int optind, int argc, char_t**argv, char_t**env) {
         int err = 0;
         switch(optval) {
+        case XOS_APP_CONSOLE_TALAS_CRYPTO_MAIN_FILE_INPUT_OPTVAL_C:
+            err = this->on_file_input_option(optval, optarg, optname, optind, argc, argv, env);
+            break;
+        case XOS_APP_CONSOLE_TALAS_CRYPTO_MAIN_STRING_INPUT_OPTVAL_C:
+            err = this->on_string_input_option(optval, optarg, optname, optind, argc, argv, env);
+            break;
         default:
             err = extends::on_option(optval, optarg, optname, optind, argc, argv, env);
         }
@@ -192,6 +377,12 @@ protected:
     virtual const char_t* option_usage(const char_t*& optarg, const struct option* longopt) {
         const char_t* chars = "";
         switch(longopt->val) {
+        case XOS_APP_CONSOLE_TALAS_CRYPTO_MAIN_FILE_INPUT_OPTVAL_C:
+            chars = this->file_input_option_usage(optarg, longopt);
+            break;
+        case XOS_APP_CONSOLE_TALAS_CRYPTO_MAIN_STRING_INPUT_OPTVAL_C:
+            chars = this->string_input_option_usage(optarg, longopt);
+            break;
         default:
             chars = extends::option_usage(optarg, longopt);
             break;

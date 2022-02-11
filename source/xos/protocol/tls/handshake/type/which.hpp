@@ -13,29 +13,42 @@
 /// or otherwise) arising in any way out of the use of this software, 
 /// even if advised of the possibility of such damage.
 ///
-///   File: part.cpp
+///   File: which.hpp
 ///
 /// Author: $author$
-///   Date: 2/1/2022
+///   Date: 2/2/2022
 ///////////////////////////////////////////////////////////////////////
-#include "xos/protocol/tls/message/part.hpp"
+#ifndef XOS_PROTOCOL_TLS_HANDSHAKE_TYPE_WHICH_HPP
+#define XOS_PROTOCOL_TLS_HANDSHAKE_TYPE_WHICH_HPP
 
-#if !defined(XOS_PROTOCOL_TLS_MESSAGE_PART_INSTANCE)
-///#define XOS_PROTOCOL_TLS_MESSAGE_PART_INSTANCE
-#endif /// !defined(XOS_PROTOCOL_TLS_MESSAGE_PART_INSTANCE)
+#include "xos/protocol/tls/message/part.hpp"
 
 namespace xos {
 namespace protocol {
 namespace tls {
-namespace message {
+namespace handshake {
+namespace type {
 
-///  Class: partt
-#if defined(XOS_PROTOCOL_TLS_MESSAGE_PART_INSTANCE)
-static part the_part;
-#endif /// defined(XOS_PROTOCOL_TLS_MESSAGE_PART_INSTANCE)
-
-
-} /// namespace message
+/// enum which
+typedef uint8_t which;
+enum {
+    hello_request = (0), 
+    client_hello = (1), 
+    server_hello = (2),
+    certificate = (11), 
+    server_key_exchange = (12),
+    certificate_request = (13), 
+    server_hello_done = (14),
+    certificate_verify = (15), 
+    client_key_exchange = (16),
+    finished = (20), 
+    none = (255)
+}; /// which
+     
+} /// namespace type
+} /// namespace handshake
 } /// namespace tls
 } /// namespace protocol
 } /// namespace xos
+
+#endif /// XOS_PROTOCOL_TLS_HANDSHAKE_TYPE_WHICH_HPP

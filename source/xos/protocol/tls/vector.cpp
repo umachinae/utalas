@@ -13,29 +13,27 @@
 /// or otherwise) arising in any way out of the use of this software, 
 /// even if advised of the possibility of such damage.
 ///
-///   File: part.cpp
+///   File: vector.cpp
 ///
 /// Author: $author$
-///   Date: 2/1/2022
+///   Date: 2/7/2022
 ///////////////////////////////////////////////////////////////////////
-#include "xos/protocol/tls/message/part.hpp"
+#include "xos/protocol/tls/vector.hpp"
 
-#if !defined(XOS_PROTOCOL_TLS_MESSAGE_PART_INSTANCE)
-///#define XOS_PROTOCOL_TLS_MESSAGE_PART_INSTANCE
-#endif /// !defined(XOS_PROTOCOL_TLS_MESSAGE_PART_INSTANCE)
+#if !defined(XOS_PROTOCOL_TLS_VECTOR_INSTANCE)
+///#define XOS_PROTOCOL_TLS_VECTOR_INSTANCE
+#endif /// !defined(XOS_PROTOCOL_TLS_VECTOR_INSTANCE)
 
 namespace xos {
 namespace protocol {
 namespace tls {
-namespace message {
 
-///  Class: partt
-#if defined(XOS_PROTOCOL_TLS_MESSAGE_PART_INSTANCE)
-static part the_part;
-#endif /// defined(XOS_PROTOCOL_TLS_MESSAGE_PART_INSTANCE)
+///  Class: vectort
+#if defined(XOS_PROTOCOL_TLS_VECTOR_INSTANCE)
+static vector the_vector;
+#endif /// defined(XOS_PROTOCOL_TLS_VECTOR_INSTANCE)
 
 
-} /// namespace message
 } /// namespace tls
 } /// namespace protocol
 } /// namespace xos

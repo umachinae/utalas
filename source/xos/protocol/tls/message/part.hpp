@@ -99,6 +99,17 @@ public:
         return success;
     }
 
+    /// append
+    using extends::append;
+    virtual size_t append(const byte_array_t& to) {
+        const byte_t* bytes = 0; size_t length = 0;
+        if ((bytes = to.has_elements(length))) {
+            this->append(bytes, length);
+            return length;
+        }
+        return 0;
+    }
+
     /// combine / separate
     virtual bool combine() {
         bool success = true;
@@ -136,17 +147,32 @@ public:
         return logged_.is_logged();
     }
 
-    /// to_msb
+    /// ...to_msb
+    template <typename part_t>
+    size_t& set_to_msb(const part_t& part) {
+        size_t size = sizeof(part);
+        return set_to_msb(part, size);
+    }
     template <typename part_t>
     size_t& to_msb(const part_t& part) {
-        size_t size = sizeof(part), remain = 0;
+        size_t size = sizeof(part);
+        return to_msb(part, size);
+    }
+    template <typename part_t>
+    size_t& set_to_msb(const part_t& part, size_t size) {
+        this->set_length(0);
+        return to_msb(part, size);
+    }
+    template <typename part_t>
+    size_t& to_msb(const part_t& part, size_t size) {
+        size_t remain = 0;
         part_t lsb = 0, msb = 0;
 
         for (msb = 0, lsb = part, remain = size; remain; --remain, lsb >>= 8) {
-            ((msb <<= 8)) |= (lsb & 15);
+            ((msb <<= 8)) |= (lsb & 0xFF);
         }
         for (remain = size; remain; --remain, msb >>= 8) {
-            byte_t byte = (msb & 15);
+            byte_t byte = (msb & 0xFF);
             this->append(&byte, 1);
         }
         return size;

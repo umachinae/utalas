@@ -13,29 +13,39 @@
 /// or otherwise) arising in any way out of the use of this software, 
 /// even if advised of the possibility of such damage.
 ///
-///   File: part.cpp
+///   File: algorithm.hpp
 ///
 /// Author: $author$
-///   Date: 2/1/2022
+///   Date: 2/9/2022
 ///////////////////////////////////////////////////////////////////////
-#include "xos/protocol/tls/message/part.hpp"
+#ifndef XOS_PROTOCOL_TLS_KEY_EXCHANGE_ALGORITHM_HPP
+#define XOS_PROTOCOL_TLS_KEY_EXCHANGE_ALGORITHM_HPP
 
-#if !defined(XOS_PROTOCOL_TLS_MESSAGE_PART_INSTANCE)
-///#define XOS_PROTOCOL_TLS_MESSAGE_PART_INSTANCE
-#endif /// !defined(XOS_PROTOCOL_TLS_MESSAGE_PART_INSTANCE)
+#include "xos/protocol/tls/message/part.hpp"
 
 namespace xos {
 namespace protocol {
 namespace tls {
-namespace message {
+namespace key {
+namespace exchange {
 
-///  Class: partt
-#if defined(XOS_PROTOCOL_TLS_MESSAGE_PART_INSTANCE)
-static part the_part;
-#endif /// defined(XOS_PROTOCOL_TLS_MESSAGE_PART_INSTANCE)
+/// enum algorithm
+typedef uint8_t algorithm;
+enum {
+    dhe_dss, 
+    dhe_rsa, 
+    dh_anon, 
+    rsa,
+    dh_dss, 
+    dh_rsa,
+    rsa_plain,
+    none
+}; /// enum algorithm
 
-
-} /// namespace message
+} /// namespace exchange
+} /// namespace key
 } /// namespace tls
 } /// namespace protocol
 } /// namespace xos
+
+#endif /// XOS_PROTOCOL_TLS_KEY_EXCHANGE_ALGORITHM_HPP
