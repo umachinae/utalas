@@ -47,13 +47,22 @@
 #include "xos/protocol/tls/rsa/implemented/public_key.hpp"
 #include "xos/protocol/tls/encrypted/premaster/secret.hpp"
 
+#include "xos/protocol/tls/rsa/private_key.hpp"
+#include "xos/protocol/tls/rsa/bn/private_key.hpp"
+#include "xos/protocol/tls/rsa/gmp/private_key.hpp"
+#include "xos/protocol/tls/rsa/implemented/private_key.hpp"
+#include "xos/protocol/tls/decrypted/premaster/secret.hpp"
+
 #include "xos/protocol/tls/key/exchange/algorithm.hpp"
 #include "xos/protocol/tls/client/key/exchange/message.hpp"
 
 #include "xos/protocol/tls/handshake/message.hpp"
 
-#define XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_PSEUDO_RANDOM_SECRET "E5B62E66-8349-11EC-8C95-7F8924CBD8A2"
-#define XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_PSEUDO_RANDOM_SEED "ECBD992E-8349-11EC-9EC2-259E551AB68D"
+#define XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_PSEUDO_RANDOM_SECRET \
+    "E5B62E66-8349-11EC-8C95-7F8924CBD8A2"
+
+#define XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_PSEUDO_RANDOM_SEED \
+    "ECBD992E-8349-11EC-9EC2-259E551AB68D"
 
 namespace xos {
 namespace app {
