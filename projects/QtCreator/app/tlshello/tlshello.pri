@@ -84,6 +84,11 @@ $${UTALAS_SRC}/xos/protocol/tls/rsa/gmp/public_key.hpp \
 $${UTALAS_SRC}/xos/protocol/tls/rsa/implemented/public_key.hpp \
 $${UTALAS_SRC}/xos/protocol/tls/encrypted/premaster/secret.hpp \
 $${UTALAS_SRC}/xos/protocol/tls/client/key/exchange/message.hpp \
+$${UTALAS_SRC}/xos/protocol/tls/rsa/private_key.hpp \
+$${UTALAS_SRC}/xos/protocol/tls/rsa/bn/private_key.hpp \
+$${UTALAS_SRC}/xos/protocol/tls/rsa/gmp/private_key.hpp \
+$${UTALAS_SRC}/xos/protocol/tls/rsa/implemented/private_key.hpp \
+$${UTALAS_SRC}/xos/protocol/tls/decrypted/premaster/secret.hpp \
 \
 $${UTALAS_SRC}/xos/app/console/talas/crypto/main_opt.hpp \
 $${UTALAS_SRC}/xos/app/console/talas/crypto/main.hpp \
@@ -116,7 +121,8 @@ $${UTALAS_SRC}/xos/protocol/tls/compression/methods.cpp \
 $${UTALAS_SRC}/xos/protocol/tls/client/hello.cpp \
 $${UTALAS_SRC}/xos/protocol/tls/rsa/key.cpp \
 $${UTALAS_SRC}/xos/protocol/tls/rsa/implemented/public_key.cpp \
-$${UTALAS_SRC}/xos/protocol/tls/encrypted/premaster/secret.cpp \
+$${UTALAS_SRC}/xos/protocol/tls/rsa/implemented/private_key.cpp \
+$${UTALAS_SRC}/xos/protocol/tls/decrypted/premaster/secret.cpp \
 \
 $${UTALAS_SRC}/xos/app/console/protocol/tls/client/main_opt.cpp \
 $${UTALAS_SRC}/xos/app/console/protocol/tls/client/main.cpp \
