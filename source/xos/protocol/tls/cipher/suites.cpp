@@ -21,7 +21,7 @@
 #include "xos/protocol/tls/cipher/suites.hpp"
 
 #if !defined(XOS_PROTOCOL_TLS_CIPHER_SUITES_INSTANCE)
-#define XOS_PROTOCOL_TLS_CIPHER_SUITES_INSTANCE
+///#define XOS_PROTOCOL_TLS_CIPHER_SUITES_INSTANCE
 #endif /// !defined(XOS_PROTOCOL_TLS_CIPHER_SUITES_INSTANCE)
 
 namespace xos {

@@ -23,6 +23,7 @@
 
 #include "xos/protocol/tls/key/exchange/algorithm.hpp"
 #include "xos/protocol/tls/premaster/secret/message.hpp"
+#include "xos/protocol/tls/encrypted/premaster/secret.hpp"
 
 namespace xos {
 namespace protocol {
@@ -34,9 +35,10 @@ namespace exchange {
 /// class messaget
 template 
 <typename TKeyExchangeAlgorithm = tls::key::exchange::algorithm, 
- TKeyExchangeAlgorithm VKeyExchangeAlgorithmNone = tls::key::exchange::none,
  TKeyExchangeAlgorithm VKeyExchangeAlgorithmRsa = tls::key::exchange::rsa,
  TKeyExchangeAlgorithm VKeyExchangeAlgorithmRsaPlain = tls::key::exchange::rsa_plain,
+ TKeyExchangeAlgorithm VKeyExchangeAlgorithm = VKeyExchangeAlgorithmRsa,
+ class TEncryptedPreMasterSecret = tls::encrypted::premaster::secret,
  class TPreMasterSecret = tls::premaster::secret::message,
  class TMessagePart = tls::message::part, class TExtends = TMessagePart, class TImplements = typename TExtends::implements>
 
@@ -48,26 +50,39 @@ public:
     
     typedef TKeyExchangeAlgorithm key_exchange_algorithm_t;
     enum { 
-        key_exchange_algorithm_none = VKeyExchangeAlgorithmNone,
         key_exchange_algorithm_rsa = VKeyExchangeAlgorithmRsa,
-        key_exchange_algorithm_rsa_plain = VKeyExchangeAlgorithmRsaPlain
+        key_exchange_algorithm_rsa_plain = VKeyExchangeAlgorithmRsaPlain,
+        key_exchange_algorithm = VKeyExchangeAlgorithm
     };
+    typedef TEncryptedPreMasterSecret encrypted_pre_master_secret_t;
     typedef TPreMasterSecret pre_master_secret_t;
     
     /// constructors / destructor
     messaget(const messaget& copy)
     : extends(copy), key_exchange_algorithm_(copy.key_exchange_algorithm_) {
     }
+    messaget(const encrypted_pre_master_secret_t& encrypted_pre_master_secret)
+    : key_exchange_algorithm_(key_exchange_algorithm_rsa) {
+        combine(encrypted_pre_master_secret);
+    }
     messaget(const pre_master_secret_t& pre_master_secret)
     : key_exchange_algorithm_(key_exchange_algorithm_rsa_plain) {
         combine(pre_master_secret);
     }
-    messaget(): key_exchange_algorithm_(key_exchange_algorithm_none) {
+    messaget(): key_exchange_algorithm_(key_exchange_algorithm) {
     }
     virtual ~messaget() {
     }
 
     /// combine / separate
+    virtual bool combine(const encrypted_pre_master_secret_t& encrypted_pre_master_secret) {
+        bool success = false;
+        this->set_length(0);
+        if ((this->append(encrypted_pre_master_secret))) {
+            success = true;
+        }
+        return success;
+    }
     virtual bool combine(const pre_master_secret_t& pre_master_secret) {
         bool success = false;
         this->set_length(0);

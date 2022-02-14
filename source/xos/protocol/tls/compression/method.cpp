@@ -21,7 +21,7 @@
 #include "xos/protocol/tls/compression/method.hpp"
 
 #if !defined(XOS_PROTOCOL_TLS_COMPRESSION_METHOD_INSTANCE)
-#define XOS_PROTOCOL_TLS_COMPRESSION_METHOD_INSTANCE
+///#define XOS_PROTOCOL_TLS_COMPRESSION_METHOD_INSTANCE
 #endif /// !defined(XOS_PROTOCOL_TLS_COMPRESSION_METHOD_INSTANCE)
 
 namespace xos {

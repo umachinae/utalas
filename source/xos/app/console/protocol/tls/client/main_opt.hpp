@@ -49,58 +49,28 @@
     XOS_APP_CONSOLE_PROTOCOL_TLS_CLIENT_MAIN_KEY_EXCHANGE_OPTARG_RESULT, \
     XOS_APP_CONSOLE_PROTOCOL_TLS_CLIENT_MAIN_KEY_EXCHANGE_OPTVAL_C}, \
 
-#define XOS_APP_CONSOLE_PROTOCOL_TLS_CLIENT_MAIN_PUBLIC_OPT "public"
-#define XOS_APP_CONSOLE_PROTOCOL_TLS_CLIENT_MAIN_PUBLIC_OPTARG_REQUIRED MAIN_OPT_ARGUMENT_OPTIONAL
-#define XOS_APP_CONSOLE_PROTOCOL_TLS_CLIENT_MAIN_PUBLIC_OPTARG_RESULT 0
-#define XOS_APP_CONSOLE_PROTOCOL_TLS_CLIENT_MAIN_PUBLIC_OPTARG "[string]"
-#define XOS_APP_CONSOLE_PROTOCOL_TLS_CLIENT_MAIN_PUBLIC_OPTUSE "RSA public key"
-#define XOS_APP_CONSOLE_PROTOCOL_TLS_CLIENT_MAIN_PUBLIC_OPTVAL_S "p::"
-#define XOS_APP_CONSOLE_PROTOCOL_TLS_CLIENT_MAIN_PUBLIC_OPTVAL_C 'p'
-#define XOS_APP_CONSOLE_PROTOCOL_TLS_CLIENT_MAIN_PUBLIC_OPTION \
-   {XOS_APP_CONSOLE_PROTOCOL_TLS_CLIENT_MAIN_PUBLIC_OPT, \
-    XOS_APP_CONSOLE_PROTOCOL_TLS_CLIENT_MAIN_PUBLIC_OPTARG_REQUIRED, \
-    XOS_APP_CONSOLE_PROTOCOL_TLS_CLIENT_MAIN_PUBLIC_OPTARG_RESULT, \
-    XOS_APP_CONSOLE_PROTOCOL_TLS_CLIENT_MAIN_PUBLIC_OPTVAL_C}, \
-
-#define XOS_APP_CONSOLE_PROTOCOL_TLS_CLIENT_MAIN_MODULUS_OPT "modulus"
-#define XOS_APP_CONSOLE_PROTOCOL_TLS_CLIENT_MAIN_MODULUS_OPTARG_REQUIRED MAIN_OPT_ARGUMENT_OPTIONAL
-#define XOS_APP_CONSOLE_PROTOCOL_TLS_CLIENT_MAIN_MODULUS_OPTARG_RESULT 0
-#define XOS_APP_CONSOLE_PROTOCOL_TLS_CLIENT_MAIN_MODULUS_OPTARG "[string]"
-#define XOS_APP_CONSOLE_PROTOCOL_TLS_CLIENT_MAIN_MODULUS_OPTUSE "RSA public modulus"
-#define XOS_APP_CONSOLE_PROTOCOL_TLS_CLIENT_MAIN_MODULUS_OPTVAL_S "m::"
-#define XOS_APP_CONSOLE_PROTOCOL_TLS_CLIENT_MAIN_MODULUS_OPTVAL_C 'm'
-#define XOS_APP_CONSOLE_PROTOCOL_TLS_CLIENT_MAIN_MODULUS_OPTION \
-   {XOS_APP_CONSOLE_PROTOCOL_TLS_CLIENT_MAIN_MODULUS_OPT, \
-    XOS_APP_CONSOLE_PROTOCOL_TLS_CLIENT_MAIN_MODULUS_OPTARG_REQUIRED, \
-    XOS_APP_CONSOLE_PROTOCOL_TLS_CLIENT_MAIN_MODULUS_OPTARG_RESULT, \
-    XOS_APP_CONSOLE_PROTOCOL_TLS_CLIENT_MAIN_MODULUS_OPTVAL_C}, \
-
-#define XOS_APP_CONSOLE_PROTOCOL_TLS_CLIENT_MAIN_EXPONENT_OPT "exponent"
-#define XOS_APP_CONSOLE_PROTOCOL_TLS_CLIENT_MAIN_EXPONENT_OPTARG_REQUIRED MAIN_OPT_ARGUMENT_OPTIONAL
-#define XOS_APP_CONSOLE_PROTOCOL_TLS_CLIENT_MAIN_EXPONENT_OPTARG_RESULT 0
-#define XOS_APP_CONSOLE_PROTOCOL_TLS_CLIENT_MAIN_EXPONENT_OPTARG "[string]"
-#define XOS_APP_CONSOLE_PROTOCOL_TLS_CLIENT_MAIN_EXPONENT_OPTUSE "RSA public exponent"
-#define XOS_APP_CONSOLE_PROTOCOL_TLS_CLIENT_MAIN_EXPONENT_OPTVAL_S "x::"
-#define XOS_APP_CONSOLE_PROTOCOL_TLS_CLIENT_MAIN_EXPONENT_OPTVAL_C 'x'
-#define XOS_APP_CONSOLE_PROTOCOL_TLS_CLIENT_MAIN_EXPONENT_OPTION \
-   {XOS_APP_CONSOLE_PROTOCOL_TLS_CLIENT_MAIN_EXPONENT_OPT, \
-    XOS_APP_CONSOLE_PROTOCOL_TLS_CLIENT_MAIN_EXPONENT_OPTARG_REQUIRED, \
-    XOS_APP_CONSOLE_PROTOCOL_TLS_CLIENT_MAIN_EXPONENT_OPTARG_RESULT, \
-    XOS_APP_CONSOLE_PROTOCOL_TLS_CLIENT_MAIN_EXPONENT_OPTVAL_C}, \
+#define XOS_APP_CONSOLE_PROTOCOL_TLS_CLIENT_MAIN_ENCRYPTED_SECRET_OPT "encrypted-secret"
+#define XOS_APP_CONSOLE_PROTOCOL_TLS_CLIENT_MAIN_ENCRYPTED_SECRET_OPTARG_REQUIRED MAIN_OPT_ARGUMENT_NONE
+#define XOS_APP_CONSOLE_PROTOCOL_TLS_CLIENT_MAIN_ENCRYPTED_SECRET_OPTARG_RESULT 0
+#define XOS_APP_CONSOLE_PROTOCOL_TLS_CLIENT_MAIN_ENCRYPTED_SECRET_OPTARG ""
+#define XOS_APP_CONSOLE_PROTOCOL_TLS_CLIENT_MAIN_ENCRYPTED_SECRET_OPTUSE "encrypted premaster secret"
+#define XOS_APP_CONSOLE_PROTOCOL_TLS_CLIENT_MAIN_ENCRYPTED_SECRET_OPTVAL_S "c"
+#define XOS_APP_CONSOLE_PROTOCOL_TLS_CLIENT_MAIN_ENCRYPTED_SECRET_OPTVAL_C 'c'
+#define XOS_APP_CONSOLE_PROTOCOL_TLS_CLIENT_MAIN_ENCRYPTED_SECRET_OPTION \
+   {XOS_APP_CONSOLE_PROTOCOL_TLS_CLIENT_MAIN_ENCRYPTED_SECRET_OPT, \
+    XOS_APP_CONSOLE_PROTOCOL_TLS_CLIENT_MAIN_ENCRYPTED_SECRET_OPTARG_REQUIRED, \
+    XOS_APP_CONSOLE_PROTOCOL_TLS_CLIENT_MAIN_ENCRYPTED_SECRET_OPTARG_RESULT, \
+    XOS_APP_CONSOLE_PROTOCOL_TLS_CLIENT_MAIN_ENCRYPTED_SECRET_OPTVAL_C}, \
 
 #define XOS_APP_CONSOLE_PROTOCOL_TLS_CLIENT_MAIN_OPTIONS_CHARS_EXTEND \
    XOS_APP_CONSOLE_PROTOCOL_TLS_CLIENT_MAIN_HELLO_OPTVAL_S \
     XOS_APP_CONSOLE_PROTOCOL_TLS_CLIENT_MAIN_KEY_EXCHANGE_OPTVAL_S \
-    XOS_APP_CONSOLE_PROTOCOL_TLS_CLIENT_MAIN_PUBLIC_OPTVAL_S \
-    XOS_APP_CONSOLE_PROTOCOL_TLS_CLIENT_MAIN_MODULUS_OPTVAL_S \
-    XOS_APP_CONSOLE_PROTOCOL_TLS_CLIENT_MAIN_EXPONENT_OPTVAL_S \
+   XOS_APP_CONSOLE_PROTOCOL_TLS_CLIENT_MAIN_ENCRYPTED_SECRET_OPTVAL_S \
 
 #define XOS_APP_CONSOLE_PROTOCOL_TLS_CLIENT_MAIN_OPTIONS_OPTIONS_EXTEND \
    XOS_APP_CONSOLE_PROTOCOL_TLS_CLIENT_MAIN_HELLO_OPTION \
     XOS_APP_CONSOLE_PROTOCOL_TLS_CLIENT_MAIN_KEY_EXCHANGE_OPTION \
-    XOS_APP_CONSOLE_PROTOCOL_TLS_CLIENT_MAIN_PUBLIC_OPTION \
-    XOS_APP_CONSOLE_PROTOCOL_TLS_CLIENT_MAIN_MODULUS_OPTION \
-    XOS_APP_CONSOLE_PROTOCOL_TLS_CLIENT_MAIN_EXPONENT_OPTION \
+    XOS_APP_CONSOLE_PROTOCOL_TLS_CLIENT_MAIN_ENCRYPTED_SECRET_OPTION \
 
 #define XOS_APP_CONSOLE_PROTOCOL_TLS_CLIENT_MAIN_OPTIONS_CHARS \
    XOS_APP_CONSOLE_PROTOCOL_TLS_CLIENT_MAIN_OPTIONS_CHARS_EXTEND \
@@ -169,7 +139,6 @@ protected:
     /// ...output_client_hello_run
     virtual int output_client_hello_run(int argc, char_t** argv, char_t** env) {
         int err = 0;
-        err = extends::output_client_hello_run(argc, argv, env);
         return err;
     }
     virtual int before_output_client_hello_run(int argc, char_t** argv, char_t** env) {
@@ -197,10 +166,99 @@ protected:
         return err;
     }
 
+    /// ...output_premaster_secret_run
+    virtual int output_premaster_secret_run(int argc, char_t** argv, char_t** env) {
+        int err = 0;
+        return err;
+    }
+    virtual int before_output_premaster_secret_run(int argc, char_t** argv, char_t** env) {
+        int err = 0;
+        return err;
+    }
+    virtual int after_output_premaster_secret_run(int argc, char_t** argv, char_t** env) {
+        int err = 0;
+        return err;
+    }
+    virtual int all_output_premaster_secret_run(int argc, char_t** argv, char_t** env) {
+        int err = 0;
+        if (!(err = before_output_premaster_secret_run(argc, argv, env))) {
+            int err2 = 0;
+            err = output_premaster_secret_run(argc, argv, env);
+            if ((err2 = after_output_premaster_secret_run(argc, argv, env))) {
+                if (!(err)) err = err2;
+            }
+        }
+        return err;
+    }
+    virtual int set_output_premaster_secret_run(int argc, char_t** argv, char_t** env) {
+        int err = 0;
+        run_ = &derives::all_output_premaster_secret_run;
+        return err;
+    }
+
+    /// ...output_encoded_premaster_secret_run
+    virtual int output_encoded_premaster_secret_run(int argc, char_t** argv, char_t** env) {
+        int err = 0;
+        return err;
+    }
+    virtual int before_output_encoded_premaster_secret_run(int argc, char_t** argv, char_t** env) {
+        int err = 0;
+        return err;
+    }
+    virtual int after_output_encoded_premaster_secret_run(int argc, char_t** argv, char_t** env) {
+        int err = 0;
+        return err;
+    }
+    virtual int all_output_encoded_premaster_secret_run(int argc, char_t** argv, char_t** env) {
+        int err = 0;
+        if (!(err = before_output_encoded_premaster_secret_run(argc, argv, env))) {
+            int err2 = 0;
+            err = output_encoded_premaster_secret_run(argc, argv, env);
+            if ((err2 = after_output_encoded_premaster_secret_run(argc, argv, env))) {
+                if (!(err)) err = err2;
+            }
+        }
+        return err;
+    }
+    virtual int set_output_encoded_premaster_secret_run(int argc, char_t** argv, char_t** env) {
+        int err = 0;
+        run_ = &derives::all_output_encoded_premaster_secret_run;
+        return err;
+    }
+
+    /// ...output_encrypted_premaster_secret_run
+    virtual int output_encrypted_premaster_secret_run(int argc, char_t** argv, char_t** env) {
+        int err = 0;
+        return err;
+    }
+    virtual int before_output_encrypted_premaster_secret_run(int argc, char_t** argv, char_t** env) {
+        int err = 0;
+        return err;
+    }
+    virtual int after_output_encrypted_premaster_secret_run(int argc, char_t** argv, char_t** env) {
+        int err = 0;
+        return err;
+    }
+    virtual int all_output_encrypted_premaster_secret_run(int argc, char_t** argv, char_t** env) {
+        int err = 0;
+        if (!(err = before_output_encrypted_premaster_secret_run(argc, argv, env))) {
+            int err2 = 0;
+            err = output_encrypted_premaster_secret_run(argc, argv, env);
+            if ((err2 = after_output_encrypted_premaster_secret_run(argc, argv, env))) {
+                if (!(err)) err = err2;
+            }
+        }
+        return err;
+    }
+    virtual int set_output_encrypted_premaster_secret_run(int argc, char_t** argv, char_t** env) {
+        int err = 0;
+        run_ = &derives::all_output_encrypted_premaster_secret_run;
+        return err;
+    }
+
     /// ...output_client_key_exchange_run
     virtual int output_client_key_exchange_run(int argc, char_t** argv, char_t** env) {
         int err = 0;
-        err = extends::output_client_key_exchange_run(argc, argv, env);
         return err;
     }
     virtual int before_output_client_key_exchange_run(int argc, char_t** argv, char_t** env) {
@@ -225,249 +283,6 @@ protected:
     virtual int set_output_client_key_exchange_run(int argc, char_t** argv, char_t** env) {
         int err = 0;
         run_ = &derives::all_output_client_key_exchange_run;
-        return err;
-    }
-
-    /// ...output_public_key_run
-    int (derives::*output_public_key_run_)(int argc, char_t** argv, char_t** env);
-    virtual int output_public_key_run(int argc, char_t** argv, char_t** env) {
-        int err = 0;
-        if (output_public_key_run_) {
-            err = (this->*output_public_key_run_)(argc, argv, env);
-        } else {
-            err = default_output_public_key_run(argc, argv, env);
-        }
-        return err;
-    }
-    virtual int default_output_public_key_run(int argc, char_t** argv, char_t** env) {
-        int err = 0;
-        err = all_output_test_public_key_run(argc, argv, env);
-        return err;
-    }
-    virtual int before_output_public_key_run(int argc, char_t** argv, char_t** env) {
-        int err = 0;
-        return err;
-    }
-    virtual int after_output_public_key_run(int argc, char_t** argv, char_t** env) {
-        int err = 0;
-        return err;
-    }
-    virtual int all_output_public_key_run(int argc, char_t** argv, char_t** env) {
-        int err = 0;
-        if (!(err = before_output_public_key_run(argc, argv, env))) {
-            int err2 = 0;
-            err = output_public_key_run(argc, argv, env);
-            if ((err2 = after_output_public_key_run(argc, argv, env))) {
-                if (!(err)) err = err2;
-            }
-        }
-        return err;
-    }
-    virtual int set_output_public_key_run(int argc, char_t** argv, char_t** env) {
-        int err = 0;
-        run_ = &derives::all_output_public_key_run;
-        return err;
-    }
-
-    /// ...output_public_modulus_run
-    int (derives::*output_public_modulus_run_)(int argc, char_t** argv, char_t** env);
-    virtual int output_public_modulus_run(int argc, char_t** argv, char_t** env) {
-        int err = 0;
-        if (output_public_modulus_run_) {
-            err = (this->*output_public_modulus_run_)(argc, argv, env);
-        } else {
-            err = default_output_public_modulus_run(argc, argv, env);
-        }
-        return err;
-    }
-    virtual int default_output_public_modulus_run(int argc, char_t** argv, char_t** env) {
-        int err = 0;
-        err = all_output_test_public_modulus_run(argc, argv, env);
-        return err;
-    }
-    virtual int before_output_public_modulus_run(int argc, char_t** argv, char_t** env) {
-        int err = 0;
-        return err;
-    }
-    virtual int after_output_public_modulus_run(int argc, char_t** argv, char_t** env) {
-        int err = 0;
-        return err;
-    }
-    virtual int all_output_public_modulus_run(int argc, char_t** argv, char_t** env) {
-        int err = 0;
-        if (!(err = before_output_public_modulus_run(argc, argv, env))) {
-            int err2 = 0;
-            err = output_public_modulus_run(argc, argv, env);
-            if ((err2 = after_output_public_modulus_run(argc, argv, env))) {
-                if (!(err)) err = err2;
-            }
-        }
-        return err;
-    }
-    virtual int set_output_public_modulus_run(int argc, char_t** argv, char_t** env) {
-        int err = 0;
-        run_ = &derives::all_output_public_modulus_run;
-        return err;
-    }
-
-    /// ...output_public_exponent_run
-    int (derives::*output_public_exponent_run_)(int argc, char_t** argv, char_t** env);
-    virtual int output_public_exponent_run(int argc, char_t** argv, char_t** env) {
-        int err = 0;
-        if (output_public_exponent_run_) {
-            err = (this->*output_public_exponent_run_)(argc, argv, env);
-        } else {
-            err = default_output_public_exponent_run(argc, argv, env);
-        }
-        return err;
-    }
-    virtual int default_output_public_exponent_run(int argc, char_t** argv, char_t** env) {
-        int err = 0;
-        err = all_output_test_public_exponent_run(argc, argv, env);
-        return err;
-    }
-    virtual int before_output_public_exponent_run(int argc, char_t** argv, char_t** env) {
-        int err = 0;
-        return err;
-    }
-    virtual int after_output_public_exponent_run(int argc, char_t** argv, char_t** env) {
-        int err = 0;
-        return err;
-    }
-    virtual int all_output_public_exponent_run(int argc, char_t** argv, char_t** env) {
-        int err = 0;
-        if (!(err = before_output_public_exponent_run(argc, argv, env))) {
-            int err2 = 0;
-            err = output_public_exponent_run(argc, argv, env);
-            if ((err2 = after_output_public_exponent_run(argc, argv, env))) {
-                if (!(err)) err = err2;
-            }
-        }
-        return err;
-    }
-    virtual int set_output_public_exponent_run(int argc, char_t** argv, char_t** env) {
-        int err = 0;
-        run_ = &derives::all_output_public_exponent_run;
-        return err;
-    }
-
-    /// ...output_test_public_key_run
-    int (derives::*output_test_public_key_run_)(int argc, char_t** argv, char_t** env);
-    virtual int output_test_public_key_run(int argc, char_t** argv, char_t** env) {
-        int err = 0;
-        if (output_test_public_key_run_) {
-            err = (this->*output_test_public_key_run_)(argc, argv, env);
-        } else {
-            err = default_output_test_public_key_run(argc, argv, env);
-        }
-        return err;
-    }
-    virtual int default_output_test_public_key_run(int argc, char_t** argv, char_t** env) {
-        int err = 0;
-        return err;
-    }
-    virtual int before_output_test_public_key_run(int argc, char_t** argv, char_t** env) {
-        int err = 0;
-        return err;
-    }
-    virtual int after_output_test_public_key_run(int argc, char_t** argv, char_t** env) {
-        int err = 0;
-        return err;
-    }
-    virtual int all_output_test_public_key_run(int argc, char_t** argv, char_t** env) {
-        int err = 0;
-        if (!(err = before_output_test_public_key_run(argc, argv, env))) {
-            int err2 = 0;
-            err = output_test_public_key_run(argc, argv, env);
-            if ((err2 = after_output_test_public_key_run(argc, argv, env))) {
-                if (!(err)) err = err2;
-            }
-        }
-        return err;
-    }
-    virtual int set_output_test_public_key_run(int argc, char_t** argv, char_t** env) {
-        int err = 0;
-        output_public_key_run_ = &derives::all_output_test_public_key_run;
-        return err;
-    }
-
-    /// ...output_test_public_modulus_run
-    int (derives::*output_test_public_modulus_run_)(int argc, char_t** argv, char_t** env);
-    virtual int output_test_public_modulus_run(int argc, char_t** argv, char_t** env) {
-        int err = 0;
-        if (output_test_public_modulus_run_) {
-            err = (this->*output_test_public_modulus_run_)(argc, argv, env);
-        } else {
-            err = default_output_test_public_modulus_run(argc, argv, env);
-        }
-        return err;
-    }
-    virtual int default_output_test_public_modulus_run(int argc, char_t** argv, char_t** env) {
-        int err = 0;
-        return err;
-    }
-    virtual int before_output_test_public_modulus_run(int argc, char_t** argv, char_t** env) {
-        int err = 0;
-        return err;
-    }
-    virtual int after_output_test_public_modulus_run(int argc, char_t** argv, char_t** env) {
-        int err = 0;
-        return err;
-    }
-    virtual int all_output_test_public_modulus_run(int argc, char_t** argv, char_t** env) {
-        int err = 0;
-        if (!(err = before_output_test_public_modulus_run(argc, argv, env))) {
-            int err2 = 0;
-            err = output_test_public_modulus_run(argc, argv, env);
-            if ((err2 = after_output_test_public_modulus_run(argc, argv, env))) {
-                if (!(err)) err = err2;
-            }
-        }
-        return err;
-    }
-    virtual int set_output_test_public_modulus_run(int argc, char_t** argv, char_t** env) {
-        int err = 0;
-        output_public_modulus_run_ = &derives::all_output_test_public_modulus_run;
-        return err;
-    }
-
-    /// ...output_test_public_exponent_run
-    int (derives::*output_test_public_exponent_run_)(int argc, char_t** argv, char_t** env);
-    virtual int output_test_public_exponent_run(int argc, char_t** argv, char_t** env) {
-        int err = 0;
-        if (output_test_public_exponent_run_) {
-            err = (this->*output_test_public_exponent_run_)(argc, argv, env);
-        } else {
-            err = default_output_test_public_exponent_run(argc, argv, env);
-        }
-        return err;
-    }
-    virtual int default_output_test_public_exponent_run(int argc, char_t** argv, char_t** env) {
-        int err = 0;
-        return err;
-    }
-    virtual int before_output_test_public_exponent_run(int argc, char_t** argv, char_t** env) {
-        int err = 0;
-        return err;
-    }
-    virtual int after_output_test_public_exponent_run(int argc, char_t** argv, char_t** env) {
-        int err = 0;
-        return err;
-    }
-    virtual int all_output_test_public_exponent_run(int argc, char_t** argv, char_t** env) {
-        int err = 0;
-        if (!(err = before_output_test_public_exponent_run(argc, argv, env))) {
-            int err2 = 0;
-            err = output_test_public_exponent_run(argc, argv, env);
-            if ((err2 = after_output_test_public_exponent_run(argc, argv, env))) {
-                if (!(err)) err = err2;
-            }
-        }
-        return err;
-    }
-    virtual int set_output_test_public_exponent_run(int argc, char_t** argv, char_t** env) {
-        int err = 0;
-        output_public_exponent_run_ = &derives::all_output_test_public_exponent_run;
         return err;
     }
 
@@ -496,49 +311,16 @@ protected:
         optarg = XOS_APP_CONSOLE_PROTOCOL_TLS_CLIENT_MAIN_KEY_EXCHANGE_OPTARG;
         return chars;
     }
-    virtual int on_public_option
+    virtual int on_encrypted_secret_option
     (int optval, const char_t* optarg, const char_t* optname,
      int optind, int argc, char_t**argv, char_t**env) {
         int err = 0;
-        if ((optarg) && (optarg[0])) {
-        } else {
-            err = set_output_public_key_run(argc, argv, env);
-        }
+        err = set_output_encrypted_premaster_secret_run(argc, argv, env);
         return err;
     }
-    virtual const char_t* public_option_usage(const char_t*& optarg, const struct option* longopt) {
-        const char_t* chars = XOS_APP_CONSOLE_PROTOCOL_TLS_CLIENT_MAIN_PUBLIC_OPTUSE;
-        optarg = XOS_APP_CONSOLE_PROTOCOL_TLS_CLIENT_MAIN_PUBLIC_OPTARG;
-        return chars;
-    }
-    virtual int on_modulus_option
-    (int optval, const char_t* optarg, const char_t* optname,
-     int optind, int argc, char_t**argv, char_t**env) {
-        int err = 0;
-        if ((optarg) && (optarg[0])) {
-        } else {
-            err = set_output_public_modulus_run(argc, argv, env);
-        }
-        return err;
-    }
-    virtual const char_t* modulus_option_usage(const char_t*& optarg, const struct option* longopt) {
-        const char_t* chars = XOS_APP_CONSOLE_PROTOCOL_TLS_CLIENT_MAIN_MODULUS_OPTUSE;
-        optarg = XOS_APP_CONSOLE_PROTOCOL_TLS_CLIENT_MAIN_MODULUS_OPTARG;
-        return chars;
-    }
-    virtual int on_exponent_option
-    (int optval, const char_t* optarg, const char_t* optname,
-     int optind, int argc, char_t**argv, char_t**env) {
-        int err = 0;
-        if ((optarg) && (optarg[0])) {
-        } else {
-            err = set_output_public_exponent_run(argc, argv, env);
-        }
-        return err;
-    }
-    virtual const char_t* exponent_option_usage(const char_t*& optarg, const struct option* longopt) {
-        const char_t* chars = XOS_APP_CONSOLE_PROTOCOL_TLS_CLIENT_MAIN_EXPONENT_OPTUSE;
-        optarg = XOS_APP_CONSOLE_PROTOCOL_TLS_CLIENT_MAIN_EXPONENT_OPTARG;
+    virtual const char_t* encrypted_secret_option_usage(const char_t*& optarg, const struct option* longopt) {
+        const char_t* chars = XOS_APP_CONSOLE_PROTOCOL_TLS_CLIENT_MAIN_ENCRYPTED_SECRET_OPTUSE;
+        optarg = XOS_APP_CONSOLE_PROTOCOL_TLS_CLIENT_MAIN_ENCRYPTED_SECRET_OPTARG;
         return chars;
     }
     virtual int on_option
@@ -552,14 +334,8 @@ protected:
         case XOS_APP_CONSOLE_PROTOCOL_TLS_CLIENT_MAIN_KEY_EXCHANGE_OPTVAL_C:
             err = this->on_key_exchange_option(optval, optarg, optname, optind, argc, argv, env);
             break;
-        case XOS_APP_CONSOLE_PROTOCOL_TLS_CLIENT_MAIN_PUBLIC_OPTVAL_C:
-            err = this->on_public_option(optval, optarg, optname, optind, argc, argv, env);
-            break;
-        case XOS_APP_CONSOLE_PROTOCOL_TLS_CLIENT_MAIN_MODULUS_OPTVAL_C:
-            err = this->on_modulus_option(optval, optarg, optname, optind, argc, argv, env);
-            break;
-        case XOS_APP_CONSOLE_PROTOCOL_TLS_CLIENT_MAIN_EXPONENT_OPTVAL_C:
-            err = this->on_exponent_option(optval, optarg, optname, optind, argc, argv, env);
+        case XOS_APP_CONSOLE_PROTOCOL_TLS_CLIENT_MAIN_ENCRYPTED_SECRET_OPTVAL_C:
+            err = this->on_encrypted_secret_option(optval, optarg, optname, optind, argc, argv, env);
             break;
         default:
             err = extends::on_option(optval, optarg, optname, optind, argc, argv, env);
@@ -575,14 +351,8 @@ protected:
         case XOS_APP_CONSOLE_PROTOCOL_TLS_CLIENT_MAIN_KEY_EXCHANGE_OPTVAL_C:
             chars = this->key_exchange_option_usage(optarg, longopt);
             break;
-        case XOS_APP_CONSOLE_PROTOCOL_TLS_CLIENT_MAIN_PUBLIC_OPTVAL_C:
-            chars = this->public_option_usage(optarg, longopt);
-            break;
-        case XOS_APP_CONSOLE_PROTOCOL_TLS_CLIENT_MAIN_MODULUS_OPTVAL_C:
-            chars = this->modulus_option_usage(optarg, longopt);
-            break;
-        case XOS_APP_CONSOLE_PROTOCOL_TLS_CLIENT_MAIN_EXPONENT_OPTVAL_C:
-            chars = this->exponent_option_usage(optarg, longopt);
+        case XOS_APP_CONSOLE_PROTOCOL_TLS_CLIENT_MAIN_ENCRYPTED_SECRET_OPTVAL_C:
+            chars = this->encrypted_secret_option_usage(optarg, longopt);
             break;
         default:
             chars = extends::option_usage(optarg, longopt);

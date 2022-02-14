@@ -323,6 +323,35 @@ protected:
         return err;
     }
 
+    /// on_set_hex_literals
+    virtual int on_set_hex_literals
+    (::talas::byte_array_t &a1, ::talas::byte_array_t &a2, 
+     ::talas::string_t &literal, int argc, char_t** argv, char_t** env) {
+        int err = 0;
+        ::talas::io::hex::read_to_byte_arrays to_arrays(&a1, &a2, null);
+        err = on_set_hex_literals(to_arrays, literal, argc, argv, env);
+        return err;
+    }
+    virtual int on_set_hex_literals
+    (::talas::byte_array_t &a1, ::talas::byte_array_t &a2, 
+     ::talas::byte_array_t &a3, ::talas::byte_array_t &a4, ::talas::byte_array_t &a5, 
+     ::talas::string_t &literal, int argc, char_t** argv, char_t** env) {
+        int err = 0;
+        ::talas::io::hex::read_to_byte_arrays to_arrays(&a1, &a2, &a3, &a4, &a5, null);
+        err = on_set_hex_literals(to_arrays, literal, argc, argv, env);
+        return err;
+    }
+    virtual int on_set_hex_literals
+    (::talas::byte_array_t &a1, ::talas::byte_array_t &a2, 
+     ::talas::byte_array_t &a3, ::talas::byte_array_t &a4, 
+     ::talas::byte_array_t &a5, ::talas::byte_array_t &a6, ::talas::byte_array_t &a7, 
+     ::talas::string_t &literal, int argc, char_t** argv, char_t** env) {
+        int err = 0;
+        ::talas::io::hex::read_to_byte_arrays to_arrays(&a1, &a2, &a3, &a4, &a5, &a6, &a7, null);
+        err = on_set_hex_literals(to_arrays, literal, argc, argv, env);
+        return err;
+    }
+
     /// ...option...
     virtual int on_file_input_option
     (int optval, const char_t* optarg, const char_t* optname,
