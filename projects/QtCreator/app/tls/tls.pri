@@ -13,48 +13,48 @@
 # or otherwise) arising in any way out of the use of this software,
 # even if advised of the possibility of such damage.
 #
-#   File: tlshello.pri
+#   File: tls.pri
 #
 # Author: $author$
-#   Date: 1/31/2022
+#   Date: 2/14/2022
 #
-# generic QtCreator project .pri file for framework talas executable tlshello
+# generic QtCreator project .pri file for framework talas executable tls
 ########################################################################
 
 ########################################################################
-# tlshello
+# tls
 
-# tlshello TARGET
+# tls TARGET
 #
-tlshello_TARGET = tlshello
+tls_TARGET = tls
 
-# tlshello INCLUDEPATH
+# tls INCLUDEPATH
 #
-tlshello_INCLUDEPATH += \
+tls_INCLUDEPATH += \
 $${talas_INCLUDEPATH} \
 
-# tlshello DEFINES
+# tls DEFINES
 #
-tlshello_DEFINES += \
+tls_DEFINES += \
 $${talas_DEFINES} \
 DEFAULT_LOGGING_LEVELS_ERROR \
 XOS_CONSOLE_MAIN_MAIN \
 
 ########################################################################
-# tlshello OBJECTIVE_HEADERS
+# tls OBJECTIVE_HEADERS
 #
-#tlshello_OBJECTIVE_HEADERS += \
-#$${TALAS_SRC}/xos/app/console/tlshello/main.hh \
+#tls_OBJECTIVE_HEADERS += \
+#$${TALAS_SRC}/xos/app/console/tls/main.hh \
 
-# tlshello OBJECTIVE_SOURCES
+# tls OBJECTIVE_SOURCES
 #
-#tlshello_OBJECTIVE_SOURCES += \
-#$${TALAS_SRC}/xos/app/console/tlshello/main.mm \
+#tls_OBJECTIVE_SOURCES += \
+#$${TALAS_SRC}/xos/app/console/tls/main.mm \
 
 ########################################################################
-# tlshello HEADERS
+# tls HEADERS
 #
-tlshello_HEADERS += \
+tls_HEADERS += \
 $${CIFRA_SRC}/xos/crypto/hash.hpp \
 \
 $${UTALAS_SRC}/xos/protocol/tls/message/part.hpp \
@@ -99,9 +99,9 @@ $${UTALAS_SRC}/xos/app/console/protocol/tls/base/main.hpp \
 $${UTALAS_SRC}/xos/app/console/protocol/tls/client/main_opt.hpp \
 $${UTALAS_SRC}/xos/app/console/protocol/tls/client/main.hpp \
 
-# tlshello SOURCES
+# tls SOURCES
 #
-tlshello_SOURCES += \
+tls_SOURCES += \
 $${CIFRA_SRC}/xos/crypto/hash.cpp \
 \
 $${UTALAS_SRC}/xos/protocol/tls/message/part.cpp \
@@ -124,20 +124,21 @@ $${UTALAS_SRC}/xos/protocol/tls/rsa/implemented/public_key.cpp \
 $${UTALAS_SRC}/xos/protocol/tls/rsa/implemented/private_key.cpp \
 $${UTALAS_SRC}/xos/protocol/tls/decrypted/premaster/secret.cpp \
 \
-$${UTALAS_SRC}/xos/app/console/protocol/tls/base/main_opt.cpp \
-$${UTALAS_SRC}/xos/app/console/protocol/tls/base/main.cpp \
+$${UTALAS_SRC}/xos/app/console/protocol/tls/client/main_opt.cpp \
+$${UTALAS_SRC}/xos/app/console/protocol/tls/client/main.cpp \
 
 ########################################################################
-# tlshello FRAMEWORKS
+# tls FRAMEWORKS
 #
-tlshello_FRAMEWORKS += \
+tls_FRAMEWORKS += \
 $${talas_FRAMEWORKS} \
 
-# tlshello LIBS
+# tls LIBS
 #
-tlshello_LIBS += \
+tls_LIBS += \
 $${talas_rsa_LIBS} \
 
 ########################################################################
 # NO Qt
 QT -= gui core
+

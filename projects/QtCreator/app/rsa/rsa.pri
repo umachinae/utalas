@@ -70,6 +70,9 @@ $${TALAS_SRC}/talas/crypto/rsa/mp/key_generator.hpp \
 $${TALAS_SRC}/xos/app/console/rsa/base/main_opt.hpp \
 $${TALAS_SRC}/xos/app/console/rsa/base/main.hpp \
 \
+$${TALAS_SRC}/xos/app/console/rsa/pair/main_opt.hpp \
+$${TALAS_SRC}/xos/app/console/rsa/pair/main.hpp \
+\
 $${TALAS_SRC}/xos/app/console/rsa/generate/main_opt.hpp \
 $${TALAS_SRC}/xos/app/console/rsa/generate/main.hpp \
 \
