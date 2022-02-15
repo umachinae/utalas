@@ -128,10 +128,10 @@ protected:
     }
 
     /// ...output_hex_run
-    virtual int output_hex_run(::talas::byte_array_t &array, int argc, char_t** argv, char_t** env) {
+    virtual int output_hex_run(const ::talas::byte_array_t &array, int argc, char_t** argv, char_t** env) {
         int err = 0;
         size_t length = 0;
-        byte_t *bytes = 0;
+        const byte_t *bytes = 0;
         
         if ((bytes = array.elements(length))) {
             this->output_x(bytes, length, argc, argv, env);
