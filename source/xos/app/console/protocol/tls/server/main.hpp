@@ -76,6 +76,65 @@ protected:
         return err;
     }
 
+    /// ...output_master_secret_run
+    virtual int output_master_secret_run(int argc, char_t** argv, char_t** env) {
+        int err = 0;
+        const xos::protocol::tls::hello::random* p_client_hello_random = 0;
+
+        if ((p_client_hello_random = this->get_client_hello_random())) {
+            const xos::protocol::tls::hello::random& client_hello_random = *p_client_hello_random;
+            const byte_t* client_hello_random_bytes = 0; size_t client_hello_random_length = 0;
+
+            ///this->output_hex_run(client_hello_random, argc, argv, env);
+            ///this->outln();
+            if ((client_hello_random_bytes = client_hello_random.has_elements(client_hello_random_length))) {
+                ///const ::talas::byte_array_t& master_secret_seed = this->master_secret_seed();
+                ///xos::protocol::tls::pseudo::random::reader reader(client_hello_random, master_secret_seed);
+                const xos::protocol::tls::encrypted::premaster::secret* p_encrypted_premaster_secret = 0;
+
+                if ((p_encrypted_premaster_secret = this->get_encrypted_premaster_secret())) {
+                    const xos::protocol::tls::encrypted::premaster::secret& encrypted_premaster_secret = *p_encrypted_premaster_secret;
+                    const byte_t *encrypted_premaster_secret_bytes = 0; size_t encrypted_premaster_secret_length = 0;
+
+                    if ((encrypted_premaster_secret_bytes 
+                        = encrypted_premaster_secret.has_elements(encrypted_premaster_secret_length))) {
+                        const byte_t *p = 0, *q = 0, *dmp1 = 0, *dmq1 = 0, *iqmp = 0; size_t p_length = 0;
+                        
+                        if ((p = this->get_p(q, dmp1, dmq1, iqmp, p_length))) {
+                            xos::protocol::tls::rsa::implemented::private_key private_key(p, q, dmp1, dmq1, iqmp, p_length);
+                            xos::protocol::tls::decrypted::premaster::secret decrypted_premaster_secret(private_key, encrypted_premaster_secret);
+                            const byte_t* decrypted_premaster_secret_bytes = 0; size_t decrypted_premaster_secret_length = 0;
+
+                            ///this->output_hex_run(decrypted_premaster_secret, argc, argv, env);
+                            ///this->outln();
+                            if ((decrypted_premaster_secret_bytes 
+                                 = decrypted_premaster_secret.has_elements(decrypted_premaster_secret_length))) {
+                                 xos::protocol::tls::pkcs1::encoded::premaster::secret encoded_premaster_secret(decrypted_premaster_secret);
+                                 xos::protocol::tls::pkcs1::decoded::premaster::secret decoded_premaster_secret(encoded_premaster_secret);
+
+                                this->output_hex_run(decoded_premaster_secret, argc, argv, env);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return err;
+    }
+
+    /// ...output_client_hello_random_run
+    virtual int output_client_hello_random_run(int argc, char_t** argv, char_t** env) {
+        int err = 0;
+        const xos::protocol::tls::hello::random* p_client_hello_random = 0;
+
+        if ((p_client_hello_random = this->get_client_hello_random())) {
+            const xos::protocol::tls::hello::random& client_hello_random = *p_client_hello_random;
+
+            this->output_hex_run(client_hello_random, argc, argv, env);
+        }
+        return err;
+    }
+
     /// ...output_decrypted_premaster_secret_run
     virtual int output_decrypted_premaster_secret_run(int argc, char_t** argv, char_t** env) {
         int err = 0;
@@ -112,6 +171,17 @@ protected:
         return err;
     }
 
+    /// on_set_client_hello_random_option
+    virtual int on_set_client_hello_random_option
+    (const char_t* optarg, int optind, int argc, char_t** argv, char_t** env) {
+        int err = 0;
+        client_hello_random_string_.assign(optarg);
+        if (!(err = this->on_set_hex_literal
+            (client_hello_random_, client_hello_random_string_, argc, argv, env))) {
+        }
+        return err;
+    }
+
     /// on_set_encrypted_secret_option
     virtual int on_set_encrypted_secret_option
     (const char_t* optarg, int optind, int argc, char_t** argv, char_t** env) {
@@ -123,24 +193,30 @@ protected:
         return err;
     }
 
-    /// get_..._encrypted_premaster_secret
-    const xos::protocol::tls::encrypted::premaster::secret* (derives::*get_encrypted_premaster_secret_)() const;
-    const xos::protocol::tls::encrypted::premaster::secret* get_encrypted_premaster_secret() const {
-        const xos::protocol::tls::encrypted::premaster::secret* encrypted_premaster_secret = 0;
-        if ((get_encrypted_premaster_secret_)) {
-            encrypted_premaster_secret = (this->*get_encrypted_premaster_secret_)();
-        } else {
-            encrypted_premaster_secret = get_literal_encrypted_premaster_secret();
+    /// get_client_hello_random
+    const xos::protocol::tls::hello::random* get_client_hello_random() const {
+        const xos::protocol::tls::hello::random& client_hello_random = client_hello_random_;
+        if ((client_hello_random.has_elements())) {
+            return &client_hello_random;
         }
-        return encrypted_premaster_secret;
+        return 0;
     }
-    const xos::protocol::tls::encrypted::premaster::secret* get_literal_encrypted_premaster_secret() const {
-        return &encrypted_premaster_secret_;
+
+    /// get_encrypted_premaster_secret
+    const xos::protocol::tls::encrypted::premaster::secret* get_encrypted_premaster_secret() const {
+        const xos::protocol::tls::encrypted::premaster::secret& encrypted_premaster_secret = encrypted_premaster_secret_;
+        if ((encrypted_premaster_secret.has_elements())) {
+            return &encrypted_premaster_secret;
+        }
+        return 0;
     }
 
 protected:
-    xos::protocol::tls::encrypted::premaster::secret encrypted_premaster_secret_;
+    ::talas::string_t client_hello_random_string_;
+    xos::protocol::tls::hello::random client_hello_random_;
+
     ::talas::string_t encrypted_premaster_secret_string_;
+    xos::protocol::tls::encrypted::premaster::secret encrypted_premaster_secret_;
 }; /// class maint
 typedef maint<> main;
 

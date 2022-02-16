@@ -83,10 +83,10 @@ protected:
     virtual int output_client_hello_run(int argc, char_t** argv, char_t** env) {
         int err = 0;
         xos::protocol::tls::gmt::unix::time gmt_unix_time;
-        xos::protocol::tls::pseudo::random::reader random_reader(this->secret_, this->seed_);
-        xos::protocol::tls::random::bytes random_bytes(random_reader);
-        xos::protocol::tls::hello::random hello_random(random_reader, gmt_unix_time, random_bytes);
-        xos::protocol::tls::session::identifier session_id(random_reader);
+        xos::protocol::tls::pseudo::random::reader pseudo_random_reader(this->secret_, this->seed_);
+        xos::protocol::tls::random::bytes random_bytes(pseudo_random_reader);
+        xos::protocol::tls::hello::random hello_random(pseudo_random_reader, gmt_unix_time, random_bytes);
+        xos::protocol::tls::session::identifier session_id(pseudo_random_reader);
 
         xos::protocol::tls::cipher::suite cipher_suite(this->cipher_suite_which_, this->cipher_suite_with_);
         xos::protocol::tls::cipher::suites cipher_suites(cipher_suite);
@@ -95,17 +95,27 @@ protected:
         xos::protocol::tls::compression::methods compression_methods(compression_method);
 
         xos::protocol::tls::client::hello client_hello
-        (this->protocol_version_, hello_random, session_id, cipher_suites, compression_methods, random_reader);
+        (this->protocol_version_, hello_random, session_id, cipher_suites, compression_methods, pseudo_random_reader);
         xos::protocol::tls::handshake::message client_hello_handshake(client_hello); 
 
         this->output_hex_run(client_hello_handshake, argc, argv, env);
         return err;
     }
+    virtual int output_client_hello_random_run(int argc, char_t** argv, char_t** env) {
+        int err = 0;
+        xos::protocol::tls::gmt::unix::time gmt_unix_time;
+        xos::protocol::tls::pseudo::random::reader pseudo_random_reader(this->secret_, this->seed_);
+        xos::protocol::tls::random::bytes random_bytes(pseudo_random_reader);
+        xos::protocol::tls::hello::random hello_random(pseudo_random_reader, gmt_unix_time, random_bytes);
+
+        this->output_hex_run(hello_random, argc, argv, env);
+        return err;
+    }
     virtual int output_premaster_secret_run(int argc, char_t** argv, char_t** env) {
         int err = 0;
-        xos::protocol::tls::pseudo::random::reader random_reader(this->secret_, this->seed_);
-        xos::protocol::tls::premaster::secret::random premaster_secret_random(random_reader);
-        xos::protocol::tls::premaster::secret::message premaster_secret(this->protocol_version_, premaster_secret_random, random_reader);
+        xos::protocol::tls::pseudo::random::reader pseudo_random_reader(this->secret_, this->seed_);
+        xos::protocol::tls::premaster::secret::random premaster_secret_random(pseudo_random_reader);
+        xos::protocol::tls::premaster::secret::message premaster_secret(this->protocol_version_, premaster_secret_random, pseudo_random_reader);
         
         this->output_hex_run(premaster_secret, argc, argv, env);
         return err;
@@ -113,9 +123,10 @@ protected:
     virtual int output_encoded_premaster_secret_run(int argc, char_t** argv, char_t** env) {
         int err = 0;
         const byte_t* modulus = 0; size_t modulus_length = 0;
-        xos::protocol::tls::pseudo::random::reader random_reader(this->secret_, this->seed_);
-        xos::protocol::tls::premaster::secret::random premaster_secret_random(random_reader);
-        xos::protocol::tls::premaster::secret::message premaster_secret(this->protocol_version_, premaster_secret_random, random_reader);
+        xos::crypto::pseudo::random::reader random_reader(0);
+        xos::protocol::tls::pseudo::random::reader pseudo_random_reader(this->secret_, this->seed_);
+        xos::protocol::tls::premaster::secret::random premaster_secret_random(pseudo_random_reader);
+        xos::protocol::tls::premaster::secret::message premaster_secret(this->protocol_version_, premaster_secret_random, pseudo_random_reader);
         
         if ((modulus = this->get_modulus(modulus_length))) {
             const byte_t* exponent = 0; size_t exponent_length = 0;
@@ -128,9 +139,10 @@ protected:
     virtual int output_encrypted_premaster_secret_run(int argc, char_t** argv, char_t** env) {
         int err = 0;
         const byte_t* modulus = 0; size_t modulus_length = 0;
-        xos::protocol::tls::pseudo::random::reader random_reader(this->secret_, this->seed_);
-        xos::protocol::tls::premaster::secret::random premaster_secret_random(random_reader);
-        xos::protocol::tls::premaster::secret::message premaster_secret(this->protocol_version_, premaster_secret_random, random_reader);
+        xos::crypto::pseudo::random::reader random_reader(0);
+        xos::protocol::tls::pseudo::random::reader pseudo_random_reader(this->secret_, this->seed_);
+        xos::protocol::tls::premaster::secret::random premaster_secret_random(pseudo_random_reader);
+        xos::protocol::tls::premaster::secret::message premaster_secret(this->protocol_version_, premaster_secret_random, pseudo_random_reader);
         
         if ((modulus = this->get_modulus(modulus_length))) {
             const byte_t* exponent = 0; size_t exponent_length = 0;
@@ -149,13 +161,13 @@ protected:
     virtual int output_decrypted_premaster_secret_run(int argc, char_t** argv, char_t** env) {
         int err = 0;
         const byte_t* modulus = 0; size_t modulus_length = 0;
-        xos::protocol::tls::pseudo::random::reader random_reader(this->secret_, this->seed_);
-        xos::protocol::tls::premaster::secret::random premaster_secret_random(random_reader);
-        xos::protocol::tls::premaster::secret::message premaster_secret(this->protocol_version_, premaster_secret_random, random_reader);
+        xos::protocol::tls::pseudo::random::reader pseudo_random_reader(this->secret_, this->seed_);
+        xos::protocol::tls::premaster::secret::random premaster_secret_random(pseudo_random_reader);
+        xos::protocol::tls::premaster::secret::message premaster_secret(this->protocol_version_, premaster_secret_random, pseudo_random_reader);
         
         if ((modulus = this->get_modulus(modulus_length))) {
             const byte_t* exponent = 0; size_t exponent_length = 0;
-            xos::protocol::tls::pkcs1::encoded::premaster::secret encoded_premaster_secret(modulus_length, premaster_secret, random_reader);
+            xos::protocol::tls::pkcs1::encoded::premaster::secret encoded_premaster_secret(modulus_length, premaster_secret, pseudo_random_reader);
 
             if ((exponent = this->get_exponent(exponent_length))) {
                 const byte_t *p = 0, *q = 0, *dmp1 = 0, *dmq1 = 0, *iqmp = 0; size_t p_length = 0;
@@ -178,13 +190,13 @@ protected:
     virtual int output_client_key_exchange_run(int argc, char_t** argv, char_t** env) {
         int err = 0;
         const byte_t* modulus = 0; size_t modulus_length = 0;
-        xos::protocol::tls::pseudo::random::reader random_reader(this->secret_, this->seed_);
-        xos::protocol::tls::premaster::secret::random premaster_secret_random(random_reader);
-        xos::protocol::tls::premaster::secret::message premaster_secret(this->protocol_version_, premaster_secret_random, random_reader);
+        xos::protocol::tls::pseudo::random::reader pseudo_random_reader(this->secret_, this->seed_);
+        xos::protocol::tls::premaster::secret::random premaster_secret_random(pseudo_random_reader);
+        xos::protocol::tls::premaster::secret::message premaster_secret(this->protocol_version_, premaster_secret_random, pseudo_random_reader);
         
         if ((modulus = this->get_modulus(modulus_length))) {
             const byte_t* exponent = 0; size_t exponent_length = 0;
-            xos::protocol::tls::pkcs1::encoded::premaster::secret encoded_premaster_secret(modulus_length, premaster_secret, random_reader);
+            xos::protocol::tls::pkcs1::encoded::premaster::secret encoded_premaster_secret(modulus_length, premaster_secret, pseudo_random_reader);
 
             if ((exponent = this->get_exponent(exponent_length))) {
                 const byte_t *p = 0, *q = 0, *dmp1 = 0, *dmq1 = 0, *iqmp = 0; size_t p_length = 0;

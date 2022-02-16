@@ -23,6 +23,7 @@
 
 #include "xos/protocol/tls/message/part.hpp"
 #include "xos/protocol/tls/pseudo/random/reader.hpp"
+#include "xos/crypto/random/reader.hpp"
 
 namespace xos {
 namespace protocol {
@@ -32,8 +33,9 @@ namespace encoded {
 
 /// class messaget
 template 
-<class TPseudoRandomReader = tls::pseudo::random::reader, class TMessagePart = tls::message::part, 
- class TExtends = TMessagePart, class TImplements = typename TExtends::implements>
+<class TRandomReader = xos::crypto::random::reader, 
+ class TPseudoRandomReader = tls::pseudo::random::reader, 
+ class TMessagePart = tls::message::part, class TExtends = TMessagePart, class TImplements = typename TExtends::implements>
 
 class exported messaget: virtual public TImplements, public TExtends {
 public:
@@ -41,14 +43,20 @@ public:
     typedef TExtends extends;
     typedef messaget derives; 
     
+    typedef TRandomReader random_reader_t;
     typedef TPseudoRandomReader pseudo_random_reader_t;
     typedef TMessagePart message_part_t;
     
     /// constructors / destructor
     messaget(const messaget& copy): extends(copy) {
     }
+    messaget(const size_t& modulus_size, const message_part_t& message, random_reader_t& random_reader) {
+        combine(modulus_size, message, random_reader);
+    }
     messaget(const size_t& modulus_size, const message_part_t& message, pseudo_random_reader_t& pseudo_random_reader) {
         combine(modulus_size, message, pseudo_random_reader);
+    }
+    messaget(const message_part_t& message_part): extends(message_part) {
     }
     messaget() {
     }
@@ -56,7 +64,16 @@ public:
     }
     
     /// combine / separate
+    virtual bool combine(const size_t& modulus_size, const message_part_t& message, random_reader_t& random_reader) {
+        bool success = combine<random_reader_t>(modulus_size, message, random_reader);
+        return success;
+    }
     virtual bool combine(const size_t& modulus_size, const message_part_t& message, pseudo_random_reader_t& pseudo_random_reader) {
+        bool success = combine<pseudo_random_reader_t>(modulus_size, message, pseudo_random_reader);
+        return success;
+    }
+    template <class pseudo_random_reader_t>
+    bool combine(const size_t& modulus_size, const message_part_t& message, pseudo_random_reader_t& pseudo_random_reader) {
         bool success = false;
         const byte_t* message_bytes = 0; size_t message_length = 0;
 

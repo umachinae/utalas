@@ -52,6 +52,10 @@ public:
     : secret_(copy.secret()), seed_(copy.seed()), A_(copy.A()) {
     }
     functiont
+    (const byte_array_t& secret, const byte_array_t& seed, const byte_array_t& A)
+    : secret_(secret), seed_(seed), A_(A) {
+    }
+    functiont
     (const byte_array_t& secret, const byte_array_t& seed)
     : secret_(secret), seed_(seed), A_(seed) {
     }

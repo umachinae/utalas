@@ -57,6 +57,10 @@ public:
     : function_(copy.function()), length_(0), tell_(0) {
     }
     readert
+    (const byte_array_t& secret, const byte_array_t& seed, const byte_array_t& A)
+    : function_(secret, seed, A), length_(0), tell_(0) {
+    }
+    readert
     (const byte_array_t& secret, const byte_array_t& seed)
     : function_(secret, seed), length_(0), tell_(0) {
     }

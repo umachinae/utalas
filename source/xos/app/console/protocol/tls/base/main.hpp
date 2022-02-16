@@ -24,6 +24,7 @@
 #include "xos/app/console/protocol/tls/base/main_opt.hpp"
 #include "xos/protocol/tls/protocol/version.hpp"
 
+#include "xos/crypto/pseudo/random/reader.hpp"
 #include "xos/protocol/tls/pseudo/random/reader.hpp"
 #include "xos/protocol/tls/gmt/unix/time.hpp"
 #include "xos/protocol/tls/random/bytes.hpp"
@@ -52,6 +53,8 @@
 #include "xos/protocol/tls/rsa/gmp/private_key.hpp"
 #include "xos/protocol/tls/rsa/implemented/private_key.hpp"
 #include "xos/protocol/tls/decrypted/premaster/secret.hpp"
+#include "xos/protocol/tls/pkcs1/decoded/message.hpp"
+#include "xos/protocol/tls/pkcs1/decoded/premaster/secret.hpp"
 
 #include "xos/protocol/tls/key/exchange/algorithm.hpp"
 #include "xos/protocol/tls/client/key/exchange/message.hpp"
@@ -66,6 +69,9 @@
 
 #define XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_PSEUDO_RANDOM_SEED \
     "ECBD992E-8349-11EC-9EC2-259E551AB68D"
+
+#define XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_MASTER_SECRET_SEED \
+    "207EBEBA-8EBB-11EC-9F61-E9CB4A0F4C82"
 
 namespace xos {
 namespace app {
@@ -98,11 +104,13 @@ public:
     : run_(0), 
       secret_string_(XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_PSEUDO_RANDOM_SECRET), 
       seed_string_(XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_PSEUDO_RANDOM_SEED),
+      master_secret_seed_string_(XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_MASTER_SECRET_SEED),
       cipher_suite_which_(xos::protocol::tls::cipher::suite::which_default), 
       cipher_suite_with_(xos::protocol::tls::cipher::suite::with_default),
       compression_method_which_(xos::protocol::tls::compression::method::which_default) {
         set_secret(secret_string());
         set_seed(seed_string());
+        set_master_secret_seed(master_secret_seed_string());
     }
     virtual ~maint() {
     }
@@ -352,6 +360,34 @@ protected:
         return (::talas::byte_array_t&)seed_;
     }
 
+    /// ...master_secret_seed...
+    virtual ::talas::string_t& set_master_secret_seed_string(const char_t* to) {
+        if ((to) && (to[0])) {
+            master_secret_seed_string_.assign(to);
+        }
+        return (::talas::string_t&)master_secret_seed_string_;
+    }
+    virtual ::talas::string_t& master_secret_seed_string() const {
+        return (::talas::string_t&)master_secret_seed_string_;
+    }
+    virtual ::talas::byte_array_t& set_master_secret_seed(::talas::string_t& to) {
+        const char_t* chars = 0; size_t length = 0;
+        if ((chars = to.has_chars(length))) {
+            set_master_secret_seed(chars, length);
+        }
+        return (::talas::byte_array_t&)master_secret_seed_;
+    }
+    virtual ::talas::byte_array_t& set_master_secret_seed(const char_t* to, size_t length) {
+        const byte_t* bytes = 0;
+        if ((bytes = (const byte_t*)to) && (length)) {
+            master_secret_seed_.assign(bytes, length);
+        }
+        return (::talas::byte_array_t&)master_secret_seed_;
+    }
+    virtual ::talas::byte_array_t& master_secret_seed() const {
+        return (::talas::byte_array_t&)master_secret_seed_;
+    }
+
     /// ...
     virtual xos::protocol::tls::protocol::version protocol_version() const {
         return (xos::protocol::tls::protocol::version&)protocol_version_;
@@ -485,8 +521,8 @@ protected:
     }
 
 protected:
-    ::talas::string_t secret_string_, seed_string_;
-    ::talas::byte_array_t secret_, seed_;
+    ::talas::string_t secret_string_, seed_string_, master_secret_seed_string_;
+    ::talas::byte_array_t secret_, seed_, master_secret_seed_;
     xos::protocol::tls::protocol::version protocol_version_;
     xos::protocol::tls::cipher::suite::which_t cipher_suite_which_;
     xos::protocol::tls::cipher::suite::with_t cipher_suite_with_;

@@ -23,50 +23,80 @@
 
 #include "xos/app/console/protocol/tls/base/main.hpp"
 
-#define XOS_APP_CONSOLE_TALAS_PROTOCOL_TLS_SERVER_MAIN_DECRYPTED_SECRET_OPT "decrypted-secret"
-#define XOS_APP_CONSOLE_TALAS_PROTOCOL_TLS_SERVER_MAIN_DECRYPTED_SECRET_OPTARG_REQUIRED MAIN_OPT_ARGUMENT_REQUIRED
-#define XOS_APP_CONSOLE_TALAS_PROTOCOL_TLS_SERVER_MAIN_DECRYPTED_SECRET_OPTARG_RESULT 0
-#define XOS_APP_CONSOLE_TALAS_PROTOCOL_TLS_SERVER_MAIN_DECRYPTED_SECRET_OPTARG "string"
-#define XOS_APP_CONSOLE_TALAS_PROTOCOL_TLS_SERVER_MAIN_DECRYPTED_SECRET_OPTUSE "decrypted premaster secret"
-#define XOS_APP_CONSOLE_TALAS_PROTOCOL_TLS_SERVER_MAIN_DECRYPTED_SECRET_OPTVAL_S "d:"
-#define XOS_APP_CONSOLE_TALAS_PROTOCOL_TLS_SERVER_MAIN_DECRYPTED_SECRET_OPTVAL_C 'd'
-#define XOS_APP_CONSOLE_TALAS_PROTOCOL_TLS_SERVER_MAIN_DECRYPTED_SECRET_OPTION \
-   {XOS_APP_CONSOLE_TALAS_PROTOCOL_TLS_SERVER_MAIN_DECRYPTED_SECRET_OPT, \
-    XOS_APP_CONSOLE_TALAS_PROTOCOL_TLS_SERVER_MAIN_DECRYPTED_SECRET_OPTARG_REQUIRED, \
-    XOS_APP_CONSOLE_TALAS_PROTOCOL_TLS_SERVER_MAIN_DECRYPTED_SECRET_OPTARG_RESULT, \
-    XOS_APP_CONSOLE_TALAS_PROTOCOL_TLS_SERVER_MAIN_DECRYPTED_SECRET_OPTVAL_C}, \
+#define XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_MASTER_SECRET_OPT "master-secret"
+#define XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_MASTER_SECRET_OPTARG_REQUIRED MAIN_OPT_ARGUMENT_REQUIRED
+#define XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_MASTER_SECRET_OPTARG_RESULT 0
+#define XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_MASTER_SECRET_OPTARG "string"
+#define XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_MASTER_SECRET_OPTUSE "master secret"
+#define XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_MASTER_SECRET_OPTVAL_S "a:"
+#define XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_MASTER_SECRET_OPTVAL_C 'a'
+#define XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_MASTER_SECRET_OPTION \
+   {XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_MASTER_SECRET_OPT, \
+    XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_MASTER_SECRET_OPTARG_REQUIRED, \
+    XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_MASTER_SECRET_OPTARG_RESULT, \
+    XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_MASTER_SECRET_OPTVAL_C}, \
 
-#define XOS_APP_CONSOLE_TALAS_PROTOCOL_TLS_SERVER_MAIN_ENCRYPTED_SECRET_OPT "encrypted-secret"
-#define XOS_APP_CONSOLE_TALAS_PROTOCOL_TLS_SERVER_MAIN_ENCRYPTED_SECRET_OPTARG_REQUIRED MAIN_OPT_ARGUMENT_REQUIRED
-#define XOS_APP_CONSOLE_TALAS_PROTOCOL_TLS_SERVER_MAIN_ENCRYPTED_SECRET_OPTARG_RESULT 0
-#define XOS_APP_CONSOLE_TALAS_PROTOCOL_TLS_SERVER_MAIN_ENCRYPTED_SECRET_OPTARG "string"
-#define XOS_APP_CONSOLE_TALAS_PROTOCOL_TLS_SERVER_MAIN_ENCRYPTED_SECRET_OPTUSE "encrypted premaster secret"
-#define XOS_APP_CONSOLE_TALAS_PROTOCOL_TLS_SERVER_MAIN_ENCRYPTED_SECRET_OPTVAL_S "c:"
-#define XOS_APP_CONSOLE_TALAS_PROTOCOL_TLS_SERVER_MAIN_ENCRYPTED_SECRET_OPTVAL_C 'c'
-#define XOS_APP_CONSOLE_TALAS_PROTOCOL_TLS_SERVER_MAIN_ENCRYPTED_SECRET_OPTION \
-   {XOS_APP_CONSOLE_TALAS_PROTOCOL_TLS_SERVER_MAIN_ENCRYPTED_SECRET_OPT, \
-    XOS_APP_CONSOLE_TALAS_PROTOCOL_TLS_SERVER_MAIN_ENCRYPTED_SECRET_OPTARG_REQUIRED, \
-    XOS_APP_CONSOLE_TALAS_PROTOCOL_TLS_SERVER_MAIN_ENCRYPTED_SECRET_OPTARG_RESULT, \
-    XOS_APP_CONSOLE_TALAS_PROTOCOL_TLS_SERVER_MAIN_ENCRYPTED_SECRET_OPTVAL_C}, \
+#define XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_CLIENT_HELLO_RANDOM_OPT "client-hello-random"
+#define XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_CLIENT_HELLO_RANDOM_OPTARG_REQUIRED MAIN_OPT_ARGUMENT_REQUIRED
+#define XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_CLIENT_HELLO_RANDOM_OPTARG_RESULT 0
+#define XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_CLIENT_HELLO_RANDOM_OPTARG "string"
+#define XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_CLIENT_HELLO_RANDOM_OPTUSE "client hello random"
+#define XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_CLIENT_HELLO_RANDOM_OPTVAL_S "n:"
+#define XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_CLIENT_HELLO_RANDOM_OPTVAL_C 'n'
+#define XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_CLIENT_HELLO_RANDOM_OPTION \
+   {XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_CLIENT_HELLO_RANDOM_OPT, \
+    XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_CLIENT_HELLO_RANDOM_OPTARG_REQUIRED, \
+    XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_CLIENT_HELLO_RANDOM_OPTARG_RESULT, \
+    XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_CLIENT_HELLO_RANDOM_OPTVAL_C}, \
 
-#define XOS_APP_CONSOLE_TALAS_PROTOCOL_TLS_SERVER_MAIN_OPTIONS_CHARS_EXTEND \
-   XOS_APP_CONSOLE_TALAS_PROTOCOL_TLS_SERVER_MAIN_ENCRYPTED_SECRET_OPTVAL_S \
-    XOS_APP_CONSOLE_TALAS_PROTOCOL_TLS_SERVER_MAIN_DECRYPTED_SECRET_OPTVAL_S \
+#define XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_DECRYPTED_SECRET_OPT "decrypted-secret"
+#define XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_DECRYPTED_SECRET_OPTARG_REQUIRED MAIN_OPT_ARGUMENT_REQUIRED
+#define XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_DECRYPTED_SECRET_OPTARG_RESULT 0
+#define XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_DECRYPTED_SECRET_OPTARG "string"
+#define XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_DECRYPTED_SECRET_OPTUSE "decrypted premaster secret"
+#define XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_DECRYPTED_SECRET_OPTVAL_S "d:"
+#define XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_DECRYPTED_SECRET_OPTVAL_C 'd'
+#define XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_DECRYPTED_SECRET_OPTION \
+   {XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_DECRYPTED_SECRET_OPT, \
+    XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_DECRYPTED_SECRET_OPTARG_REQUIRED, \
+    XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_DECRYPTED_SECRET_OPTARG_RESULT, \
+    XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_DECRYPTED_SECRET_OPTVAL_C}, \
 
-#define XOS_APP_CONSOLE_TALAS_PROTOCOL_TLS_SERVER_MAIN_OPTIONS_OPTIONS_EXTEND \
-   XOS_APP_CONSOLE_TALAS_PROTOCOL_TLS_SERVER_MAIN_ENCRYPTED_SECRET_OPTION \
-    XOS_APP_CONSOLE_TALAS_PROTOCOL_TLS_SERVER_MAIN_DECRYPTED_SECRET_OPTION \
+#define XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_ENCRYPTED_SECRET_OPT "encrypted-secret"
+#define XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_ENCRYPTED_SECRET_OPTARG_REQUIRED MAIN_OPT_ARGUMENT_REQUIRED
+#define XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_ENCRYPTED_SECRET_OPTARG_RESULT 0
+#define XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_ENCRYPTED_SECRET_OPTARG "string"
+#define XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_ENCRYPTED_SECRET_OPTUSE "encrypted premaster secret"
+#define XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_ENCRYPTED_SECRET_OPTVAL_S "c:"
+#define XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_ENCRYPTED_SECRET_OPTVAL_C 'c'
+#define XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_ENCRYPTED_SECRET_OPTION \
+   {XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_ENCRYPTED_SECRET_OPT, \
+    XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_ENCRYPTED_SECRET_OPTARG_REQUIRED, \
+    XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_ENCRYPTED_SECRET_OPTARG_RESULT, \
+    XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_ENCRYPTED_SECRET_OPTVAL_C}, \
 
-#define XOS_APP_CONSOLE_TALAS_PROTOCOL_TLS_SERVER_MAIN_OPTIONS_CHARS \
-   XOS_APP_CONSOLE_TALAS_PROTOCOL_TLS_SERVER_MAIN_OPTIONS_CHARS_EXTEND \
+#define XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_OPTIONS_CHARS_EXTEND \
+    XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_MASTER_SECRET_OPTVAL_S \
+    XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_CLIENT_HELLO_RANDOM_OPTVAL_S \
+   XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_ENCRYPTED_SECRET_OPTVAL_S \
+    XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_DECRYPTED_SECRET_OPTVAL_S \
+
+#define XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_OPTIONS_OPTIONS_EXTEND \
+    XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_MASTER_SECRET_OPTION \
+    XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_CLIENT_HELLO_RANDOM_OPTION \
+   XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_ENCRYPTED_SECRET_OPTION \
+    XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_DECRYPTED_SECRET_OPTION \
+
+#define XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_OPTIONS_CHARS \
+   XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_OPTIONS_CHARS_EXTEND \
     XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_OPTIONS_CHARS
 
-#define XOS_APP_CONSOLE_TALAS_PROTOCOL_TLS_SERVER_MAIN_OPTIONS_OPTIONS \
-   XOS_APP_CONSOLE_TALAS_PROTOCOL_TLS_SERVER_MAIN_OPTIONS_OPTIONS_EXTEND \
+#define XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_OPTIONS_OPTIONS \
+   XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_OPTIONS_OPTIONS_EXTEND \
     XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_OPTIONS_OPTIONS
 
-#define XOS_APP_CONSOLE_TALAS_PROTOCOL_TLS_SERVER_MAIN_ARGS 0
-#define XOS_APP_CONSOLE_TALAS_PROTOCOL_TLS_SERVER_MAIN_ARGV 0,
+#define XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_ARGS 0
+#define XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_ARGV 0,
 
 namespace xos {
 namespace app {
@@ -118,6 +148,66 @@ protected:
         } else {
             err = extends::run(argc, argv, env);
         }
+        return err;
+    }
+
+    /// ...output_master_secret_run
+    virtual int output_master_secret_run(int argc, char_t** argv, char_t** env) {
+        int err = 0;
+        return err;
+    }
+    virtual int before_output_master_secret_run(int argc, char_t** argv, char_t** env) {
+        int err = 0;
+        return err;
+    }
+    virtual int after_output_master_secret_run(int argc, char_t** argv, char_t** env) {
+        int err = 0;
+        return err;
+    }
+    virtual int all_output_master_secret_run(int argc, char_t** argv, char_t** env) {
+        int err = 0;
+        if (!(err = before_output_master_secret_run(argc, argv, env))) {
+            int err2 = 0;
+            err = output_master_secret_run(argc, argv, env);
+            if ((err2 = after_output_master_secret_run(argc, argv, env))) {
+                if (!(err)) err = err2;
+            }
+        }
+        return err;
+    }
+    virtual int set_output_master_secret_run(int argc, char_t** argv, char_t** env) {
+        int err = 0;
+        run_ = &derives::all_output_master_secret_run;
+        return err;
+    }
+
+    /// ...output_client_hello_random_run
+    virtual int output_client_hello_random_run(int argc, char_t** argv, char_t** env) {
+        int err = 0;
+        return err;
+    }
+    virtual int before_output_client_hello_random_run(int argc, char_t** argv, char_t** env) {
+        int err = 0;
+        return err;
+    }
+    virtual int after_output_client_hello_random_run(int argc, char_t** argv, char_t** env) {
+        int err = 0;
+        return err;
+    }
+    virtual int all_output_client_hello_random_run(int argc, char_t** argv, char_t** env) {
+        int err = 0;
+        if (!(err = before_output_client_hello_random_run(argc, argv, env))) {
+            int err2 = 0;
+            err = output_client_hello_random_run(argc, argv, env);
+            if ((err2 = after_output_client_hello_random_run(argc, argv, env))) {
+                if (!(err)) err = err2;
+            }
+        }
+        return err;
+    }
+    virtual int set_output_client_hello_random_run(int argc, char_t** argv, char_t** env) {
+        int err = 0;
+        run_ = &derives::all_output_client_hello_random_run;
         return err;
     }
 
@@ -182,6 +272,47 @@ protected:
     }
 
     /// ...option...
+    virtual int on_set_client_hello_random_option
+    (const char_t* optarg, int optind, int argc, char_t** argv, char_t** env) {
+        int err = 0;
+        return err;
+    }
+    virtual int on_master_secret_option
+    (int optval, const char_t* optarg, const char_t* optname,
+     int optind, int argc, char_t**argv, char_t**env) {
+        int err = 0;
+        if ((optarg) && (optarg[0])) {
+            if (!(err = on_set_client_hello_random_option(optarg, optind, argc, argv, env))) {
+                if (!(err = set_output_master_secret_run(argc, argv, env))) {
+                }
+            }
+        } else {
+        }
+        return err;
+    }
+    virtual const char_t* master_secret_option_usage(const char_t*& optarg, const struct option* longopt) {
+        const char_t* chars = XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_MASTER_SECRET_OPTUSE;
+        optarg = XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_MASTER_SECRET_OPTARG;
+        return chars;
+    }
+    virtual int on_client_hello_random_option
+    (int optval, const char_t* optarg, const char_t* optname,
+     int optind, int argc, char_t**argv, char_t**env) {
+        int err = 0;
+        if ((optarg) && (optarg[0])) {
+            if (!(err = on_set_client_hello_random_option(optarg, optind, argc, argv, env))) {
+                if (!(err = set_output_client_hello_random_run(argc, argv, env))) {
+                }
+            }
+        } else {
+        }
+        return err;
+    }
+    virtual const char_t* client_hello_random_option_usage(const char_t*& optarg, const struct option* longopt) {
+        const char_t* chars = XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_CLIENT_HELLO_RANDOM_OPTUSE;
+        optarg = XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_CLIENT_HELLO_RANDOM_OPTARG;
+        return chars;
+    }
     virtual int on_set_encrypted_secret_option
     (const char_t* optarg, int optind, int argc, char_t** argv, char_t** env) {
         int err = 0;
@@ -201,8 +332,8 @@ protected:
         return err;
     }
     virtual const char_t* decrypted_secret_option_usage(const char_t*& optarg, const struct option* longopt) {
-        const char_t* chars = XOS_APP_CONSOLE_TALAS_PROTOCOL_TLS_SERVER_MAIN_DECRYPTED_SECRET_OPTUSE;
-        optarg = XOS_APP_CONSOLE_TALAS_PROTOCOL_TLS_SERVER_MAIN_DECRYPTED_SECRET_OPTARG;
+        const char_t* chars = XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_DECRYPTED_SECRET_OPTUSE;
+        optarg = XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_DECRYPTED_SECRET_OPTARG;
         return chars;
     }
     virtual int on_encrypted_secret_option
@@ -219,8 +350,8 @@ protected:
         return err;
     }
     virtual const char_t* encrypted_secret_option_usage(const char_t*& optarg, const struct option* longopt) {
-        const char_t* chars = XOS_APP_CONSOLE_TALAS_PROTOCOL_TLS_SERVER_MAIN_ENCRYPTED_SECRET_OPTUSE;
-        optarg = XOS_APP_CONSOLE_TALAS_PROTOCOL_TLS_SERVER_MAIN_ENCRYPTED_SECRET_OPTARG;
+        const char_t* chars = XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_ENCRYPTED_SECRET_OPTUSE;
+        optarg = XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_ENCRYPTED_SECRET_OPTARG;
         return chars;
     }
     virtual int on_option
@@ -228,10 +359,16 @@ protected:
      int optind, int argc, char_t**argv, char_t**env) {
         int err = 0;
         switch(optval) {
-        case XOS_APP_CONSOLE_TALAS_PROTOCOL_TLS_SERVER_MAIN_DECRYPTED_SECRET_OPTVAL_C:
+        case XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_MASTER_SECRET_OPTVAL_C:
+            err = this->on_master_secret_option(optval, optarg, optname, optind, argc, argv, env);
+            break;
+        case XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_CLIENT_HELLO_RANDOM_OPTVAL_C:
+            err = this->on_client_hello_random_option(optval, optarg, optname, optind, argc, argv, env);
+            break;
+        case XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_DECRYPTED_SECRET_OPTVAL_C:
             err = this->on_decrypted_secret_option(optval, optarg, optname, optind, argc, argv, env);
             break;
-        case XOS_APP_CONSOLE_TALAS_PROTOCOL_TLS_SERVER_MAIN_ENCRYPTED_SECRET_OPTVAL_C:
+        case XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_ENCRYPTED_SECRET_OPTVAL_C:
             err = this->on_encrypted_secret_option(optval, optarg, optname, optind, argc, argv, env);
             break;
         default:
@@ -242,10 +379,16 @@ protected:
     virtual const char_t* option_usage(const char_t*& optarg, const struct option* longopt) {
         const char_t* chars = "";
         switch(longopt->val) {
-        case XOS_APP_CONSOLE_TALAS_PROTOCOL_TLS_SERVER_MAIN_DECRYPTED_SECRET_OPTVAL_C:
+        case XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_MASTER_SECRET_OPTVAL_C:
+            chars = this->master_secret_option_usage(optarg, longopt);
+            break;
+        case XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_CLIENT_HELLO_RANDOM_OPTVAL_C:
+            chars = this->client_hello_random_option_usage(optarg, longopt);
+            break;
+        case XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_DECRYPTED_SECRET_OPTVAL_C:
             chars = this->decrypted_secret_option_usage(optarg, longopt);
             break;
-        case XOS_APP_CONSOLE_TALAS_PROTOCOL_TLS_SERVER_MAIN_ENCRYPTED_SECRET_OPTVAL_C:
+        case XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_ENCRYPTED_SECRET_OPTVAL_C:
             chars = this->encrypted_secret_option_usage(optarg, longopt);
             break;
         default:
@@ -255,9 +398,9 @@ protected:
         return chars;
     }
     virtual const char_t* options(const struct option*& longopts) {
-        static const char_t* chars = XOS_APP_CONSOLE_TALAS_PROTOCOL_TLS_SERVER_MAIN_OPTIONS_CHARS;
+        static const char_t* chars = XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_OPTIONS_CHARS;
         static struct option optstruct[]= {
-            XOS_APP_CONSOLE_TALAS_PROTOCOL_TLS_SERVER_MAIN_OPTIONS_OPTIONS
+            XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_OPTIONS_OPTIONS
             {0, 0, 0, 0}};
         longopts = optstruct;
         return chars;
@@ -265,9 +408,9 @@ protected:
 
     /// ...argument...
     virtual const char_t* arguments(const char_t**& argv) {
-        static const char_t* _args = XOS_APP_CONSOLE_TALAS_PROTOCOL_TLS_SERVER_MAIN_ARGS;
+        static const char_t* _args = XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_ARGS;
         static const char_t* _argv[] = {
-            XOS_APP_CONSOLE_TALAS_PROTOCOL_TLS_SERVER_MAIN_ARGV
+            XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_ARGV
             0};
         argv = _argv;
         return _args;
