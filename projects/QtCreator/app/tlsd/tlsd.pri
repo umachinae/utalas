@@ -89,6 +89,8 @@ $${UTALAS_SRC}/xos/protocol/tls/rsa/bn/private_key.hpp \
 $${UTALAS_SRC}/xos/protocol/tls/rsa/gmp/private_key.hpp \
 $${UTALAS_SRC}/xos/protocol/tls/rsa/implemented/private_key.hpp \
 $${UTALAS_SRC}/xos/protocol/tls/decrypted/premaster/secret.hpp \
+$${UTALAS_SRC}/xos/protocol/tls/pkcs1/decoded/message.hpp \
+$${UTALAS_SRC}/xos/protocol/tls/pkcs1/decoded/premaster/secret.hpp \
 \
 $${UTALAS_SRC}/xos/app/console/talas/crypto/main_opt.hpp \
 $${UTALAS_SRC}/xos/app/console/talas/crypto/main.hpp \

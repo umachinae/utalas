@@ -57,6 +57,11 @@ XOS_CONSOLE_MAIN_MAIN \
 tls_HEADERS += \
 $${CIFRA_SRC}/xos/crypto/hash.hpp \
 \
+$${UTALAS_SRC}/xos/crypto/random/generator.hpp \
+$${UTALAS_SRC}/xos/crypto/pseudo/random/generator.hpp \
+$${UTALAS_SRC}/xos/crypto/random/reader.hpp \
+$${UTALAS_SRC}/xos/crypto/pseudo/random/reader.hpp \
+\
 $${UTALAS_SRC}/xos/protocol/tls/message/part.hpp \
 $${UTALAS_SRC}/xos/protocol/tls/pseudo/random/reader.hpp \
 $${UTALAS_SRC}/xos/protocol/tls/protocol/version.hpp \
