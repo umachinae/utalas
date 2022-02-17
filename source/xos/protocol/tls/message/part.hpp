@@ -99,6 +99,17 @@ public:
         return success;
     }
 
+    /// assign
+    using extends::assign;
+    virtual size_t assign(const byte_array_t& to) {
+        const byte_t* bytes = 0; size_t length = 0;
+        if ((bytes = to.has_elements(length))) {
+            this->assign(bytes, length);
+            return length;
+        }
+        return 0;
+    }
+
     /// append
     using extends::append;
     virtual size_t append(const byte_array_t& to) {

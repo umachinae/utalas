@@ -23,6 +23,7 @@
 
 #include "xos/protocol/tls/pkcs1/decoded/message.hpp"
 #include "xos/protocol/tls/pkcs1/encoded/premaster/secret.hpp"
+#include "xos/protocol/tls/premaster/secret/message.hpp"
 
 namespace xos {
 namespace protocol {
@@ -33,9 +34,10 @@ namespace premaster {
 
 /// class secrett
 template 
-<class TPkcs1EncodedPremasterSecret = tls::pkcs1::encoded::premaster::secret, 
- class TPkcs1DecodedMessage = tls::pkcs1::decoded::message, 
- class TExtends = TPkcs1DecodedMessage, class TImplements = typename TExtends::implements>
+<class TPkcs1DecodedMessage = tls::pkcs1::decoded::message, 
+ class TPkcs1EncodedPremasterSecret = tls::pkcs1::encoded::premaster::secret, 
+ class TPremasterSecret = tls::premaster::secret::message, 
+ class TExtends = TPremasterSecret, class TImplements = typename TExtends::implements>
 
 class exported secrett: virtual public TImplements, public TExtends {
 public:
@@ -43,19 +45,36 @@ public:
     typedef TExtends extends;
     typedef secrett derives; 
     
-    typedef TPkcs1EncodedPremasterSecret pkcs1_encoded_premaster_secret_t;
     typedef TPkcs1DecodedMessage pkcs1_decoded_message_t;
+    typedef TPkcs1EncodedPremasterSecret pkcs1_encoded_premaster_secret_t;
+    typedef TPremasterSecret premaster_secret_t;
 
     /// constructors / destructor
     secrett(const secrett& copy): extends(copy) {
     }
-    secrett
-    (const pkcs1_encoded_premaster_secret_t& pkcs1_encoded_premaster_secret)
-    : extends(pkcs1_encoded_premaster_secret) {
+    secrett(const pkcs1_encoded_premaster_secret_t& pkcs1_encoded_premaster_secret) {
+        combine(pkcs1_encoded_premaster_secret);
     }
     secrett() {
     }
     virtual ~secrett() {
+    }
+
+    /// combine / separate
+    virtual bool combine(const pkcs1_encoded_premaster_secret_t& pkcs1_encoded_premaster_secret) {
+        bool success = false;
+        pkcs1_decoded_message_t pkcs1_decoded_premaster_secret(pkcs1_encoded_premaster_secret);
+        const byte_t* bytes = 0; size_t length = 0;
+        
+        this->assign(pkcs1_decoded_premaster_secret);
+        if ((bytes = this->has_elements(length))) {
+            success = true;
+        }
+        return success;
+    }
+    virtual bool separate() {
+        bool success = false;
+        return success;
     }
 
 }; /// class secrett

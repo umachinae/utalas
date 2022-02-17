@@ -49,43 +49,43 @@
     XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_CLIENT_HELLO_RANDOM_OPTARG_RESULT, \
     XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_CLIENT_HELLO_RANDOM_OPTVAL_C}, \
 
-#define XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_DECRYPTED_SECRET_OPT "decrypted-secret"
-#define XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_DECRYPTED_SECRET_OPTARG_REQUIRED MAIN_OPT_ARGUMENT_REQUIRED
-#define XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_DECRYPTED_SECRET_OPTARG_RESULT 0
-#define XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_DECRYPTED_SECRET_OPTARG "string"
-#define XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_DECRYPTED_SECRET_OPTUSE "decrypted premaster secret"
-#define XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_DECRYPTED_SECRET_OPTVAL_S "d:"
-#define XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_DECRYPTED_SECRET_OPTVAL_C 'd'
-#define XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_DECRYPTED_SECRET_OPTION \
-   {XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_DECRYPTED_SECRET_OPT, \
-    XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_DECRYPTED_SECRET_OPTARG_REQUIRED, \
-    XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_DECRYPTED_SECRET_OPTARG_RESULT, \
-    XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_DECRYPTED_SECRET_OPTVAL_C}, \
+#define XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_DECRYPTED_PREMASTER_SECRET_OPT "decrypted-secret"
+#define XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_DECRYPTED_PREMASTER_SECRET_OPTARG_REQUIRED MAIN_OPT_ARGUMENT_REQUIRED
+#define XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_DECRYPTED_PREMASTER_SECRET_OPTARG_RESULT 0
+#define XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_DECRYPTED_PREMASTER_SECRET_OPTARG "string"
+#define XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_DECRYPTED_PREMASTER_SECRET_OPTUSE "decrypted premaster secret"
+#define XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_DECRYPTED_PREMASTER_SECRET_OPTVAL_S "d:"
+#define XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_DECRYPTED_PREMASTER_SECRET_OPTVAL_C 'd'
+#define XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_DECRYPTED_PREMASTER_SECRET_OPTION \
+   {XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_DECRYPTED_PREMASTER_SECRET_OPT, \
+    XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_DECRYPTED_PREMASTER_SECRET_OPTARG_REQUIRED, \
+    XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_DECRYPTED_PREMASTER_SECRET_OPTARG_RESULT, \
+    XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_DECRYPTED_PREMASTER_SECRET_OPTVAL_C}, \
 
-#define XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_ENCRYPTED_SECRET_OPT "encrypted-secret"
-#define XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_ENCRYPTED_SECRET_OPTARG_REQUIRED MAIN_OPT_ARGUMENT_REQUIRED
-#define XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_ENCRYPTED_SECRET_OPTARG_RESULT 0
-#define XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_ENCRYPTED_SECRET_OPTARG "string"
-#define XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_ENCRYPTED_SECRET_OPTUSE "encrypted premaster secret"
-#define XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_ENCRYPTED_SECRET_OPTVAL_S "c:"
-#define XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_ENCRYPTED_SECRET_OPTVAL_C 'c'
-#define XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_ENCRYPTED_SECRET_OPTION \
-   {XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_ENCRYPTED_SECRET_OPT, \
-    XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_ENCRYPTED_SECRET_OPTARG_REQUIRED, \
-    XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_ENCRYPTED_SECRET_OPTARG_RESULT, \
-    XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_ENCRYPTED_SECRET_OPTVAL_C}, \
+#define XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_ENCRYPTED_PREMASTER_SECRET_OPT "encrypted-secret"
+#define XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_ENCRYPTED_PREMASTER_SECRET_OPTARG_REQUIRED MAIN_OPT_ARGUMENT_REQUIRED
+#define XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_ENCRYPTED_PREMASTER_SECRET_OPTARG_RESULT 0
+#define XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_ENCRYPTED_PREMASTER_SECRET_OPTARG "string"
+#define XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_ENCRYPTED_PREMASTER_SECRET_OPTUSE "encrypted premaster secret"
+#define XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_ENCRYPTED_PREMASTER_SECRET_OPTVAL_S "c:"
+#define XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_ENCRYPTED_PREMASTER_SECRET_OPTVAL_C 'c'
+#define XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_ENCRYPTED_PREMASTER_SECRET_OPTION \
+   {XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_ENCRYPTED_PREMASTER_SECRET_OPT, \
+    XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_ENCRYPTED_PREMASTER_SECRET_OPTARG_REQUIRED, \
+    XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_ENCRYPTED_PREMASTER_SECRET_OPTARG_RESULT, \
+    XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_ENCRYPTED_PREMASTER_SECRET_OPTVAL_C}, \
 
 #define XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_OPTIONS_CHARS_EXTEND \
     XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_MASTER_SECRET_OPTVAL_S \
     XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_CLIENT_HELLO_RANDOM_OPTVAL_S \
-   XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_ENCRYPTED_SECRET_OPTVAL_S \
-    XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_DECRYPTED_SECRET_OPTVAL_S \
+   XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_ENCRYPTED_PREMASTER_SECRET_OPTVAL_S \
+    XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_DECRYPTED_PREMASTER_SECRET_OPTVAL_S \
 
 #define XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_OPTIONS_OPTIONS_EXTEND \
     XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_MASTER_SECRET_OPTION \
     XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_CLIENT_HELLO_RANDOM_OPTION \
-   XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_ENCRYPTED_SECRET_OPTION \
-    XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_DECRYPTED_SECRET_OPTION \
+   XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_ENCRYPTED_PREMASTER_SECRET_OPTION \
+    XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_DECRYPTED_PREMASTER_SECRET_OPTION \
 
 #define XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_OPTIONS_CHARS \
    XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_OPTIONS_CHARS_EXTEND \
@@ -313,17 +313,17 @@ protected:
         optarg = XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_CLIENT_HELLO_RANDOM_OPTARG;
         return chars;
     }
-    virtual int on_set_encrypted_secret_option
+    virtual int on_set_encrypted_premaster_secret_option
     (const char_t* optarg, int optind, int argc, char_t** argv, char_t** env) {
         int err = 0;
         return err;
     }
-    virtual int on_decrypted_secret_option
+    virtual int on_decrypted_premaster_secret_option
     (int optval, const char_t* optarg, const char_t* optname,
      int optind, int argc, char_t**argv, char_t**env) {
         int err = 0;
         if ((optarg) && (optarg[0])) {
-            if (!(err = on_set_encrypted_secret_option(optarg, optind, argc, argv, env))) {
+            if (!(err = on_set_encrypted_premaster_secret_option(optarg, optind, argc, argv, env))) {
                 if (!(err = set_output_decrypted_premaster_secret_run(argc, argv, env))) {
                 }
             }
@@ -331,17 +331,17 @@ protected:
         }
         return err;
     }
-    virtual const char_t* decrypted_secret_option_usage(const char_t*& optarg, const struct option* longopt) {
-        const char_t* chars = XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_DECRYPTED_SECRET_OPTUSE;
-        optarg = XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_DECRYPTED_SECRET_OPTARG;
+    virtual const char_t* decrypted_premaster_secret_option_usage(const char_t*& optarg, const struct option* longopt) {
+        const char_t* chars = XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_DECRYPTED_PREMASTER_SECRET_OPTUSE;
+        optarg = XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_DECRYPTED_PREMASTER_SECRET_OPTARG;
         return chars;
     }
-    virtual int on_encrypted_secret_option
+    virtual int on_encrypted_premaster_secret_option
     (int optval, const char_t* optarg, const char_t* optname,
      int optind, int argc, char_t**argv, char_t**env) {
         int err = 0;
         if ((optarg) && (optarg[0])) {
-            if (!(err = on_set_encrypted_secret_option(optarg, optind, argc, argv, env))) {
+            if (!(err = on_set_encrypted_premaster_secret_option(optarg, optind, argc, argv, env))) {
                 if (!(err = set_output_encrypted_premaster_secret_run(argc, argv, env))) {
                 }
             }
@@ -349,9 +349,9 @@ protected:
         }
         return err;
     }
-    virtual const char_t* encrypted_secret_option_usage(const char_t*& optarg, const struct option* longopt) {
-        const char_t* chars = XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_ENCRYPTED_SECRET_OPTUSE;
-        optarg = XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_ENCRYPTED_SECRET_OPTARG;
+    virtual const char_t* encrypted_premaster_secret_option_usage(const char_t*& optarg, const struct option* longopt) {
+        const char_t* chars = XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_ENCRYPTED_PREMASTER_SECRET_OPTUSE;
+        optarg = XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_ENCRYPTED_PREMASTER_SECRET_OPTARG;
         return chars;
     }
     virtual int on_option
@@ -365,11 +365,11 @@ protected:
         case XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_CLIENT_HELLO_RANDOM_OPTVAL_C:
             err = this->on_client_hello_random_option(optval, optarg, optname, optind, argc, argv, env);
             break;
-        case XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_DECRYPTED_SECRET_OPTVAL_C:
-            err = this->on_decrypted_secret_option(optval, optarg, optname, optind, argc, argv, env);
+        case XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_DECRYPTED_PREMASTER_SECRET_OPTVAL_C:
+            err = this->on_decrypted_premaster_secret_option(optval, optarg, optname, optind, argc, argv, env);
             break;
-        case XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_ENCRYPTED_SECRET_OPTVAL_C:
-            err = this->on_encrypted_secret_option(optval, optarg, optname, optind, argc, argv, env);
+        case XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_ENCRYPTED_PREMASTER_SECRET_OPTVAL_C:
+            err = this->on_encrypted_premaster_secret_option(optval, optarg, optname, optind, argc, argv, env);
             break;
         default:
             err = extends::on_option(optval, optarg, optname, optind, argc, argv, env);
@@ -385,11 +385,11 @@ protected:
         case XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_CLIENT_HELLO_RANDOM_OPTVAL_C:
             chars = this->client_hello_random_option_usage(optarg, longopt);
             break;
-        case XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_DECRYPTED_SECRET_OPTVAL_C:
-            chars = this->decrypted_secret_option_usage(optarg, longopt);
+        case XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_DECRYPTED_PREMASTER_SECRET_OPTVAL_C:
+            chars = this->decrypted_premaster_secret_option_usage(optarg, longopt);
             break;
-        case XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_ENCRYPTED_SECRET_OPTVAL_C:
-            chars = this->encrypted_secret_option_usage(optarg, longopt);
+        case XOS_APP_CONSOLE_PROTOCOL_TLS_SERVER_MAIN_ENCRYPTED_PREMASTER_SECRET_OPTVAL_C:
+            chars = this->encrypted_premaster_secret_option_usage(optarg, longopt);
             break;
         default:
             chars = extends::option_usage(optarg, longopt);

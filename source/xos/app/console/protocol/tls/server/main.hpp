@@ -88,8 +88,6 @@ protected:
             ///this->output_hex_run(client_hello_random, argc, argv, env);
             ///this->outln();
             if ((client_hello_random_bytes = client_hello_random.has_elements(client_hello_random_length))) {
-                ///const ::talas::byte_array_t& master_secret_seed = this->master_secret_seed();
-                ///xos::protocol::tls::pseudo::random::reader reader(client_hello_random, master_secret_seed);
                 const xos::protocol::tls::encrypted::premaster::secret* p_encrypted_premaster_secret = 0;
 
                 if ((p_encrypted_premaster_secret = this->get_encrypted_premaster_secret())) {
@@ -108,11 +106,21 @@ protected:
                             ///this->output_hex_run(decrypted_premaster_secret, argc, argv, env);
                             ///this->outln();
                             if ((decrypted_premaster_secret_bytes 
-                                 = decrypted_premaster_secret.has_elements(decrypted_premaster_secret_length))) {
-                                 xos::protocol::tls::pkcs1::encoded::premaster::secret encoded_premaster_secret(decrypted_premaster_secret);
-                                 xos::protocol::tls::pkcs1::decoded::premaster::secret decoded_premaster_secret(encoded_premaster_secret);
+                                = decrypted_premaster_secret.has_elements(decrypted_premaster_secret_length))) {
+                                xos::protocol::tls::pkcs1::encoded::premaster::secret encoded_premaster_secret(decrypted_premaster_secret);
+                                xos::protocol::tls::pkcs1::decoded::premaster::secret decoded_premaster_secret(encoded_premaster_secret);
+                                const byte_t* decoded_premaster_secret_bytes = 0; size_t decoded_premaster_secret_length = 0; 
 
-                                this->output_hex_run(decoded_premaster_secret, argc, argv, env);
+                                ///this->output_hex_run(decoded_premaster_secret, argc, argv, env);
+                                ///this->outln();
+                                if ((decoded_premaster_secret_bytes 
+                                    = decoded_premaster_secret.has_elements(decoded_premaster_secret_length))) {
+                                    const ::talas::byte_array_t& master_secret_seed = this->master_secret_seed();
+                                    xos::protocol::tls::master::secret master_secret
+                                    (decoded_premaster_secret, master_secret_seed, client_hello_random, client_hello_random);
+                                    
+                                    this->output_hex_run(master_secret, argc, argv, env);
+                                }
                             }
                         }
                     }
@@ -182,8 +190,8 @@ protected:
         return err;
     }
 
-    /// on_set_encrypted_secret_option
-    virtual int on_set_encrypted_secret_option
+    /// on_set_encrypted_premaster_secret_option
+    virtual int on_set_encrypted_premaster_secret_option
     (const char_t* optarg, int optind, int argc, char_t** argv, char_t** env) {
         int err = 0;
         encrypted_premaster_secret_string_.assign(optarg);

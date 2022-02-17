@@ -55,6 +55,7 @@
 #include "xos/protocol/tls/decrypted/premaster/secret.hpp"
 #include "xos/protocol/tls/pkcs1/decoded/message.hpp"
 #include "xos/protocol/tls/pkcs1/decoded/premaster/secret.hpp"
+#include "xos/protocol/tls/master/secret.hpp"
 
 #include "xos/protocol/tls/key/exchange/algorithm.hpp"
 #include "xos/protocol/tls/client/key/exchange/message.hpp"
