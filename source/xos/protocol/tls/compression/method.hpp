@@ -35,7 +35,7 @@ enum {
 
 /// class methodt
 template 
-<typename TWhich = method_which_t, TWhich VWhichDefault = method_none, 
+<typename TWhich = method_which_t, TWhich VWhich = method_none, 
  class TMessagePart = tls::message::part, class TExtends = TMessagePart, class TImplements = typename TExtends::implements>
 
 class exported methodt: virtual public TImplements, public TExtends {
@@ -45,7 +45,7 @@ public:
     typedef methodt derives; 
     
     typedef TWhich which_t;
-    enum { which_default = VWhichDefault };
+    enum { which = VWhich };
     
     /// constructors / destructor
     methodt(const methodt& copy): which_(copy.which_) {
@@ -54,7 +54,7 @@ public:
     methodt(const which_t& which): which_(which) {
         combine();
     }
-    methodt(): which_(which_default) {
+    methodt(): which_(which) {
         combine();
     }
     virtual ~methodt() {

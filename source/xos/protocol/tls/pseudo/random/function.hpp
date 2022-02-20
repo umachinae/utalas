@@ -49,17 +49,17 @@ public:
     
     /// constructors / destructor
     functiont(const functiont& copy)
-    : secret_(copy.secret()), seed_(copy.seed()), A_(copy.A()) {
+    : secret_(copy.secret()), seed_(copy.seed()), iterate_begin_(0) {
     }
     functiont
     (const byte_array_t& secret, const byte_array_t& seed, const byte_array_t& A)
-    : secret_(secret), seed_(seed), A_(A) {
+    : secret_(secret), seed_(seed), A_(A), iterate_begin_(&derives::iterate_begin_A) {
     }
     functiont
     (const byte_array_t& secret, const byte_array_t& seed)
-    : secret_(secret), seed_(seed), A_(seed) {
+    : secret_(secret), seed_(seed), iterate_begin_(0) {
     }
-    functiont() {
+    functiont(): iterate_begin_(0) {
     }
     virtual ~functiont() {
     }
@@ -155,7 +155,22 @@ public:
         }
         return 0;
     }
+    const byte_t* (derives::*iterate_begin_)(size_t& length);
     virtual const byte_t* iterate_begin(size_t& length) {
+        const byte_t* bytes = 0;
+        if ((iterate_begin_)) {
+            bytes = (this->*iterate_begin_)(length);
+        } else {
+            bytes = iterate_begin_A0(length);
+        }
+        return bytes;
+    }
+    virtual const byte_t* iterate_begin_A(size_t& length) {
+        const byte_t* bytes = 0;
+        bytes = iterate(length);
+        return bytes;
+    }
+    virtual const byte_t* iterate_begin_A0(size_t& length) {
         byte_array_t& A = this->A();
         const byte_t* bytes = 0;
         A.set_length(0);

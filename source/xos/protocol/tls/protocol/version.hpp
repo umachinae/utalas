@@ -23,17 +23,32 @@
 
 #include "xos/protocol/tls/message/part.hpp"
 
-#define XOS_PROTOCOL_TLS_PROTOCOL_VERSION_MAJOR 3
-#define XOS_PROTOCOL_TLS_PROTOCOL_VERSION_MINOR 3
-
 namespace xos {
 namespace protocol {
 namespace tls {
 namespace protocol {
 
+typedef uint8_t version_part_t;
+typedef uint16_t version_which_t;
+enum {
+    version_10 = 0x0301,
+    version_11 = 0x0302,
+    version_12 = 0x0303,
+    version_13 = 0x0304,
+    
+    version_major_shift = 8,
+    version_major_mask  = 0xff,
+    
+    version_minor_shift = 0,
+    version_minor_mask  = 0xff
+};
+
 /// class versiont
 template 
-<typename TPart = uint8_t, class TMessagePart = tls::message::part,
+<typename TWhich = version_which_t, TWhich VWhich = version_12,
+ TWhich VMajorShift = version_major_shift, TWhich VMajorMask = version_major_mask,
+ TWhich VMinorShift = version_minor_shift, TWhich VMinorMask = version_minor_mask,
+ typename TPart = version_part_t, class TMessagePart = tls::message::part,
  class TExtends = TMessagePart, class TImplements = typename TExtends::implements>
 
 class exported versiont: virtual public TImplements, public TExtends {
@@ -42,16 +57,31 @@ public:
     typedef TExtends extends;
     typedef versiont derives; 
     
-    typedef TPart part_t;
     typedef TMessagePart message_part_t;
+    typedef TPart part_t;
+    typedef TWhich which_t;
+    enum {
+        which = VWhich,
+
+        major_shift = VMajorShift,
+        major_mask  = VMajorMask,
+
+        minor_shift = VMinorShift,
+        minor_mask  = VMinorMask
+    };
     
     /// constructors / destructor
     versiont(const versiont& copy): major_(copy.major()), minor_(copy.minor()) {
         combine();
     }
+    versiont(const which_t& which)
+    : major_((which >> major_shift) & major_mask), 
+      minor_((which >> minor_shift) & minor_mask) {
+        combine();
+    }
     versiont()
-    : major_(XOS_PROTOCOL_TLS_PROTOCOL_VERSION_MAJOR),
-      minor_(XOS_PROTOCOL_TLS_PROTOCOL_VERSION_MINOR) {
+    : major_((which >> major_shift) & major_mask), 
+      minor_((which >> minor_shift) & minor_mask) {
         combine();
     }
     virtual ~versiont() {

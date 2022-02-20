@@ -16,15 +16,15 @@
 ///   File: main.hpp
 ///
 /// Author: $author$
-///   Date: 1/31/2022
+///   Date: 2/17/2022
 ///////////////////////////////////////////////////////////////////////
-#ifndef XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_HPP
-#define XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_HPP
+#ifndef XOS_APP_CONSOLE_PROTOCOL_UDTP_BASE_MAIN_HPP
+#define XOS_APP_CONSOLE_PROTOCOL_UDTP_BASE_MAIN_HPP
 
-#include "xos/app/console/protocol/tls/base/main_opt.hpp"
+#include "xos/app/console/protocol/udtp/base/main_opt.hpp"
+
 #include "xos/protocol/tls/protocol/version.hpp"
 
-#include "xos/crypto/pseudo/random/reader.hpp"
 #include "xos/protocol/tls/pseudo/random/reader.hpp"
 #include "xos/protocol/tls/gmt/unix/time.hpp"
 #include "xos/protocol/tls/random/bytes.hpp"
@@ -62,6 +62,8 @@
 
 #include "xos/protocol/tls/handshake/message.hpp"
 
+#include "xos/crypto/pseudo/random/reader.hpp"
+
 #include "talas/app/console/rsa/public_key.hpp"
 #include "talas/app/console/rsa/private_key.hpp"
 
@@ -78,12 +80,12 @@ namespace xos {
 namespace app {
 namespace console {
 namespace protocol {
-namespace tls {
+namespace udtp {
 namespace base {
 
 /// class maint
 template 
-<class TExtends = xos::app::console::protocol::tls::base::main_opt, 
+<class TExtends = xos::app::console::protocol::udtp::base::main_opt, 
  class TImplements = typename TExtends::implements>
 
 class exported maint: virtual public TImplements, public TExtends {
@@ -103,12 +105,13 @@ public:
     /// constructor / destructor
     maint()
     : run_(0), 
+      protocol_version_which_(xos::protocol::tls::protocol::version::which),
+      cipher_suite_which_(xos::protocol::tls::cipher::suite::which),
+      cipher_suite_with_(xos::protocol::tls::cipher::suite::with),
+      compression_method_which_(xos::protocol::tls::compression::method::which),
       secret_string_(XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_PSEUDO_RANDOM_SECRET), 
       seed_string_(XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_PSEUDO_RANDOM_SEED),
-      master_secret_seed_string_(XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_MASTER_SECRET_SEED),
-      cipher_suite_which_(xos::protocol::tls::cipher::suite::which), 
-      cipher_suite_with_(xos::protocol::tls::cipher::suite::with),
-      compression_method_which_(xos::protocol::tls::compression::method::which) {
+      master_secret_seed_string_(XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_MASTER_SECRET_SEED) {
         set_secret(secret_string());
         set_seed(seed_string());
         set_master_secret_seed(master_secret_seed_string());
@@ -155,14 +158,6 @@ protected:
         return err;
     }
 
-    /// ...output_protocol_version_run
-    virtual int output_protocol_version_run(int argc, char_t** argv, char_t** env) {
-        int err = 0;
-        xos::protocol::tls::protocol::version protocol_version = this->protocol_version();
-        this->output_hex_run(protocol_version, argc, argv, env);
-        return err;
-    }
-
     /// output_get_..._run
     virtual int default_output_get_private_key_run(int argc, char_t** argv, char_t** env) {
         int err = 0;
@@ -187,24 +182,6 @@ protected:
             if ((bytes = get_modulus(length)) && (length)) {
                 this->output_x(bytes, length, argc, argv, env);
             }
-        }
-        return err;
-    }
-    virtual int default_output_get_public_modulus_run(int argc, char_t** argv, char_t** env) {
-        int err = 0;
-        size_t length = 0;
-        const byte_t *bytes = 0;
-        if ((bytes = get_modulus(length)) && (length)) {
-            this->output_x(bytes, length, argc, argv, env);
-        }
-        return err;
-    }
-    virtual int default_output_get_public_exponent_run(int argc, char_t** argv, char_t** env) {
-        int err = 0;
-        size_t length = 0;
-        const byte_t *bytes = 0;
-        if ((bytes = get_exponent(length)) && (length)) {
-            this->output_x(bytes, length, argc, argv, env);
         }
         return err;
     }
@@ -290,19 +267,19 @@ protected:
         err = this->set_get_literal_modulus(argc, argv, env);
         return err;
     }
-    virtual int on_set_modulus_option(const char_t* modulus, int optind, int argc, char_t** argv, char_t** env) {
-        int err = 0;
-        modulus_string_.assign(modulus);
-        err = this->on_set_hex_literal(modulus_, modulus_string_, argc, argv, env);
-        err = this->set_get_literal_modulus(argc, argv, env);
-        return err;
+
+    /// ...
+    virtual xos::protocol::tls::protocol::version::which_t& protocol_version_which() const {
+        return (xos::protocol::tls::protocol::version::which_t&)protocol_version_which_;
     }
-    virtual int on_set_exponent_option(const char_t* exponent, int optind, int argc, char_t** argv, char_t** env) {
-        int err = 0;
-        exponent_string_.assign(exponent);
-        err = this->on_set_hex_literal(exponent_, exponent_string_, argc, argv, env);
-        err = this->set_get_literal_exponent(argc, argv, env);
-        return err;
+    virtual xos::protocol::tls::cipher::suite::which_t& cipher_suite_which() const {
+        return (xos::protocol::tls::cipher::suite::which_t&)cipher_suite_which_;
+    }
+    virtual xos::protocol::tls::cipher::suite::with_t& cipher_suite_with() const {
+        return (xos::protocol::tls::cipher::suite::with_t&)cipher_suite_with_;
+    }
+    virtual xos::protocol::tls::compression::method::which_t compression_method_which() const {
+        return (xos::protocol::tls::compression::method::which_t&)compression_method_which_;
     }
 
     /// ...secret...
@@ -387,20 +364,6 @@ protected:
     }
     virtual ::talas::byte_array_t& master_secret_seed() const {
         return (::talas::byte_array_t&)master_secret_seed_;
-    }
-
-    /// ...
-    virtual xos::protocol::tls::protocol::version protocol_version() const {
-        return (xos::protocol::tls::protocol::version&)protocol_version_;
-    }
-    virtual xos::protocol::tls::cipher::suite::which_t cipher_suite_which() const {
-        return (xos::protocol::tls::cipher::suite::which_t&)cipher_suite_which_;
-    }
-    virtual xos::protocol::tls::cipher::suite::with_t cipher_suite_with() const {
-        return (xos::protocol::tls::cipher::suite::with_t&)cipher_suite_with_;
-    }
-    virtual xos::protocol::tls::compression::method::which_t compression_method_which() const {
-        return (xos::protocol::tls::compression::method::which_t&)compression_method_which_;
     }
 
     /// ...get_exponent
@@ -522,22 +485,24 @@ protected:
     }
 
 protected:
-    ::talas::string_t secret_string_, seed_string_, master_secret_seed_string_;
-    ::talas::byte_array_t secret_, seed_, master_secret_seed_;
-    xos::protocol::tls::protocol::version protocol_version_;
+    xos::protocol::tls::protocol::version::which_t protocol_version_which_;
     xos::protocol::tls::cipher::suite::which_t cipher_suite_which_;
     xos::protocol::tls::cipher::suite::with_t cipher_suite_with_;
     xos::protocol::tls::compression::method::which_t compression_method_which_;
+
+    ::talas::string_t secret_string_, seed_string_, master_secret_seed_string_;
+    ::talas::byte_array_t secret_, seed_, master_secret_seed_;
+
+    ::talas::string_t public_string_, private_string_;
     ::talas::byte_array_t exponent_, modulus_, p_, q_, dmp1_, dmq1_, iqmp_;
-    ::talas::string_t exponent_string_, modulus_string_, public_string_, private_string_;
 }; /// class maint
 typedef maint<> main;
 
 } /// namespace base
-} /// namespace tls
+} /// namespace udtp
 } /// namespace protocol
 } /// namespace console
 } /// namespace app
 } /// namespace xos
 
-#endif /// ndef XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_HPP
+#endif /// ndef XOS_APP_CONSOLE_PROTOCOL_UDTP_BASE_MAIN_HPP

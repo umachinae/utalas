@@ -46,6 +46,9 @@ public:
     timet(const timet& copy): gmt_unix_time_(copy.gmt_unix_time_) {
         combine();
     }
+    timet(const gmt_unix_time_t& gmt_unix_time): gmt_unix_time_(gmt_unix_time) {
+        combine();
+    }
     timet(): gmt_unix_time_(0) {
         set_now();
     }
@@ -69,7 +72,7 @@ public:
         combine();
         return gmt_unix_time_;
     }
-    virtual gmt_unix_time_t now() const {
+    static gmt_unix_time_t now() {
         time_t unix_time = 0;
         gmt_unix_time_t gmt_unix_time = ((gmt_unix_time_t)::time(&unix_time));
         return gmt_unix_time;

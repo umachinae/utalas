@@ -39,8 +39,8 @@ enum {
 
 /// class suitet
 template 
-<typename TWhich = suite_which_t, TWhich VWhichDefault = RSA, 
- typename TWith = suite_with_t, TWith VWithDefault = WITH_AES_256_CBC_SHA256,
+<typename TWhich = suite_which_t, TWhich VWhich = RSA, 
+ typename TWith = suite_with_t, TWith VWith = WITH_AES_256_CBC_SHA256,
  class TMessagePart = tls::message::part, class TExtends = TMessagePart, class TImplements = typename TExtends::implements>
 
 class exported suitet: virtual public TImplements, public TExtends {
@@ -50,10 +50,10 @@ public:
     typedef suitet derives; 
     
     typedef TWhich which_t;
-    enum { which_default = VWhichDefault };
+    enum { which = VWhich };
 
     typedef TWith with_t;
-    enum { with_default = VWithDefault };
+    enum { with = VWith };
     
     /// constructors / destructor
     suitet(const suitet& copy): which_(copy.which_), with_(copy.which_) {
@@ -62,7 +62,7 @@ public:
     suitet(const which_t& which, const which_t& with): which_(which), with_(with) {
         combine();
     }
-    suitet(): which_(which_default), with_(with_default) {
+    suitet(): which_(which), with_(with) {
         combine();
     }
     virtual ~suitet() {

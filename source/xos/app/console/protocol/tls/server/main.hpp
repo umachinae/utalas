@@ -85,8 +85,8 @@ protected:
             const xos::protocol::tls::hello::random& client_hello_random = *p_client_hello_random;
             const byte_t* client_hello_random_bytes = 0; size_t client_hello_random_length = 0;
 
-            ///this->output_hex_run(client_hello_random, argc, argv, env);
-            ///this->outln();
+            this->output_hex_run(client_hello_random, argc, argv, env);
+            this->outln();
             if ((client_hello_random_bytes = client_hello_random.has_elements(client_hello_random_length))) {
                 const xos::protocol::tls::encrypted::premaster::secret* p_encrypted_premaster_secret = 0;
 
@@ -103,16 +103,16 @@ protected:
                             xos::protocol::tls::decrypted::premaster::secret decrypted_premaster_secret(private_key, encrypted_premaster_secret);
                             const byte_t* decrypted_premaster_secret_bytes = 0; size_t decrypted_premaster_secret_length = 0;
 
-                            ///this->output_hex_run(decrypted_premaster_secret, argc, argv, env);
-                            ///this->outln();
+                            this->output_hex_run(decrypted_premaster_secret, argc, argv, env);
+                            this->outln();
                             if ((decrypted_premaster_secret_bytes 
                                 = decrypted_premaster_secret.has_elements(decrypted_premaster_secret_length))) {
                                 xos::protocol::tls::pkcs1::encoded::premaster::secret encoded_premaster_secret(decrypted_premaster_secret);
                                 xos::protocol::tls::pkcs1::decoded::premaster::secret decoded_premaster_secret(encoded_premaster_secret);
                                 const byte_t* decoded_premaster_secret_bytes = 0; size_t decoded_premaster_secret_length = 0; 
 
-                                ///this->output_hex_run(decoded_premaster_secret, argc, argv, env);
-                                ///this->outln();
+                                this->output_hex_run(decoded_premaster_secret, argc, argv, env);
+                                this->outln();
                                 if ((decoded_premaster_secret_bytes 
                                     = decoded_premaster_secret.has_elements(decoded_premaster_secret_length))) {
                                     const ::talas::byte_array_t& master_secret_seed = this->master_secret_seed();
