@@ -65,14 +65,9 @@
 #include "talas/app/console/rsa/public_key.hpp"
 #include "talas/app/console/rsa/private_key.hpp"
 
-#define XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_PSEUDO_RANDOM_SECRET \
-    "E5B62E66-8349-11EC-8C95-7F8924CBD8A2"
-
-#define XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_PSEUDO_RANDOM_SEED \
-    "ECBD992E-8349-11EC-9EC2-259E551AB68D"
-
-#define XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_MASTER_SECRET_SEED \
-    "207EBEBA-8EBB-11EC-9F61-E9CB4A0F4C82"
+#include "xos/protocol/tls/pseudo/random/secret.hpp"
+#include "xos/protocol/tls/pseudo/random/seed.hpp"
+#include "xos/protocol/tls/master/secret/seed.hpp"
 
 namespace xos {
 namespace app {
@@ -103,9 +98,9 @@ public:
     /// constructor / destructor
     maint()
     : run_(0), 
-      secret_string_(XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_PSEUDO_RANDOM_SECRET), 
-      seed_string_(XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_PSEUDO_RANDOM_SEED),
-      master_secret_seed_string_(XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_MASTER_SECRET_SEED),
+      secret_string_(xos::protocol::tls::pseudo_random_secret_chars), 
+      seed_string_(xos::protocol::tls::pseudo_random_seed_chars),
+      master_secret_seed_string_(xos::protocol::tls::master_secret_seed_chars),
       cipher_suite_which_(xos::protocol::tls::cipher::suite::which), 
       cipher_suite_with_(xos::protocol::tls::cipher::suite::with),
       compression_method_which_(xos::protocol::tls::compression::method::which) {

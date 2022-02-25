@@ -29,7 +29,7 @@ namespace tls {
 
 /// class uintegert
 template 
-<typename TUinteger = unsigned, size_t VSizeOf = sizeof (TUinteger), 
+<typename TUinteger = unsigned, size_t VSizeOf = sizeof(TUinteger), 
  class TMessagePart = tls::message::part, 
  class TExtends = TMessagePart, class TImplements = typename TExtends::implements>
 

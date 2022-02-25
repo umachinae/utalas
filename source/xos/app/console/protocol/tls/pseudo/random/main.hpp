@@ -22,12 +22,12 @@
 #define XOS_APP_CONSOLE_PROTOCOL_TLS_PSEUDO_RANDOM_MAIN_HPP
 
 #include "xos/app/console/protocol/tls/pseudo/random/main_opt.hpp"
+
 #include "xos/protocol/tls/pseudo/random/function.hpp"
 #include "xos/protocol/tls/pseudo/random/reader.hpp"
 
-#define XOS_APP_CONSOLE_PROTOCOL_TLS_PSEUDO_RANDOM_BYTES 4096
-#define XOS_APP_CONSOLE_PROTOCOL_TLS_PSEUDO_RANDOM_SECRET "F535ECF8-81C0-11EC-9F7A-7DDA441CF5FB"
-#define XOS_APP_CONSOLE_PROTOCOL_TLS_PSEUDO_RANDOM_SEED "0B61B0A2-81C1-11EC-9E44-A9E8EFF00E46"
+#include "xos/protocol/tls/pseudo/random/secret.hpp"
+#include "xos/protocol/tls/pseudo/random/seed.hpp"
 
 namespace xos {
 namespace app {
@@ -59,9 +59,9 @@ public:
     /// constructor / destructor
     maint()
     : run_(0), 
-      bytes_(XOS_APP_CONSOLE_PROTOCOL_TLS_PSEUDO_RANDOM_BYTES),
-      secret_string_(XOS_APP_CONSOLE_PROTOCOL_TLS_PSEUDO_RANDOM_SECRET),
-      seed_string_(XOS_APP_CONSOLE_PROTOCOL_TLS_PSEUDO_RANDOM_SEED) {
+      bytes_(4*1024),
+      secret_string_(xos::protocol::tls::pseudo_random_secret_chars),
+      seed_string_(xos::protocol::tls::pseudo_random_seed_chars) {
         set_secret(secret_string());
         set_seed(seed_string());
     }

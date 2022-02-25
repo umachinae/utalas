@@ -61,20 +61,24 @@
 #include "xos/protocol/tls/client/key/exchange/message.hpp"
 
 #include "xos/protocol/tls/handshake/message.hpp"
+#include "xos/protocol/tls/plaintext.hpp"
+
+#include "xos/protocol/tls/bulk/cipher/algorithm.hpp"
+#include "xos/protocol/tls/cipher/type.hpp"
+#include "xos/protocol/tls/connection/end.hpp"
+#include "xos/protocol/tls/prf/algorithm.hpp"
+#include "xos/protocol/tls/mac/algorithm.hpp"
+#include "xos/protocol/tls/security/parameters.hpp"
 
 #include "xos/crypto/pseudo/random/reader.hpp"
 
 #include "talas/app/console/rsa/public_key.hpp"
 #include "talas/app/console/rsa/private_key.hpp"
 
-#define XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_PSEUDO_RANDOM_SECRET \
-    "E5B62E66-8349-11EC-8C95-7F8924CBD8A2"
-
-#define XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_PSEUDO_RANDOM_SEED \
-    "ECBD992E-8349-11EC-9EC2-259E551AB68D"
-
-#define XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_MASTER_SECRET_SEED \
-    "207EBEBA-8EBB-11EC-9F61-E9CB4A0F4C82"
+#include "xos/protocol/tls/pseudo/random/secret.hpp"
+#include "xos/protocol/tls/pseudo/random/seed.hpp"
+#include "xos/protocol/tls/master/secret/seed.hpp"
+#include "xos/protocol/tls/key/expansion/seed.hpp"
 
 namespace xos {
 namespace app {
@@ -109,12 +113,14 @@ public:
       cipher_suite_which_(xos::protocol::tls::cipher::suite::which),
       cipher_suite_with_(xos::protocol::tls::cipher::suite::with),
       compression_method_which_(xos::protocol::tls::compression::method::which),
-      secret_string_(XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_PSEUDO_RANDOM_SECRET), 
-      seed_string_(XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_PSEUDO_RANDOM_SEED),
-      master_secret_seed_string_(XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_MASTER_SECRET_SEED) {
+      secret_string_(xos::protocol::tls::pseudo_random_secret_chars), 
+      seed_string_(xos::protocol::tls::pseudo_random_seed_chars),
+      master_secret_seed_string_(xos::protocol::tls::master_secret_seed_chars),
+      key_expansion_seed_string_(xos::protocol::tls::key_expansion_seed_chars) {
         set_secret(secret_string());
         set_seed(seed_string());
         set_master_secret_seed(master_secret_seed_string());
+        set_key_expansion_seed(key_expansion_seed_string());
     }
     virtual ~maint() {
     }
@@ -366,6 +372,34 @@ protected:
         return (::talas::byte_array_t&)master_secret_seed_;
     }
 
+    /// ...key_expansion_seed...
+    virtual ::talas::string_t& set_key_expansion_seed_string(const char_t* to) {
+        if ((to) && (to[0])) {
+            key_expansion_seed_string_.assign(to);
+        }
+        return (::talas::string_t&)key_expansion_seed_string_;
+    }
+    virtual ::talas::string_t& key_expansion_seed_string() const {
+        return (::talas::string_t&)key_expansion_seed_string_;
+    }
+    virtual ::talas::byte_array_t& set_key_expansion_seed(::talas::string_t& to) {
+        const char_t* chars = 0; size_t length = 0;
+        if ((chars = to.has_chars(length))) {
+            set_key_expansion_seed(chars, length);
+        }
+        return (::talas::byte_array_t&)key_expansion_seed_;
+    }
+    virtual ::talas::byte_array_t& set_key_expansion_seed(const char_t* to, size_t length) {
+        const byte_t* bytes = 0;
+        if ((bytes = (const byte_t*)to) && (length)) {
+            key_expansion_seed_.assign(bytes, length);
+        }
+        return (::talas::byte_array_t&)key_expansion_seed_;
+    }
+    virtual ::talas::byte_array_t& key_expansion_seed() const {
+        return (::talas::byte_array_t&)key_expansion_seed_;
+    }
+
     /// ...get_exponent
     const byte_t* (derives::*get_exponent_)(size_t &length);
     virtual const byte_t* get_exponent(size_t &length) {
@@ -490,8 +524,8 @@ protected:
     xos::protocol::tls::cipher::suite::with_t cipher_suite_with_;
     xos::protocol::tls::compression::method::which_t compression_method_which_;
 
-    ::talas::string_t secret_string_, seed_string_, master_secret_seed_string_;
-    ::talas::byte_array_t secret_, seed_, master_secret_seed_;
+    ::talas::string_t secret_string_, seed_string_, master_secret_seed_string_, key_expansion_seed_string_;
+    ::talas::byte_array_t secret_, seed_, master_secret_seed_, key_expansion_seed_;
 
     ::talas::string_t public_string_, private_string_;
     ::talas::byte_array_t exponent_, modulus_, p_, q_, dmp1_, dmq1_, iqmp_;

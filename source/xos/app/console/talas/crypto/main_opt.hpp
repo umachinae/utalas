@@ -56,13 +56,43 @@
     XOS_APP_CONSOLE_TALAS_CRYPTO_MAIN_STRING_INPUT_OPTARG_RESULT, \
     XOS_APP_CONSOLE_TALAS_CRYPTO_MAIN_STRING_INPUT_OPTVAL_C}, \
 
+#define XOS_APP_CONSOLE_TALAS_CRYPTO_MAIN_QUIET_OPT "quiet"
+#define XOS_APP_CONSOLE_TALAS_CRYPTO_MAIN_QUIET_OPTARG_REQUIRED MAIN_OPT_ARGUMENT_NONE
+#define XOS_APP_CONSOLE_TALAS_CRYPTO_MAIN_QUIET_OPTARG_RESULT 0
+#define XOS_APP_CONSOLE_TALAS_CRYPTO_MAIN_QUIET_OPTARG ""
+#define XOS_APP_CONSOLE_TALAS_CRYPTO_MAIN_QUIET_OPTUSE "quiet output"
+#define XOS_APP_CONSOLE_TALAS_CRYPTO_MAIN_QUIET_OPTVAL_S "q"
+#define XOS_APP_CONSOLE_TALAS_CRYPTO_MAIN_QUIET_OPTVAL_C 'q'
+#define XOS_APP_CONSOLE_TALAS_CRYPTO_MAIN_QUIET_OPTION \
+   {XOS_APP_CONSOLE_TALAS_CRYPTO_MAIN_QUIET_OPT, \
+    XOS_APP_CONSOLE_TALAS_CRYPTO_MAIN_QUIET_OPTARG_REQUIRED, \
+    XOS_APP_CONSOLE_TALAS_CRYPTO_MAIN_QUIET_OPTARG_RESULT, \
+    XOS_APP_CONSOLE_TALAS_CRYPTO_MAIN_QUIET_OPTVAL_C}, \
+
+#define XOS_APP_CONSOLE_TALAS_CRYPTO_MAIN_VERBOSE_OPT "verbose"
+#define XOS_APP_CONSOLE_TALAS_CRYPTO_MAIN_VERBOSE_OPTARG_REQUIRED MAIN_OPT_ARGUMENT_NONE
+#define XOS_APP_CONSOLE_TALAS_CRYPTO_MAIN_VERBOSE_OPTARG_RESULT 0
+#define XOS_APP_CONSOLE_TALAS_CRYPTO_MAIN_VERBOSE_OPTARG ""
+#define XOS_APP_CONSOLE_TALAS_CRYPTO_MAIN_VERBOSE_OPTUSE "verbose output"
+#define XOS_APP_CONSOLE_TALAS_CRYPTO_MAIN_VERBOSE_OPTVAL_S "o"
+#define XOS_APP_CONSOLE_TALAS_CRYPTO_MAIN_VERBOSE_OPTVAL_C 'o'
+#define XOS_APP_CONSOLE_TALAS_CRYPTO_MAIN_VERBOSE_OPTION \
+   {XOS_APP_CONSOLE_TALAS_CRYPTO_MAIN_VERBOSE_OPT, \
+    XOS_APP_CONSOLE_TALAS_CRYPTO_MAIN_VERBOSE_OPTARG_REQUIRED, \
+    XOS_APP_CONSOLE_TALAS_CRYPTO_MAIN_VERBOSE_OPTARG_RESULT, \
+    XOS_APP_CONSOLE_TALAS_CRYPTO_MAIN_VERBOSE_OPTVAL_C}, \
+
 #define XOS_APP_CONSOLE_TALAS_CRYPTO_MAIN_OPTIONS_CHARS_EXTEND \
     XOS_APP_CONSOLE_TALAS_CRYPTO_MAIN_FILE_INPUT_OPTVAL_S \
     XOS_APP_CONSOLE_TALAS_CRYPTO_MAIN_STRING_INPUT_OPTVAL_S \
+    XOS_APP_CONSOLE_TALAS_CRYPTO_MAIN_QUIET_OPTVAL_S \
+    XOS_APP_CONSOLE_TALAS_CRYPTO_MAIN_VERBOSE_OPTVAL_S \
 
 #define XOS_APP_CONSOLE_TALAS_CRYPTO_MAIN_OPTIONS_OPTIONS_EXTEND \
     XOS_APP_CONSOLE_TALAS_CRYPTO_MAIN_FILE_INPUT_OPTION \
     XOS_APP_CONSOLE_TALAS_CRYPTO_MAIN_STRING_INPUT_OPTION \
+    XOS_APP_CONSOLE_TALAS_CRYPTO_MAIN_QUIET_OPTION \
+    XOS_APP_CONSOLE_TALAS_CRYPTO_MAIN_VERBOSE_OPTION \
 
 #define XOS_APP_CONSOLE_TALAS_CRYPTO_MAIN_OPTIONS_CHARS \
    XOS_APP_CONSOLE_TALAS_CRYPTO_MAIN_OPTIONS_CHARS_EXTEND \
@@ -101,7 +131,7 @@ public:
     typedef typename extends::file_t file_t;
 
     /// constructor / destructor
-    main_optt(): run_(0), output_x_(0) {
+    main_optt(): run_(0), output_x_(0), verbose_output_(false) {
     }
     virtual ~main_optt() {
     }
@@ -387,6 +417,30 @@ protected:
         optarg = XOS_APP_CONSOLE_TALAS_CRYPTO_MAIN_STRING_INPUT_OPTARG;
         return chars;
     }
+    virtual int on_verbose_option
+    (int optval, const char_t* optarg, const char_t* optname,
+     int optind, int argc, char_t**argv, char_t**env) {
+        int err = 0;
+        set_verbose_output(true);
+        return err;
+    }
+    virtual const char_t* verbose_option_usage(const char_t*& optarg, const struct option* longopt) {
+        const char_t* chars = XOS_APP_CONSOLE_TALAS_CRYPTO_MAIN_VERBOSE_OPTUSE;
+        optarg = XOS_APP_CONSOLE_TALAS_CRYPTO_MAIN_VERBOSE_OPTARG;
+        return chars;
+    }
+    virtual int on_quiet_option
+    (int optval, const char_t* optarg, const char_t* optname,
+     int optind, int argc, char_t**argv, char_t**env) {
+        int err = 0;
+        set_verbose_output(false);
+        return err;
+    }
+    virtual const char_t* quiet_option_usage(const char_t*& optarg, const struct option* longopt) {
+        const char_t* chars = XOS_APP_CONSOLE_TALAS_CRYPTO_MAIN_QUIET_OPTUSE;
+        optarg = XOS_APP_CONSOLE_TALAS_CRYPTO_MAIN_QUIET_OPTARG;
+        return chars;
+    }
     virtual int on_option
     (int optval, const char_t* optarg, const char_t* optname,
      int optind, int argc, char_t**argv, char_t**env) {
@@ -397,6 +451,12 @@ protected:
             break;
         case XOS_APP_CONSOLE_TALAS_CRYPTO_MAIN_STRING_INPUT_OPTVAL_C:
             err = this->on_string_input_option(optval, optarg, optname, optind, argc, argv, env);
+            break;
+        case XOS_APP_CONSOLE_TALAS_CRYPTO_MAIN_VERBOSE_OPTVAL_C:
+            err = this->on_verbose_option(optval, optarg, optname, optind, argc, argv, env);
+            break;
+        case XOS_APP_CONSOLE_TALAS_CRYPTO_MAIN_QUIET_OPTVAL_C:
+            err = this->on_quiet_option(optval, optarg, optname, optind, argc, argv, env);
             break;
         default:
             err = extends::on_option(optval, optarg, optname, optind, argc, argv, env);
@@ -411,6 +471,12 @@ protected:
             break;
         case XOS_APP_CONSOLE_TALAS_CRYPTO_MAIN_STRING_INPUT_OPTVAL_C:
             chars = this->string_input_option_usage(optarg, longopt);
+            break;
+        case XOS_APP_CONSOLE_TALAS_CRYPTO_MAIN_VERBOSE_OPTVAL_C:
+            chars = this->verbose_option_usage(optarg, longopt);
+            break;
+        case XOS_APP_CONSOLE_TALAS_CRYPTO_MAIN_QUIET_OPTVAL_C:
+            chars = this->quiet_option_usage(optarg, longopt);
             break;
         default:
             chars = extends::option_usage(optarg, longopt);
@@ -437,7 +503,17 @@ protected:
         return _args;
     }
 
+    /// ...verbose_output
+    virtual bool& set_verbose_output(const bool& to) {
+        verbose_output_ = to;
+        return (bool&)verbose_output_;
+    }
+    virtual bool& verbose_output() const {
+        return (bool&)verbose_output_;
+    }
+
 protected:
+    bool verbose_output_;
 }; /// class main_optt
 typedef main_optt<> main_opt;
 
