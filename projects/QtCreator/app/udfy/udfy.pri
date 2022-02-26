@@ -80,6 +80,14 @@ $${UTALAS_SRC}/xos/protocol/tls/client/hello.hpp \
 $${UTALAS_SRC}/xos/protocol/tls/content/type.hpp \
 $${UTALAS_SRC}/xos/protocol/tls/plaintext.hpp \
 \
+$${UTALAS_SRC}/xos/protocol/tls/connection/end.hpp \
+$${UTALAS_SRC}/xos/protocol/tls/cipher/type.hpp \
+$${UTALAS_SRC}/xos/protocol/tls/bulk/cipher/algorithm.hpp \
+$${UTALAS_SRC}/xos/protocol/tls/mac/algorithm.hpp \
+$${UTALAS_SRC}/xos/protocol/tls/prf/algorithm.hpp \
+$${UTALAS_SRC}/xos/protocol/tls/security/parameters.hpp \
+$${UTALAS_SRC}/xos/protocol/tls/generic/block/cipher.hpp \
+\
 $${UTALAS_SRC}/xos/app/console/protocol/udtp/base/main_opt.hpp \
 $${UTALAS_SRC}/xos/app/console/protocol/udtp/base/main.hpp \
 \
@@ -108,6 +116,11 @@ $${UTALAS_SRC}/xos/protocol/tls/session/identifier.cpp \
 $${UTALAS_SRC}/xos/protocol/tls/client/hello.cpp \
 $${UTALAS_SRC}/xos/protocol/tls/content/type.cpp \
 $${UTALAS_SRC}/xos/protocol/tls/plaintext.cpp \
+\
+$${UTALAS_SRC}/xos/protocol/tls/connection/end.cpp \
+$${UTALAS_SRC}/xos/protocol/tls/prf/algorithm.cpp \
+$${UTALAS_SRC}/xos/protocol/tls/generic/block/cipher.cpp \
+$${UTALAS_SRC}/xos/protocol/tls/security/parameters.cpp \
 \
 $${UTALAS_SRC}/xos/app/console/protocol/udtp/client/main_opt.cpp \
 $${UTALAS_SRC}/xos/app/console/protocol/udtp/client/main.cpp \
