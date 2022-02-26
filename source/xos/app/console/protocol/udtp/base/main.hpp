@@ -69,6 +69,7 @@
 #include "xos/protocol/tls/prf/algorithm.hpp"
 #include "xos/protocol/tls/mac/algorithm.hpp"
 #include "xos/protocol/tls/security/parameters.hpp"
+#include "xos/protocol/tls/generic/block/cipher.hpp"
 
 #include "xos/crypto/pseudo/random/reader.hpp"
 

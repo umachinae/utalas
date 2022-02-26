@@ -41,6 +41,7 @@ public:
     typedef TExtends extends;
     typedef readert derives; 
     
+    typedef unsigned seed_t;
     typedef TGenerator generator_t;
     typedef typename implements::what_t what_t;
     typedef typename implements::sized_t sized_t;
@@ -48,7 +49,7 @@ public:
     /// constructors / destructor
     readert(const readert& copy): extends(copy) {
     }
-    readert(const unsigned& seed): generator_(seed) {
+    readert(const seed_t& seed): generator_(seed) {
     }
     readert() {
     }

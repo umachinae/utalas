@@ -59,8 +59,10 @@ public:
     typedef TConnectionEnd connection_end_t;
     typedef TPRFAlgorithm prf_algorithm_t;
     typedef TBulkCipherAlgorithm bulk_cipher_algorithm_t;
+    typedef typename bulk_cipher_algorithm_t::which_t bulk_cipher_algorithm_which_t;
     typedef TCipherType cipher_type_t;
     typedef TMACAlgorithm mac_algorithm_t;
+    typedef typename mac_algorithm_t::which_t mac_algorithm_which_t;
     typedef TCompressionMethod compression_method_t;
     typedef TMasterSecret master_secret_t;
     typedef THelloRandom hello_random_t;
@@ -69,9 +71,20 @@ public:
     /// constructors / destructor
     parameterst(const parameterst& copy): extends(copy) {
     }
+    parameterst
+    (const uint8_t& record_iv_length, 
+     const uint8_t& mac_length, const uint8_t& mac_key_length)
+    : record_iv_length_(record_iv_length), 
+      mac_length_(mac_length), mac_key_length_(mac_key_length) {
+    }
     parameterst() {
     }
     virtual ~parameterst() {
+    }
+
+    /// ...
+    virtual const uinteger8_t& record_iv_length() const {
+        record_iv_length_;
     }
 
 protected:

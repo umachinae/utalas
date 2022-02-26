@@ -261,7 +261,7 @@ protected:
                                                 this->outln();
                                             }
                                             if (!(err = output_generate_master_secret_run
-                                                (hello_random, premaster_secret, argc, argv, env))) {
+                                                (protocol_version, hello_random, premaster_secret, argc, argv, env))) {
                                             }
                                         }
                                     }
@@ -277,7 +277,8 @@ protected:
 
     /// ...output_generate_master_secret_run
     virtual int output_generate_master_secret_run
-    (xos::protocol::tls::hello::random& hello_random, 
+    (xos::protocol::tls::protocol::version& protocol_version, 
+     xos::protocol::tls::hello::random& hello_random, 
      xos::protocol::tls::premaster::secret::message& premaster_secret, 
      int argc, char_t** argv, char_t** env) {
         int err = 0;
@@ -335,7 +336,7 @@ protected:
                                         this->outln();
                                     }
                                     if (!(err = output_generate_cipher_text_run
-                                        (client_write_MAC_key, client_write_key, client_write_IV, argc, argv, env))) {
+                                        (protocol_version, client_write_MAC_key, client_write_key, client_write_IV, argc, argv, env))) {
                                     }
                                 }
                             }
@@ -349,7 +350,8 @@ protected:
 
     /// ...output_generate_cipher_text_run
     virtual int output_generate_cipher_text_run
-    (const ::talas::byte_array_t& client_write_MAC_key, const ::talas::byte_array_t& client_write_key,
+    (xos::protocol::tls::protocol::version& protocol_version, 
+     const ::talas::byte_array_t& client_write_MAC_key, const ::talas::byte_array_t& client_write_key,
      const ::talas::byte_array_t& client_write_IV, int argc, char_t** argv, char_t** env) {
         int err = 0;
         const bool verbose = this->verbose_output();
@@ -365,18 +367,67 @@ protected:
                 this->outln();
             }
             if ((cipher = cipher_text(cipher_size))) {
-                xos::crypto::cipher::implemented::aes aes
-                (client_write_key.elements(), client_write_key.length(),
-                 client_write_IV.elements(), client_write_IV.length());
-                size_t length = 0;
+                byte_t* client_write_key_bytes = 0; uint8_t client_write_key_length = 0;
 
-                if (0 < (length = aes.encrypt(cipher, cipher_size, plain, plain_length))) {
-                    ::talas::byte_array_t cipher_array(cipher, length);
-
-                    if ((verbose)) {
-                        this->outln("cipher_text:\\");
-                        this->output_hex_run(cipher_array, argc, argv, env);
-                        this->outln();
+                if ((client_write_key_bytes = client_write_key.elements()) 
+                    && (client_write_key_length = client_write_key.length())) {
+                    byte_t* client_write_IV_bytes = 0; uint8_t client_write_IV_length = 0;
+    
+                    if ((client_write_IV_bytes = client_write_IV.elements()) 
+                        && (client_write_IV_length = client_write_IV.length())) {
+                        xos::crypto::cipher::implemented::aes aes
+                        (client_write_key_bytes, client_write_key_length, client_write_IV_bytes, client_write_IV_length);
+                        size_t length = 0;
+        
+                        if (0 < (length = aes.encrypt(cipher, cipher_size, plain, plain_length))) {
+                            ::talas::byte_array_t cipher_array(cipher, length);
+                            uint8_t client_write_MAC_length = 0, client_write_MAC_key_length = 0;
+                            
+                            if ((verbose)) {
+                                this->outln("cipher_text:\\");
+                                this->output_hex_run(cipher_array, argc, argv, env);
+                                this->outln();
+                            }
+                            if ((client_write_MAC_length = xos::crypto::hash::sha256::HASHSIZE) 
+                                && (client_write_MAC_key_length = client_write_MAC_key.length())) {
+                                xos::crypto::pseudo::random::reader::seed_t random_reader_seed = 0;
+                                xos::crypto::pseudo::random::reader random_reader(random_reader_seed);
+                                ::talas::byte_array_t generic_block_cipher_IV;
+                                byte_t* generic_block_cipher_IV_bytes = 0; uint8_t generic_block_cipher_IV_length = 0;
+                                
+                                generic_block_cipher_IV.set_length(client_write_IV_length);
+                                if ((generic_block_cipher_IV_bytes = generic_block_cipher_IV.has_elements()) 
+                                    && (client_write_IV_length == (generic_block_cipher_IV_length = generic_block_cipher_IV.length()))) {
+                                    
+                                    if (client_write_IV_length == (random_reader.read(generic_block_cipher_IV_bytes, generic_block_cipher_IV_length))) {
+                                        xos::protocol::tls::generic::block::cipher generic_block_cipher(generic_block_cipher_IV, cipher_array);
+                                        byte_t* generic_block_cipher_bytes = 0; size_t generic_block_cipher_length = 0;
+    
+                                        if ((verbose)) {
+                                            this->outln("cgeneric_block_cipher:\\");
+                                            this->output_hex_run(generic_block_cipher, argc, argv, env);
+                                            this->outln();
+                                        }
+                                        if ((generic_block_cipher_bytes = generic_block_cipher.has_elements(generic_block_cipher_length))) {
+                                            xos::protocol::tls::content::type content_type(xos::protocol::tls::content::type::application_data);
+                                            xos::protocol::tls::ciphertext ciphertext(content_type, protocol_version, generic_block_cipher);
+                                            byte_t* ciphertext_bytes = 0; size_t ciphertext_length = 0;
+                                            
+                                            if ((ciphertext_bytes = ciphertext.has_elements(ciphertext_length))) {
+                                                
+                                                if ((verbose)) {
+                                                    this->outln("cipher_text:\\");
+                                                }
+                                                this->output_hex_run(ciphertext, argc, argv, env);
+                                                if ((verbose)) {
+                                                    this->outln();
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             }

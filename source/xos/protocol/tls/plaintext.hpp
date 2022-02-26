@@ -91,7 +91,9 @@ public:
     }
 
 }; /// class plaintextt
+
 typedef plaintextt<> plaintext;
+typedef plaintext ciphertext;
 
 } /// namespace tls
 } /// namespace protocol
