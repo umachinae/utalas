@@ -24,6 +24,21 @@
 #include "xos/app/console/version/main.hpp"
 #include "xos/lib/utalas/version.hpp"
 
+#define XOS_APP_CONSOLE_UTALAS_MAIN_OPTIONS_CHARS_EXTEND \
+
+#define XOS_APP_CONSOLE_UTALAS_MAIN_OPTIONS_OPTIONS_EXTEND \
+
+#define XOS_APP_CONSOLE_UTALAS_MAIN_OPTIONS_CHARS \
+   XOS_APP_CONSOLE_UTALAS_MAIN_OPTIONS_CHARS_EXTEND \
+   XOS_APP_CONSOLE_VERSION_MAIN_OPTIONS_CHARS
+
+#define XOS_APP_CONSOLE_UTALAS_MAIN_OPTIONS_OPTIONS \
+   XOS_APP_CONSOLE_UTALAS_MAIN_OPTIONS_OPTIONS_EXTEND \
+   XOS_APP_CONSOLE_VERSION_MAIN_OPTIONS_OPTIONS
+
+#define XOS_APP_CONSOLE_UTALAS_MAIN_ARGS 0
+#define XOS_APP_CONSOLE_UTALAS_MAIN_ARGV 0,
+
 namespace xos {
 namespace app {
 namespace console {
@@ -75,6 +90,45 @@ protected:
             }
         }
         return err;
+    }
+
+    /// ...option...
+    virtual int on_option
+    (int optval, const char_t* optarg, const char_t* optname,
+     int optind, int argc, char_t**argv, char_t**env) {
+        int err = 0;
+        switch(optval) {
+        default:
+            err = extends::on_option(optval, optarg, optname, optind, argc, argv, env);
+        }
+        return err;
+    }
+    virtual const char_t* option_usage(const char_t*& optarg, const struct option* longopt) {
+        const char_t* chars = "";
+        switch(longopt->val) {
+        default:
+            chars = extends::option_usage(optarg, longopt);
+            break;
+        }
+        return chars;
+    }
+    virtual const char_t* options(const struct option*& longopts) {
+        static const char_t* chars = XOS_APP_CONSOLE_UTALAS_MAIN_OPTIONS_CHARS;
+        static struct option optstruct[]= {
+            XOS_APP_CONSOLE_UTALAS_MAIN_OPTIONS_OPTIONS
+            {0, 0, 0, 0}};
+        longopts = optstruct;
+        return chars;
+    }
+
+    /// ...argument...
+    virtual const char_t* arguments(const char_t**& argv) {
+        static const char_t* _args = XOS_APP_CONSOLE_UTALAS_MAIN_ARGS;
+        static const char_t* _argv[] = {
+            XOS_APP_CONSOLE_UTALAS_MAIN_ARGV
+            0};
+        argv = _argv;
+        return _args;
     }
 
 protected:
