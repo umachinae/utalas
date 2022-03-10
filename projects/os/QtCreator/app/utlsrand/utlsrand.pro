@@ -13,69 +13,69 @@
 # or otherwise) arising in any way out of the use of this software,
 # even if advised of the possibility of such damage.
 #
-#   File: udfy.pro
+#   File: utlsrand.pro
 #
 # Author: $author$
 #   Date: 3/9/2022
 #
-# os specific QtCreator project .pro file for framework utalas executable udfy
+# os specific QtCreator project .pro file for framework utalas executable utlsrand
 ########################################################################
 #
-# Debug: utalas/build/os/QtCreator/Debug/bin/udfy
-# Release: utalas/build/os/QtCreator/Release/bin/udfy
-# Profile: utalas/build/os/QtCreator/Profile/bin/udfy
+# Debug: utalas/build/os/QtCreator/Debug/bin/utlsrand
+# Release: utalas/build/os/QtCreator/Release/bin/utlsrand
+# Profile: utalas/build/os/QtCreator/Profile/bin/utlsrand
 #
 include(../../../../../build/QtCreator/utalas.pri)
 include(../../../../QtCreator/utalas.pri)
 include(../../utalas.pri)
-include(../../../../QtCreator/app/udfy/udfy.pri)
+include(../../../../QtCreator/app/utlsrand/utlsrand.pri)
 
-TARGET = $${udfy_TARGET}
+TARGET = $${utlsrand_TARGET}
 
 ########################################################################
 # INCLUDEPATH
 #
 INCLUDEPATH += \
-$${udfy_INCLUDEPATH} \
+$${utlsrand_INCLUDEPATH} \
 
 # DEFINES
 # 
 DEFINES += \
-$${udfy_DEFINES} \
+$${utlsrand_DEFINES} \
 
 ########################################################################
 # OBJECTIVE_HEADERS
 #
 OBJECTIVE_HEADERS += \
-$${udfy_OBJECTIVE_HEADERS} \
+$${utlsrand_OBJECTIVE_HEADERS} \
 
 # OBJECTIVE_SOURCES
 #
 OBJECTIVE_SOURCES += \
-$${udfy_OBJECTIVE_SOURCES} \
+$${utlsrand_OBJECTIVE_SOURCES} \
 
 ########################################################################
 # HEADERS
 #
 HEADERS += \
-$${udfy_HEADERS} \
-$${udfy_OBJECTIVE_HEADERS} \
+$${utlsrand_HEADERS} \
+$${utlsrand_OBJECTIVE_HEADERS} \
 
 # SOURCES
 #
 SOURCES += \
-$${udfy_SOURCES} \
+$${utlsrand_SOURCES} \
 
 ########################################################################
 # FRAMEWORKS
 #
 FRAMEWORKS += \
-$${udfy_FRAMEWORKS} \
+$${utlsrand_FRAMEWORKS} \
 
 # LIBS
 #
 LIBS += \
-$${udfy_LIBS} \
+$${utlsrand_LIBS} \
 $${FRAMEWORKS} \
 
 ########################################################################

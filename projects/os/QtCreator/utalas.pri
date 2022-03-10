@@ -16,12 +16,12 @@
 #   File: utalas.pri
 #
 # Author: $author$
-#   Date: 1/27/2022
+#   Date: 3/9/2022
 #
 # os specific QtCreator project .pri file for framework utalas
 ########################################################################
 # Repository Depends: vmachinae
-# Depends: urostra;unadir;ufila;ucrono;urete;ustara
+# Depends: ubn;ump;urostra;unadir;ufila;ucrono;ucifra;urete;ustara;umedusade
 
 UNAME = $$system(uname)
 
@@ -158,6 +158,82 @@ ucrono_LIBS += \
 
 
 ########################################################################
+# ucifra
+UCIFRA_THIRDPARTY_PKG_MAKE_BLD = $${UCIFRA_THIRDPARTY_PKG}/build/$${UTALAS_BUILD}/$${BUILD_CONFIG}
+UCIFRA_THIRDPARTY_PRJ_MAKE_BLD = $${OTHER_BLD}/$${UCIFRA_THIRDPARTY_PRJ}/build/$${UTALAS_BUILD}/$${BUILD_CONFIG}
+UCIFRA_THIRDPARTY_PKG_BLD = $${UCIFRA_THIRDPARTY_PKG}/build/$${UTALAS_BUILD}/QtCreator/$${BUILD_CONFIG}
+UCIFRA_THIRDPARTY_PRJ_BLD = $${OTHER_BLD}/$${UCIFRA_THIRDPARTY_PRJ}/build/$${UTALAS_BUILD}/QtCreator/$${BUILD_CONFIG}
+UCIFRA_PKG_BLD = $${OTHER_BLD}/$${UCIFRA_PKG}/build/$${UTALAS_BUILD}/QtCreator/$${BUILD_CONFIG}
+UCIFRA_PRJ_BLD = $${OTHER_BLD}/$${UCIFRA_PRJ}/build/$${UTALAS_BUILD}/QtCreator/$${BUILD_CONFIG}
+#UCIFRA_LIB = $${UCIFRA_THIRDPARTY_PKG_MAKE_BLD}/lib
+#UCIFRA_LIB = $${UCIFRA_THIRDPARTY_PRJ_MAKE_BLD}/lib
+#UCIFRA_LIB = $${UCIFRA_THIRDPARTY_PKG_BLD}/lib
+#UCIFRA_LIB = $${UCIFRA_THIRDPARTY_PRJ_BLD}/lib
+UCIFRA_LIB = $${UCIFRA_PKG_BLD}/lib
+#UCIFRA_LIB = $${UCIFRA_PRJ_BLD}/lib
+#UCIFRA_LIB = $${UTALAS_LIB}
+UCIFRA_LIB_NAME = $${UCIFRA_NAME}
+
+# ucifra LIBS
+#
+ucifra_LIBS += \
+-L$${UCIFRA_LIB}/lib$${UCIFRA_LIB_NAME} \
+-l$${UCIFRA_LIB_NAME} \
+
+
+########################################################################
+# ubn
+UBN_THIRDPARTY_PKG_MAKE_BLD = $${UBN_THIRDPARTY_PKG}/build/$${UTALAS_BUILD}/$${BUILD_CONFIG}
+UBN_THIRDPARTY_PRJ_MAKE_BLD = $${OTHER_BLD}/$${UBN_THIRDPARTY_PRJ}/build/$${UTALAS_BUILD}/$${BUILD_CONFIG}
+UBN_THIRDPARTY_PKG_BLD = $${UBN_THIRDPARTY_PKG}/build/$${UTALAS_BUILD}/QtCreator/$${BUILD_CONFIG}
+UBN_THIRDPARTY_PRJ_BLD = $${OTHER_BLD}/$${UBN_THIRDPARTY_PRJ}/build/$${UTALAS_BUILD}/QtCreator/$${BUILD_CONFIG}
+UBN_PKG_BLD = $${OTHER_BLD}/$${UBN_PKG}/build/$${UTALAS_BUILD}/QtCreator/$${BUILD_CONFIG}
+UBN_PRJ_BLD = $${OTHER_BLD}/$${UBN_PRJ}/build/$${UTALAS_BUILD}/QtCreator/$${BUILD_CONFIG}
+#UBN_LIB = $${UBN_THIRDPARTY_PKG_MAKE_BLD}/lib
+#UBN_LIB = $${UBN_THIRDPARTY_PRJ_MAKE_BLD}/lib
+#UBN_LIB = $${UBN_THIRDPARTY_PKG_BLD}/lib
+#UBN_LIB = $${UBN_THIRDPARTY_PRJ_BLD}/lib
+#UBN_LIB = $${UBN_PKG_BLD}/lib
+#UBN_LIB = $${UBN_PRJ_BLD}/lib
+#UBN_LIB = $${UTALAS_LIB}
+UBN_LIB = $${UCIFRA_LIB}
+
+# ubn LIBS
+#
+ubn_LIBS += \
+-L$${UBN_LIB}/lib$${UBN_LIB_NAME} \
+-l$${UBN_LIB_NAME} \
+
+
+########################################################################
+# ump
+UMP_THIRDPARTY_PKG_MAKE_BLD = $${UMP_THIRDPARTY_PKG}/build/$${UTALAS_BUILD}/$${BUILD_CONFIG}
+UMP_THIRDPARTY_PRJ_MAKE_BLD = $${OTHER_BLD}/$${UMP_THIRDPARTY_PRJ}/build/$${UTALAS_BUILD}/$${BUILD_CONFIG}
+UMP_THIRDPARTY_PKG_BLD = $${UMP_THIRDPARTY_PKG}/build/$${UTALAS_BUILD}/QtCreator/$${BUILD_CONFIG}
+UMP_THIRDPARTY_PRJ_BLD = $${OTHER_BLD}/$${UMP_THIRDPARTY_PRJ}/build/$${UTALAS_BUILD}/QtCreator/$${BUILD_CONFIG}
+UMP_PKG_BLD = $${OTHER_BLD}/$${UMP_PKG}/build/$${UTALAS_BUILD}/QtCreator/$${BUILD_CONFIG}
+UMP_PRJ_BLD = $${OTHER_BLD}/$${UMP_PRJ}/build/$${UTALAS_BUILD}/QtCreator/$${BUILD_CONFIG}
+#UMP_LIB = $${UMP_THIRDPARTY_PKG_MAKE_BLD}/lib
+#UMP_LIB = $${UMP_THIRDPARTY_PRJ_MAKE_BLD}/lib
+#UMP_LIB = $${UMP_THIRDPARTY_PKG_BLD}/lib
+#UMP_LIB = $${UMP_THIRDPARTY_PRJ_BLD}/lib
+#UMP_LIB = $${UMP_PKG_BLD}/lib
+#UMP_LIB = $${UMP_PRJ_BLD}/lib
+#UMP_LIB = $${UTALAS_LIB}
+UMP_LIB = $${UCIFRA_LIB}
+
+# ump LIBS
+#
+ump_LIBS += \
+-L$${UMP_LIB}/lib$${UMP_LIB_NAME}z \
+-l$${UMP_LIB_NAME}z \
+-L$${UMP_LIB}/lib$${UMP_LIB_NAME}n \
+-l$${UMP_LIB_NAME}n \
+-L$${UMP_LIB}/lib$${UMP_LIB_NAME} \
+-l$${UMP_LIB_NAME} \
+
+
+########################################################################
 # urete
 URETE_THIRDPARTY_PKG_MAKE_BLD = $${URETE_THIRDPARTY_PKG}/build/$${UTALAS_BUILD}/$${BUILD_CONFIG}
 URETE_THIRDPARTY_PRJ_MAKE_BLD = $${OTHER_BLD}/$${URETE_THIRDPARTY_PRJ}/build/$${UTALAS_BUILD}/$${BUILD_CONFIG}
@@ -204,6 +280,30 @@ ustara_LIBS += \
 -L$${USTARA_LIB}/lib$${USTARA_LIB_NAME} \
 -l$${USTARA_LIB_NAME} \
 
+
+########################################################################
+# umedusade
+UMEDUSADE_THIRDPARTY_PKG_MAKE_BLD = $${UMEDUSADE_THIRDPARTY_PKG}/build/$${UTALAS_BUILD}/$${BUILD_CONFIG}
+UMEDUSADE_THIRDPARTY_PRJ_MAKE_BLD = $${OTHER_BLD}/$${UMEDUSADE_THIRDPARTY_PRJ}/build/$${UTALAS_BUILD}/$${BUILD_CONFIG}
+UMEDUSADE_THIRDPARTY_PKG_BLD = $${UMEDUSADE_THIRDPARTY_PKG}/build/$${UTALAS_BUILD}/QtCreator/$${BUILD_CONFIG}
+UMEDUSADE_THIRDPARTY_PRJ_BLD = $${OTHER_BLD}/$${UMEDUSADE_THIRDPARTY_PRJ}/build/$${UTALAS_BUILD}/QtCreator/$${BUILD_CONFIG}
+UMEDUSADE_PKG_BLD = $${OTHER_BLD}/$${UMEDUSADE_PKG}/build/$${UTALAS_BUILD}/QtCreator/$${BUILD_CONFIG}
+UMEDUSADE_PRJ_BLD = $${OTHER_BLD}/$${UMEDUSADE_PRJ}/build/$${UTALAS_BUILD}/QtCreator/$${BUILD_CONFIG}
+#UMEDUSADE_LIB = $${UMEDUSADE_THIRDPARTY_PKG_MAKE_BLD}/lib
+#UMEDUSADE_LIB = $${UMEDUSADE_THIRDPARTY_PRJ_MAKE_BLD}/lib
+#UMEDUSADE_LIB = $${UMEDUSADE_THIRDPARTY_PKG_BLD}/lib
+#UMEDUSADE_LIB = $${UMEDUSADE_THIRDPARTY_PRJ_BLD}/lib
+UMEDUSADE_LIB = $${UMEDUSADE_PKG_BLD}/lib
+#UMEDUSADE_LIB = $${UMEDUSADE_PRJ_BLD}/lib
+#UMEDUSADE_LIB = $${UTALAS_LIB}
+UMEDUSADE_LIB_NAME = $${UMEDUSADE_NAME}
+
+# umedusade LIBS
+#
+umedusade_LIBS += \
+-L$${UMEDUSADE_LIB}/lib$${UMEDUSADE_LIB_NAME} \
+-l$${UMEDUSADE_LIB_NAME} \
+
 ########################################################################
 # utalas
 
@@ -217,26 +317,40 @@ utalas_DEFINES += \
 
 # utalas LIBS
 #
-utalas_LIBS += \
-$${ustara_LIBS} \
-$${urete_LIBS} \
-$${ucrono_LIBS} \
-$${ufila_LIBS} \
-$${unadir_LIBS} \
-$${urostra_LIBS} \
-$${build_utalas_LIBS} \
-
 contains(UTALAS_OS,macosx|linux) {
-utalas_LIBS += \
+utalas_os_LIBS += \
 -lpthread \
 -ldl
 } else {
 } # contains(UTALAS_OS,macosx|linux)
 
 contains(UTALAS_OS,linux) {
-utalas_LIBS += \
+utalas_os_LIBS += \
 -lrt
 } else {
 } # contains(UTALAS_OS,linux)
 
+utalas_base_LIBS += \
+$${ustara_LIBS} \
+$${urete_LIBS} \
+$${ucifra_LIBS} \
+$${ucrono_LIBS} \
+$${ufila_LIBS} \
+$${unadir_LIBS} \
+$${urostra_LIBS} \
+
+utalas_bnmp_LIBS += \
+$${ump_LIBS} \
+$${ubn_LIBS} \
+
+utalas_LIBS += \
+$${utalas_base_LIBS} \
+$${build_utalas_LIBS} \
+$${utalas_os_LIBS} \
+
+utalas_rsa_LIBS += \
+$${utalas_base_LIBS} \
+$${utalas_bnmp_LIBS} \
+$${build_utalas_LIBS} \
+$${utalas_os_LIBS} \
 

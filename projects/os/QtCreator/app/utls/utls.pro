@@ -13,69 +13,69 @@
 # or otherwise) arising in any way out of the use of this software,
 # even if advised of the possibility of such damage.
 #
-#   File: udfy.pro
+#   File: utls.pro
 #
 # Author: $author$
 #   Date: 3/9/2022
 #
-# os specific QtCreator project .pro file for framework utalas executable udfy
+# os specific QtCreator project .pro file for framework utalas executable utls
 ########################################################################
 #
-# Debug: utalas/build/os/QtCreator/Debug/bin/udfy
-# Release: utalas/build/os/QtCreator/Release/bin/udfy
-# Profile: utalas/build/os/QtCreator/Profile/bin/udfy
+# Debug: utalas/build/os/QtCreator/Debug/bin/utls
+# Release: utalas/build/os/QtCreator/Release/bin/utls
+# Profile: utalas/build/os/QtCreator/Profile/bin/utls
 #
 include(../../../../../build/QtCreator/utalas.pri)
 include(../../../../QtCreator/utalas.pri)
 include(../../utalas.pri)
-include(../../../../QtCreator/app/udfy/udfy.pri)
+include(../../../../QtCreator/app/utls/utls.pri)
 
-TARGET = $${udfy_TARGET}
+TARGET = $${utls_TARGET}
 
 ########################################################################
 # INCLUDEPATH
 #
 INCLUDEPATH += \
-$${udfy_INCLUDEPATH} \
+$${utls_INCLUDEPATH} \
 
 # DEFINES
 # 
 DEFINES += \
-$${udfy_DEFINES} \
+$${utls_DEFINES} \
 
 ########################################################################
 # OBJECTIVE_HEADERS
 #
 OBJECTIVE_HEADERS += \
-$${udfy_OBJECTIVE_HEADERS} \
+$${utls_OBJECTIVE_HEADERS} \
 
 # OBJECTIVE_SOURCES
 #
 OBJECTIVE_SOURCES += \
-$${udfy_OBJECTIVE_SOURCES} \
+$${utls_OBJECTIVE_SOURCES} \
 
 ########################################################################
 # HEADERS
 #
 HEADERS += \
-$${udfy_HEADERS} \
-$${udfy_OBJECTIVE_HEADERS} \
+$${utls_HEADERS} \
+$${utls_OBJECTIVE_HEADERS} \
 
 # SOURCES
 #
 SOURCES += \
-$${udfy_SOURCES} \
+$${utls_SOURCES} \
 
 ########################################################################
 # FRAMEWORKS
 #
 FRAMEWORKS += \
-$${udfy_FRAMEWORKS} \
+$${utls_FRAMEWORKS} \
 
 # LIBS
 #
 LIBS += \
-$${udfy_LIBS} \
+$${utls_LIBS} \
 $${FRAMEWORKS} \
 
 ########################################################################

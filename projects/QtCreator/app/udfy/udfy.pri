@@ -16,9 +16,9 @@
 #   File: udfy.pri
 #
 # Author: $author$
-#   Date: 2/18/2022
+#   Date: 3/9/2022
 #
-# generic QtCreator project .pri file for framework talas executable udfy
+# generic QtCreator project .pri file for framework utalas executable udfy
 ########################################################################
 
 ########################################################################
@@ -31,12 +31,12 @@ udfy_TARGET = udfy
 # udfy INCLUDEPATH
 #
 udfy_INCLUDEPATH += \
-$${talas_INCLUDEPATH} \
+$${utalas_INCLUDEPATH} \
 
 # udfy DEFINES
 #
 udfy_DEFINES += \
-$${talas_DEFINES} \
+$${utalas_DEFINES} \
 DEFAULT_LOGGING_LEVELS_ERROR \
 XOS_CONSOLE_MAIN_MAIN \
 
@@ -44,12 +44,12 @@ XOS_CONSOLE_MAIN_MAIN \
 # udfy OBJECTIVE_HEADERS
 #
 #udfy_OBJECTIVE_HEADERS += \
-#$${TALAS_SRC}/xos/app/console/protocol/udtp/base/main.hh \
+#$${UTALAS_SRC}/xos/app/console/udfy/main.hh \
 
 # udfy OBJECTIVE_SOURCES
 #
 #udfy_OBJECTIVE_SOURCES += \
-#$${TALAS_SRC}/xos/app/console/protocol/udtp/base/main.mm \
+#$${UTALAS_SRC}/xos/app/console/udfy/main.mm \
 
 ########################################################################
 # udfy HEADERS
@@ -129,12 +129,12 @@ $${UTALAS_SRC}/xos/app/console/protocol/udtp/client/main.cpp \
 # udfy FRAMEWORKS
 #
 udfy_FRAMEWORKS += \
-$${talas_FRAMEWORKS} \
+$${utalas_FRAMEWORKS} \
 
 # udfy LIBS
 #
 udfy_LIBS += \
-$${talas_rsa_LIBS} \
+$${utalas_rsa_LIBS} \
 
 ########################################################################
 # NO Qt

@@ -16,18 +16,18 @@
 #   File: udty.pro
 #
 # Author: $author$
-#   Date: 2/18/2022
+#   Date: 3/9/2022
 #
-# os specific QtCreator project .pro file for framework talas executable udty
+# os specific QtCreator project .pro file for framework utalas executable udty
 ########################################################################
 #
-# Debug: talas/build/os/QtCreator/Debug/bin/udty
-# Release: talas/build/os/QtCreator/Release/bin/udty
-# Profile: talas/build/os/QtCreator/Profile/bin/udty
+# Debug: utalas/build/os/QtCreator/Debug/bin/udty
+# Release: utalas/build/os/QtCreator/Release/bin/udty
+# Profile: utalas/build/os/QtCreator/Profile/bin/udty
 #
-include(../../../../../build/QtCreator/talas.pri)
-include(../../../../QtCreator/talas.pri)
-include(../../talas.pri)
+include(../../../../../build/QtCreator/utalas.pri)
+include(../../../../QtCreator/utalas.pri)
+include(../../utalas.pri)
 include(../../../../QtCreator/app/udty/udty.pri)
 
 TARGET = $${udty_TARGET}

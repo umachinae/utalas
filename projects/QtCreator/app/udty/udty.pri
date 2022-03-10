@@ -16,9 +16,9 @@
 #   File: udty.pri
 #
 # Author: $author$
-#   Date: 2/18/2022
+#   Date: 3/9/2022
 #
-# generic QtCreator project .pri file for framework talas executable udty
+# generic QtCreator project .pri file for framework utalas executable udty
 ########################################################################
 
 ########################################################################
@@ -31,48 +31,107 @@ udty_TARGET = udty
 # udty INCLUDEPATH
 #
 udty_INCLUDEPATH += \
-$${talas_INCLUDEPATH} \
+$${utalas_INCLUDEPATH} \
 
 # udty DEFINES
 #
 udty_DEFINES += \
-$${talas_DEFINES} \
-
-#DEFAULT_LOGGING_LEVELS_ERROR \
-#XOS_CONSOLE_MAIN_MAIN \
+$${utalas_DEFINES} \
+DEFAULT_LOGGING_LEVELS_ERROR \
+XOS_CONSOLE_MAIN_MAIN \
 
 ########################################################################
 # udty OBJECTIVE_HEADERS
 #
 #udty_OBJECTIVE_HEADERS += \
-#$${TALAS_SRC}/xos/app/console/protocol/udtp/base/main.hh \
+#$${UTALAS_SRC}/xos/app/console/udty/main.hh \
 
 # udty OBJECTIVE_SOURCES
 #
 #udty_OBJECTIVE_SOURCES += \
-#$${TALAS_SRC}/xos/app/console/protocol/udtp/base/main.mm \
+#$${UTALAS_SRC}/xos/app/console/udty/main.mm \
 
 ########################################################################
 # udty HEADERS
 #
-#udty_HEADERS += \
-#$${TALAS_SRC}/xos/app/console/protocol/udtp/base/main.hpp \
+udty_HEADERS += \
+$${CIFRA_SRC}/xos/crypto/hash.hpp \
+\
+$${UTALAS_SRC}/xos/crypto/random/generator.hpp \
+$${UTALAS_SRC}/xos/crypto/pseudo/random/generator.hpp \
+$${UTALAS_SRC}/xos/crypto/random/reader.hpp \
+$${UTALAS_SRC}/xos/crypto/pseudo/random/reader.hpp \
+\
+$${UTALAS_SRC}/xos/protocol/tls/message/part.hpp \
+$${UTALAS_SRC}/xos/protocol/tls/uinteger.hpp \
+$${UTALAS_SRC}/xos/protocol/tls/vector.hpp \
+\
+$${UTALAS_SRC}/xos/protocol/tls/protocol/version.hpp \
+$${UTALAS_SRC}/xos/protocol/tls/cipher/suite.hpp \
+$${UTALAS_SRC}/xos/protocol/tls/cipher/suites.hpp \
+$${UTALAS_SRC}/xos/protocol/tls/compression/method.hpp \
+$${UTALAS_SRC}/xos/protocol/tls/compression/methods.hpp \
+\
+$${UTALAS_SRC}/xos/protocol/tls/gmt/unix/time.hpp \
+$${UTALAS_SRC}/xos/protocol/tls/random/bytes.hpp \
+$${UTALAS_SRC}/xos/protocol/tls/hello/random.hpp \
+$${UTALAS_SRC}/xos/protocol/tls/session/identifier.hpp \
+$${UTALAS_SRC}/xos/protocol/tls/client/hello.hpp \
+$${UTALAS_SRC}/xos/protocol/tls/content/type.hpp \
+$${UTALAS_SRC}/xos/protocol/tls/plaintext.hpp \
+\
+$${UTALAS_SRC}/xos/protocol/tls/connection/end.hpp \
+$${UTALAS_SRC}/xos/protocol/tls/cipher/type.hpp \
+$${UTALAS_SRC}/xos/protocol/tls/bulk/cipher/algorithm.hpp \
+$${UTALAS_SRC}/xos/protocol/tls/mac/algorithm.hpp \
+$${UTALAS_SRC}/xos/protocol/tls/prf/algorithm.hpp \
+$${UTALAS_SRC}/xos/protocol/tls/security/parameters.hpp \
+$${UTALAS_SRC}/xos/protocol/tls/generic/block/cipher.hpp \
+\
+$${UTALAS_SRC}/xos/app/console/protocol/udtp/base/main_opt.hpp \
+$${UTALAS_SRC}/xos/app/console/protocol/udtp/base/main.hpp \
 
 # udty SOURCES
 #
-#udty_SOURCES += \
-#$${TALAS_SRC}/xos/app/console/protocol/udtp/base/main.cpp \
+udty_SOURCES += \
+$${CIFRA_SRC}/xos/crypto/hash.cpp \
+\
+$${UTALAS_SRC}/xos/protocol/tls/message/part.cpp \
+$${UTALAS_SRC}/xos/protocol/tls/uinteger.cpp \
+$${UTALAS_SRC}/xos/protocol/tls/vector.cpp \
+\
+$${UTALAS_SRC}/xos/protocol/tls/protocol/version.cpp \
+$${UTALAS_SRC}/xos/protocol/tls/cipher/suite.cpp \
+$${UTALAS_SRC}/xos/protocol/tls/cipher/suites.cpp \
+$${UTALAS_SRC}/xos/protocol/tls/compression/method.cpp \
+$${UTALAS_SRC}/xos/protocol/tls/compression/methods.cpp \
+\
+$${UTALAS_SRC}/xos/protocol/tls/gmt/unix/time.cpp \
+$${UTALAS_SRC}/xos/protocol/tls/random/bytes.cpp \
+$${UTALAS_SRC}/xos/protocol/tls/hello/random.cpp \
+$${UTALAS_SRC}/xos/protocol/tls/session/identifier.cpp \
+$${UTALAS_SRC}/xos/protocol/tls/client/hello.cpp \
+$${UTALAS_SRC}/xos/protocol/tls/content/type.cpp \
+$${UTALAS_SRC}/xos/protocol/tls/plaintext.cpp \
+\
+$${UTALAS_SRC}/xos/protocol/tls/connection/end.cpp \
+$${UTALAS_SRC}/xos/protocol/tls/prf/algorithm.cpp \
+$${UTALAS_SRC}/xos/protocol/tls/generic/block/cipher.cpp \
+$${UTALAS_SRC}/xos/protocol/tls/security/parameters.cpp \
+\
+$${UTALAS_SRC}/xos/app/console/protocol/udtp/base/main_opt.cpp \
+$${UTALAS_SRC}/xos/app/console/protocol/udtp/base/main.cpp \
 
 ########################################################################
 # udty FRAMEWORKS
 #
 udty_FRAMEWORKS += \
-$${talas_FRAMEWORKS} \
+$${utalas_FRAMEWORKS} \
 
 # udty LIBS
 #
 udty_LIBS += \
-$${talas_LIBS} \
+$${utalas_rsa_LIBS} \
 
 ########################################################################
 # NO Qt
