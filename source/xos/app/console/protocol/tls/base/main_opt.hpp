@@ -143,7 +143,6 @@
 #define XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_OPTIONS_CHARS_EXTEND \
     XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_SECRET_OPTVAL_S \
     XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_SEED_OPTVAL_S \
-   XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_PROTOCOL_OPTVAL_S \
     XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_PRIVATE_OPTVAL_S \
     XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_PUBLIC_OPTVAL_S \
     XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_MODULUS_OPTVAL_S \
@@ -154,7 +153,6 @@
 #define XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_OPTIONS_OPTIONS_EXTEND \
     XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_SECRET_OPTION \
     XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_SEED_OPTION \
-   XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_PROTOCOL_OPTION \
     XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_PRIVATE_OPTION \
     XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_PUBLIC_OPTION \
     XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_MODULUS_OPTION \
@@ -1232,9 +1230,9 @@ protected:
         case XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_SEED_OPTVAL_C:
             err = this->on_seed_option(optval, optarg, optname, optind, argc, argv, env);
             break;
-        case XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_PROTOCOL_OPTVAL_C:
+        /*case XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_PROTOCOL_OPTVAL_C:
             err = this->on_protocol_option(optval, optarg, optname, optind, argc, argv, env);
-            break;
+            break;*/
             
         case XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_PRIVATE_OPTVAL_C:
             err = this->on_private_option(optval, optarg, optname, optind, argc, argv, env);
@@ -1269,9 +1267,9 @@ protected:
         case XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_SEED_OPTVAL_C:
             chars = this->seed_option_usage(optarg, longopt);
             break;
-        case XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_PROTOCOL_OPTVAL_C:
+        /*case XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_PROTOCOL_OPTVAL_C:
             chars = this->protocol_option_usage(optarg, longopt);
-            break;
+            break;*/
 
         case XOS_APP_CONSOLE_PROTOCOL_TLS_BASE_MAIN_PRIVATE_OPTVAL_C:
             chars = this->private_option_usage(optarg, longopt);

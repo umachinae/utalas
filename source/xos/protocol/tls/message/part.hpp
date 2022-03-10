@@ -130,6 +130,16 @@ public:
         bool success = false;
         return success;
     }
+    virtual bool separate(size_t& count, const byte_t* bytes, size_t length) {
+        bool success = false;
+
+        count = 0;
+        if ((bytes) && (length)) {
+            this->assign(bytes, count = length);
+            success = true;
+        }
+        return success;
+    }
 
     /// set_default...
     virtual derives& set_default() {
@@ -185,6 +195,24 @@ public:
         for (remain = size; remain; --remain, msb >>= 8) {
             byte_t byte = (msb & 0xFF);
             this->append(&byte, 1);
+        }
+        return size;
+    }
+
+    /// ...from_msb
+    template <typename part_t>
+    size_t from_msb(part_t& part, const byte_t* bytes, size_t length) {
+        size_t size = 0;
+
+        if ((bytes) && (length >= sizeof(part_t))) {
+            part_t msb = 0;
+
+            size = sizeof(part_t);
+            for (size_t remain = size; remain; --remain, ++bytes) {
+                byte_t byte = *bytes;
+                msb = ((msb <<= 8) | byte);
+            }
+            part = msb;
         }
         return size;
     }

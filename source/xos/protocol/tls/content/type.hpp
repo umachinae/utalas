@@ -40,7 +40,9 @@ enum {
 /// class typet
 template 
 <typename TWhich = type_which_t, 
- TWhich VHandshake = type_handshake, TWhich VApplicationData = type_application_data, TWhich VWhich = type_none,
+ TWhich VHandshake = type_handshake, 
+ TWhich VApplicationData = type_application_data, 
+ TWhich VNone = type_none, TWhich VWhich = VNone,
  class TMessagePart = tls::message::part, class TExtends = TMessagePart, class TImplements = typename TExtends::implements>
 
 class exported typet: virtual public TImplements, public TExtends {
@@ -53,6 +55,7 @@ public:
     enum  { 
         handshake = VHandshake,
         application_data = VApplicationData,
+        none = VNone,
         which = VWhich 
     };
 
@@ -67,6 +70,28 @@ public:
         this->to_msb(which_);
     }
     virtual ~typet() {
+    }
+
+    /// separate
+    virtual bool separate(size_t& count, const byte_t* bytes, size_t length) {
+        bool success = false;
+
+        count = 0;
+        if ((bytes) && (length >= sizeof(which_t))) {
+            which_t which = none;
+            size_t amount = 0;
+
+            if ((amount = this->from_msb(which, bytes, length))) {
+                switch(which) {
+                case handshake:
+                case application_data:
+                    this->assign(bytes, count = amount);
+                    which_ = which;
+                    success = true;
+                }
+            }
+        }
+        return success;
     }
 
     /// ...is

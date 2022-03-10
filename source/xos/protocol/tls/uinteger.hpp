@@ -63,8 +63,25 @@ public:
         }
         return success;
     }
-    virtual bool separate() {
+    virtual bool separate(size_t& count, const byte_t* bytes, size_t length) {
         bool success = false;
+        
+        count = 0;
+        if ((bytes) && (length >= size_of)) {
+            uinteger_t value = 0;
+            size_t amount = 0;
+
+            if ((amount = this->from_msb(value, bytes, length))) {
+
+                bytes += amount;
+                length -= amount;
+                if ((value == (length))) {
+                    this->assign(bytes, count = amount);
+                    value_ = value;
+                    success = true;
+                }
+            }
+        }
         return success;
     }
 

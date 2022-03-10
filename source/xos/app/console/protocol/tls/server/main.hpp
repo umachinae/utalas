@@ -79,14 +79,20 @@ protected:
     /// ...output_master_secret_run
     virtual int output_master_secret_run(int argc, char_t** argv, char_t** env) {
         int err = 0;
+        bool verbose = this->verbose_output();
         const xos::protocol::tls::hello::random* p_client_hello_random = 0;
 
         if ((p_client_hello_random = this->get_client_hello_random())) {
             const xos::protocol::tls::hello::random& client_hello_random = *p_client_hello_random;
             const byte_t* client_hello_random_bytes = 0; size_t client_hello_random_length = 0;
 
-            this->output_hex_run(client_hello_random, argc, argv, env);
-            this->outln();
+            if ((verbose)) {
+                this->outln("client_hello_random\\");
+                this->output_hex_run(client_hello_random, argc, argv, env);
+            }
+            if ((verbose)) {
+                this->outln();
+            }
             if ((client_hello_random_bytes = client_hello_random.has_elements(client_hello_random_length))) {
                 const xos::protocol::tls::encrypted::premaster::secret* p_encrypted_premaster_secret = 0;
 
@@ -103,23 +109,39 @@ protected:
                             xos::protocol::tls::decrypted::premaster::secret decrypted_premaster_secret(private_key, encrypted_premaster_secret);
                             const byte_t* decrypted_premaster_secret_bytes = 0; size_t decrypted_premaster_secret_length = 0;
 
-                            this->output_hex_run(decrypted_premaster_secret, argc, argv, env);
-                            this->outln();
+                            if ((verbose)) {
+                                this->outln("decrypted_premaster_secret\\");
+                                this->output_hex_run(decrypted_premaster_secret, argc, argv, env);
+                            }
+                            if ((verbose)) {
+                                this->outln();
+                            }
                             if ((decrypted_premaster_secret_bytes 
                                 = decrypted_premaster_secret.has_elements(decrypted_premaster_secret_length))) {
                                 xos::protocol::tls::pkcs1::encoded::premaster::secret encoded_premaster_secret(decrypted_premaster_secret);
                                 xos::protocol::tls::pkcs1::decoded::premaster::secret decoded_premaster_secret(encoded_premaster_secret);
                                 const byte_t* decoded_premaster_secret_bytes = 0; size_t decoded_premaster_secret_length = 0; 
 
-                                this->output_hex_run(decoded_premaster_secret, argc, argv, env);
-                                this->outln();
+                                if ((verbose)) {
+                                    this->outln("decoded_premaster_secret\\");
+                                    this->output_hex_run(decoded_premaster_secret, argc, argv, env);
+                                }
+                                if ((verbose)) {
+                                    this->outln();
+                                }
                                 if ((decoded_premaster_secret_bytes 
                                     = decoded_premaster_secret.has_elements(decoded_premaster_secret_length))) {
                                     const ::talas::byte_array_t& master_secret_seed = this->master_secret_seed();
                                     xos::protocol::tls::master::secret master_secret
                                     (decoded_premaster_secret, master_secret_seed, client_hello_random, client_hello_random);
                                     
+                                    if ((verbose)) {
+                                        this->outln("master_secret\\");
+                                    }
                                     this->output_hex_run(master_secret, argc, argv, env);
+                                    if ((verbose)) {
+                                        this->outln();
+                                    }
                                 }
                             }
                         }
@@ -133,12 +155,19 @@ protected:
     /// ...output_client_hello_random_run
     virtual int output_client_hello_random_run(int argc, char_t** argv, char_t** env) {
         int err = 0;
+        bool verbose = this->verbose_output();
         const xos::protocol::tls::hello::random* p_client_hello_random = 0;
 
         if ((p_client_hello_random = this->get_client_hello_random())) {
             const xos::protocol::tls::hello::random& client_hello_random = *p_client_hello_random;
 
+            if ((verbose)) {
+                this->outln("client_hello_random\\");
+            }
             this->output_hex_run(client_hello_random, argc, argv, env);
+            if ((verbose)) {
+                this->outln();
+            }
         }
         return err;
     }
@@ -146,6 +175,7 @@ protected:
     /// ...output_decrypted_premaster_secret_run
     virtual int output_decrypted_premaster_secret_run(int argc, char_t** argv, char_t** env) {
         int err = 0;
+        bool verbose = this->verbose_output();
         const xos::protocol::tls::encrypted::premaster::secret* p_encrypted_premaster_secret = 0;
 
         if ((p_encrypted_premaster_secret = this->get_encrypted_premaster_secret())) {
@@ -156,11 +186,40 @@ protected:
                 = encrypted_premaster_secret.has_elements(encrypted_premaster_secret_length))) {
                 const byte_t *p = 0, *q = 0, *dmp1 = 0, *dmq1 = 0, *iqmp = 0; size_t p_length = 0;
                 
+                if ((verbose)) {
+                    this->outln("encrypted_premaster_secret\\");
+                    this->output_hex_run(encrypted_premaster_secret, argc, argv, env);
+                    this->outln();
+                }
                 if ((p = this->get_p(q, dmp1, dmq1, iqmp, p_length))) {
                     xos::protocol::tls::rsa::implemented::private_key private_key(p, q, dmp1, dmq1, iqmp, p_length);
                     xos::protocol::tls::decrypted::premaster::secret decrypted_premaster_secret(private_key, encrypted_premaster_secret);
+                    const byte_t *decrypted_premaster_secret_bytes = 0; size_t decrypted_premaster_secret_length = 0;
 
-                    this->output_hex_run(decrypted_premaster_secret, argc, argv, env);
+                    if ((decrypted_premaster_secret_bytes 
+                        = decrypted_premaster_secret.has_elements(decrypted_premaster_secret_length))) {
+                        xos::protocol::tls::pkcs1::decoded::premaster::secret decoded_premaster_secret(decrypted_premaster_secret);
+                        const byte_t *decoded_premaster_secret_bytes = 0; size_t decoded_premaster_secret_length = 0;
+                        
+                        if ((verbose)) {
+                            this->outln("decrypted_premaster_secret\\");
+                            this->output_hex_run(decrypted_premaster_secret, argc, argv, env);
+                        }
+                        if ((verbose)) {
+                            this->outln();
+                        }
+                        if ((decoded_premaster_secret_bytes 
+                            = decoded_premaster_secret.has_elements(decoded_premaster_secret_length))) {
+                            
+                            if ((verbose)) {
+                                this->outln("decoded_premaster_secret\\");
+                            }
+                            this->output_hex_run(decoded_premaster_secret, argc, argv, env);
+                            if ((verbose)) {
+                                this->outln();
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -169,12 +228,19 @@ protected:
     /// ...output_encrypted_premaster_secret_run
     virtual int output_encrypted_premaster_secret_run(int argc, char_t** argv, char_t** env) {
         int err = 0;
+        bool verbose = this->verbose_output();
         const xos::protocol::tls::encrypted::premaster::secret* p_encrypted_premaster_secret = 0;
 
         if ((p_encrypted_premaster_secret = this->get_encrypted_premaster_secret())) {
             const xos::protocol::tls::encrypted::premaster::secret& encrypted_premaster_secret = *p_encrypted_premaster_secret;
 
+            if ((verbose)) {
+                this->outln("encrypted_premaster_secret\\");
+            }
             this->output_hex_run(encrypted_premaster_secret, argc, argv, env);
+            if ((verbose)) {
+                this->outln();
+            }
         }
         return err;
     }

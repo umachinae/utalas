@@ -48,7 +48,7 @@ template
 <typename TWhich = version_which_t, TWhich VWhich = version_12,
  TWhich VMajorShift = version_major_shift, TWhich VMajorMask = version_major_mask,
  TWhich VMinorShift = version_minor_shift, TWhich VMinorMask = version_minor_mask,
- typename TPart = version_part_t, class TMessagePart = tls::message::part,
+ typename TPart = version_part_t, TPart VNone = 0, class TMessagePart = tls::message::part,
  class TExtends = TMessagePart, class TImplements = typename TExtends::implements>
 
 class exported versiont: virtual public TImplements, public TExtends {
@@ -59,6 +59,7 @@ public:
     
     typedef TMessagePart message_part_t;
     typedef TPart part_t;
+    enum { none = VNone };
     typedef TWhich which_t;
     enum {
         which = VWhich,
@@ -93,8 +94,37 @@ public:
         to_msb(major_, minor_);
         return success;
     }
-    virtual bool separate() {
+    virtual bool separate(size_t& count, const byte_t* bytes, size_t length) {
         bool success = false;
+
+        count = 0;
+        if ((bytes) && (length >= sizeof(which_t))) {
+            part_t part = none;
+            size_t amount = 0;
+
+            if ((amount = this->from_msb(part, bytes, length))) {
+                const which_t major = ((which >> major_shift) & major_mask);
+
+                if ((major == part)) {
+                    this->assign(bytes, count = amount);
+                    bytes += amount;
+                    length -= amount;
+                    major_ = part;
+                    if ((amount = this->from_msb(part, bytes, length))) {
+                        const which_t minor = ((which >> minor_shift) & minor_mask);
+        
+                        if ((minor == part)) {
+                            this->append(bytes, amount);
+                            count += amount;
+                            bytes += amount;
+                            length -= amount;
+                            minor_ = part;
+                            success = true;
+                        }
+                    }
+                }
+            }
+        }
         return success;
     }
 

@@ -82,6 +82,7 @@ protected:
     /// ...output_client_..._run
     virtual int output_client_hello_run(int argc, char_t** argv, char_t** env) {
         int err = 0;
+        bool verbose = this->verbose_output();
         xos::protocol::tls::gmt::unix::time gmt_unix_time;
         xos::protocol::tls::pseudo::random::reader pseudo_random_reader(this->secret_, this->seed_);
         xos::protocol::tls::random::bytes random_bytes(pseudo_random_reader);
@@ -98,21 +99,35 @@ protected:
         (this->protocol_version_, hello_random, session_id, cipher_suites, compression_methods, pseudo_random_reader);
         xos::protocol::tls::handshake::message client_hello_handshake(client_hello); 
 
+        if ((verbose)) {
+            this->outln("client_hello_handshake\\");
+        }
         this->output_hex_run(client_hello_handshake, argc, argv, env);
+        if ((verbose)) {
+            this->outln();
+        }
         return err;
     }
     virtual int output_client_hello_random_run(int argc, char_t** argv, char_t** env) {
         int err = 0;
+        bool verbose = this->verbose_output();
         xos::protocol::tls::pseudo::random::reader pseudo_random_reader(this->secret_, this->seed_);
         xos::protocol::tls::random::bytes random_bytes(pseudo_random_reader);
         xos::protocol::tls::gmt::unix::time gmt_unix_time(xos::protocol::tls::gmt::unix::time::now());
         xos::protocol::tls::hello::random hello_random(pseudo_random_reader, gmt_unix_time, random_bytes);
 
+        if ((verbose)) {
+            this->outln("hello_random\\");
+        }
         this->output_hex_run(hello_random, argc, argv, env);
+        if ((verbose)) {
+            this->outln();
+        }
         return err;
     }
     virtual int output_master_secret_run(int argc, char_t** argv, char_t** env) {
         int err = 0;
+        bool verbose = this->verbose_output();
         xos::protocol::tls::pseudo::random::reader pseudo_random_reader(this->secret_, this->seed_);
         xos::protocol::tls::random::bytes random_bytes(pseudo_random_reader);
         xos::protocol::tls::gmt::unix::time gmt_unix_time(xos::protocol::tls::gmt::unix::time::now());
@@ -123,39 +138,73 @@ protected:
         xos::protocol::tls::master::secret master_secret(premaster_secret, master_secret_seed, hello_random, hello_random);
         const byte_t* modulus = 0; size_t modulus_length = 0;
         
-        this->output_hex_run(hello_random, argc, argv, env);
-        this->outln();
-        ///this->output_hex_run(premaster_secret, argc, argv, env);
-        ///this->outln();
+        if ((verbose)) {
+            this->outln("hello_random\\");
+            this->output_hex_run(hello_random, argc, argv, env);
+        }
+        if ((verbose)) {
+            this->outln();
+        }
+        if ((verbose)) {
+            this->outln("premaster_secret\\");
+            this->output_hex_run(premaster_secret, argc, argv, env);
+        }
+        if ((verbose)) {
+            this->outln();
+        }
         if ((modulus = this->get_modulus(modulus_length))) {
             xos::crypto::pseudo::random::reader random_reader(0);
             xos::protocol::tls::pkcs1::encoded::premaster::secret encoded_premaster_secret(modulus_length, premaster_secret, random_reader);
             const byte_t* exponent = 0; size_t exponent_length = 0;
 
-            this->output_hex_run(encoded_premaster_secret, argc, argv, env);
-            this->outln();
+            if ((verbose)) {
+                this->outln("encoded_premaster_secret\\");
+                this->output_hex_run(encoded_premaster_secret, argc, argv, env);
+            }
+            if ((verbose)) {
+                this->outln();
+            }
             if ((exponent = this->get_exponent(exponent_length))) {
                 xos::protocol::tls::rsa::implemented::public_key public_key(modulus, modulus_length, exponent, exponent_length);
                 xos::protocol::tls::encrypted::premaster::secret encrypted_premaster_secret(public_key, encoded_premaster_secret);
 
-                this->output_hex_run(encrypted_premaster_secret, argc, argv, env);
-                this->outln();
+                if ((verbose)) {
+                    this->outln("encrypted_premaster_secret\\");
+                    this->output_hex_run(encrypted_premaster_secret, argc, argv, env);
+                }
+                if ((verbose)) {
+                    this->outln();
+                }
             }
         }
+        if ((verbose)) {
+            this->outln("master_secret\\");
+        }
         this->output_hex_run(master_secret, argc, argv, env);
+        if ((verbose)) {
+            this->outln();
+        }
         return err;
     }
     virtual int output_premaster_secret_run(int argc, char_t** argv, char_t** env) {
         int err = 0;
+        bool verbose = this->verbose_output();
         xos::protocol::tls::pseudo::random::reader pseudo_random_reader(this->secret_, this->seed_);
         xos::protocol::tls::premaster::secret::random premaster_secret_random(pseudo_random_reader);
         xos::protocol::tls::premaster::secret::message premaster_secret(this->protocol_version_, premaster_secret_random, pseudo_random_reader);
         
+        if ((verbose)) {
+            this->outln("premaster_secret\\");
+        }
         this->output_hex_run(premaster_secret, argc, argv, env);
+        if ((verbose)) {
+            this->outln();
+        }
         return err;
     }
     virtual int output_encoded_premaster_secret_run(int argc, char_t** argv, char_t** env) {
         int err = 0;
+        bool verbose = this->verbose_output();
         const byte_t* modulus = 0; size_t modulus_length = 0;
         xos::crypto::pseudo::random::reader random_reader(0);
         xos::protocol::tls::pseudo::random::reader pseudo_random_reader(this->secret_, this->seed_);
@@ -166,12 +215,19 @@ protected:
             const byte_t* exponent = 0; size_t exponent_length = 0;
             xos::protocol::tls::pkcs1::encoded::premaster::secret encoded_premaster_secret(modulus_length, premaster_secret, random_reader);
 
+            if ((verbose)) {
+                this->outln("encoded_premaster_secret\\");
+            }
             this->output_hex_run(encoded_premaster_secret, argc, argv, env);
+            if ((verbose)) {
+                this->outln();
+            }
         }
         return err;
     }
     virtual int output_encrypted_premaster_secret_run(int argc, char_t** argv, char_t** env) {
         int err = 0;
+        bool verbose = this->verbose_output();
         const byte_t* modulus = 0; size_t modulus_length = 0;
         xos::crypto::pseudo::random::reader random_reader(0);
         xos::protocol::tls::pseudo::random::reader pseudo_random_reader(this->secret_, this->seed_);
@@ -187,13 +243,20 @@ protected:
                 xos::protocol::tls::rsa::implemented::public_key public_key(modulus, modulus_length, exponent, exponent_length);
                 xos::protocol::tls::encrypted::premaster::secret encrypted_premaster_secret(public_key, encoded_premaster_secret);
 
+                if ((verbose)) {
+                    this->outln("encrypted_premaster_secret\\");
+                }
                 this->output_hex_run(encrypted_premaster_secret, argc, argv, env);
+                if ((verbose)) {
+                    this->outln();
+                }
             }
         }
         return err;
     }
     virtual int output_decrypted_premaster_secret_run(int argc, char_t** argv, char_t** env) {
         int err = 0;
+        bool verbose = this->verbose_output();
         const byte_t* modulus = 0; size_t modulus_length = 0;
         xos::protocol::tls::pseudo::random::reader pseudo_random_reader(this->secret_, this->seed_);
         xos::protocol::tls::premaster::secret::random premaster_secret_random(pseudo_random_reader);
@@ -214,7 +277,14 @@ protected:
                     
                     if ((encrypted_premaster_secret_bytes = encrypted_premaster_secret.has_elements(encrypted_premaster_secret_length))) {
                         xos::protocol::tls::decrypted::premaster::secret decrypted_premaster_secret(private_key, encrypted_premaster_secret);
+
+                        if ((verbose)) {
+                            this->outln("decrypted_premaster_secret\\");
+                        }
                         this->output_hex_run(decrypted_premaster_secret, argc, argv, env);
+                        if ((verbose)) {
+                            this->outln();
+                        }
                     }
                 }
             }
@@ -223,6 +293,7 @@ protected:
     }
     virtual int output_client_key_exchange_run(int argc, char_t** argv, char_t** env) {
         int err = 0;
+        bool verbose = this->verbose_output();
         const byte_t* modulus = 0; size_t modulus_length = 0;
         xos::protocol::tls::pseudo::random::reader pseudo_random_reader(this->secret_, this->seed_);
         xos::protocol::tls::premaster::secret::random premaster_secret_random(pseudo_random_reader);
@@ -239,7 +310,13 @@ protected:
                 xos::protocol::tls::client::key::exchange::message client_key_exchange(encrypted_premaster_secret); 
                 xos::protocol::tls::handshake::message client_key_exchange_handshake(client_key_exchange); 
                 
+                if ((verbose)) {
+                    this->outln("client_key_exchange_handshake\\");
+                }
                 this->output_hex_run(client_key_exchange_handshake, argc, argv, env);
+                if ((verbose)) {
+                    this->outln();
+                }
             }
         }
         return err;
