@@ -58,7 +58,7 @@ public:
     /// combine / separate
     virtual bool combine() {
         bool success = false;
-        if ((this->to_msb(value_, size_of))) {
+        if (size_of == (this->to_msb(value_, size_of))) {
             success = true;
         }
         return success;
@@ -73,13 +73,11 @@ public:
 
             if ((amount = this->from_msb(value, bytes, length))) {
 
+                this->assign(bytes, count = amount);
                 bytes += amount;
                 length -= amount;
-                if ((value == (length))) {
-                    this->assign(bytes, count = amount);
-                    value_ = value;
-                    success = true;
-                }
+                value_ = value;
+                success = true;
             }
         }
         return success;
