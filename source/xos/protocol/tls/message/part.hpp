@@ -170,22 +170,22 @@ public:
 
     /// ...to_msb
     template <typename part_t>
-    size_t& set_to_msb(const part_t& part) {
+    size_t set_to_msb(const part_t& part) {
         size_t size = sizeof(part);
         return set_to_msb(part, size);
     }
     template <typename part_t>
-    size_t& to_msb(const part_t& part) {
+    size_t to_msb(const part_t& part) {
         size_t size = sizeof(part);
         return to_msb(part, size);
     }
     template <typename part_t>
-    size_t& set_to_msb(const part_t& part, size_t size) {
+    size_t set_to_msb(const part_t& part, size_t size) {
         this->set_length(0);
         return to_msb(part, size);
     }
     template <typename part_t>
-    size_t& to_msb(const part_t& part, size_t size) {
+    size_t to_msb(const part_t& part, size_t size) {
         size_t remain = 0;
         part_t lsb = 0, msb = 0;
 

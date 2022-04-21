@@ -65,6 +65,9 @@ protected:
     typedef typename extends::out_writer_t out_writer_t;
     typedef typename extends::err_writer_t err_writer_t;
 
+    typedef typename extends::file_reader_t file_reader_t;
+    typedef typename extends::file_writer_t file_writer_t;
+
     typedef typename extends::this_reader_t this_reader_t;
     typedef typename extends::this_writer_t this_writer_t;
 
@@ -143,6 +146,49 @@ protected:
                         
                         if ((chars = text_content_.has_chars(length)) && (content_length <= length)) {
                             if (!(err = set_text_content_console_gateway_out_run(argc, argv, env))) {
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return err;
+    }
+    /// ...read_form_fields
+    virtual int read_form_fields(int argc, char_t** argv, char_t** env) {
+        int err = 0;
+
+        if (!(err = extends::read_form_fields(argc, argv, env))) {
+            size_t content_length = 0;
+            const char_t *setting = 0;
+            environment_value_t *value = 0;
+    
+            if ((setting = (this->environment_.setting_of(value, CONTENT_LENGTH))) && (setting[0])) {
+                content_length = value->to_unsigned();
+            }
+            if ((setting = (this->environment_.setting_of(value, CONTENT_TYPE))) && (setting[0])) {
+                text_content_type_t text_content_type;
+
+                if ((text_content_type.is_equal(setting))) {
+                    const char_t *name = 0, *pattern = 0;
+                    
+                    if ((name = this->input_file_name_.has_chars()) 
+                        && (pattern = this->input_file_pattern_.has_chars())) {
+                        file_reader_t file;
+                        
+                        if ((file.open_safe(name, pattern))) {
+                            content_reader_t content_reader(file, content_length);
+                            
+                            err = all_read_text_content(content_reader, argc, argv, env);
+                            file.close();
+                            if (!(err)) {
+                                ///text_content_t& text_content = this->text_content();
+                                const char_t* chars = 0; size_t length = 0;
+                                
+                                if ((chars = text_content_.has_chars(length)) && (content_length <= length)) {
+                                    if (!(err = set_text_content_console_gateway_out_run(argc, argv, env))) {
+                                    }
+                                }
                             }
                         }
                     }

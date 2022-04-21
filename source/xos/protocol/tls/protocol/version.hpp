@@ -130,7 +130,7 @@ public:
 
     /// ...to_msb
     using extends::to_msb;
-    virtual size_t& to_msb(const part_t& major, const part_t& minor) {
+    virtual size_t to_msb(const part_t& major, const part_t& minor) {
         size_t length = 0, size = 0;
         
         this->set_length(length = 0);
