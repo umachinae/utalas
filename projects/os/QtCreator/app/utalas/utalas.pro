@@ -16,7 +16,7 @@
 #   File: utalas.pro
 #
 # Author: $author$
-#   Date: 1/27/2022
+#   Date: 5/11/2022
 #
 # os specific QtCreator project .pro file for framework utalas executable utalas
 ########################################################################

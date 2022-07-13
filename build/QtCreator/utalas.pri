@@ -16,12 +16,12 @@
 #   File: utalas.pri
 #
 # Author: $author$
-#   Date: 1/27/2022
+#   Date: 4/1/2022, 7/11/2022
 #
 # build specific QtCreator project .pri file for framework utalas
 ########################################################################
 # Repository Depends: vmachinae
-# Depends: urostra;unadir;ufila;ucrono;urete;ustara
+# Depends: ubn;ump;urostra;unadir;ufila;ucrono;ucifra;urete;ustara
 
 contains(BUILD_OS,Uname) {
 UNAME = $$system(uname)
@@ -47,6 +47,50 @@ BUILD_OS = os
 } # contains(BUILD_OS,Uname)
 
 #BUILD_CPP_VERSION = 11
+
+########################################################################
+# ubn
+#
+# pkg-config --cflags --libs ubn
+#
+
+# build ubn INCLUDEPATH
+#
+build_ubn_INCLUDEPATH += \
+
+# build ubn DEFINES
+#
+build_ubn_DEFINES += \
+
+# build ubn FRAMEWORKS
+#
+build_ubn_FRAMEWORKS += \
+
+# build ubn LIBS
+#
+build_ubn_LIBS += \
+
+########################################################################
+# ump
+#
+# pkg-config --cflags --libs ump
+#
+
+# build ump INCLUDEPATH
+#
+build_ump_INCLUDEPATH += \
+
+# build ump DEFINES
+#
+build_ump_DEFINES += \
+
+# build ump FRAMEWORKS
+#
+build_ump_FRAMEWORKS += \
+
+# build ump LIBS
+#
+build_ump_LIBS += \
 
 ########################################################################
 # urostra
@@ -137,6 +181,28 @@ build_ucrono_FRAMEWORKS += \
 build_ucrono_LIBS += \
 
 ########################################################################
+# ucifra
+#
+# pkg-config --cflags --libs ucifra
+#
+
+# build ucifra INCLUDEPATH
+#
+build_ucifra_INCLUDEPATH += \
+
+# build ucifra DEFINES
+#
+build_ucifra_DEFINES += \
+
+# build ucifra FRAMEWORKS
+#
+build_ucifra_FRAMEWORKS += \
+
+# build ucifra LIBS
+#
+build_ucifra_LIBS += \
+
+########################################################################
 # urete
 #
 # pkg-config --cflags --libs urete
@@ -188,19 +254,25 @@ build_ustara_LIBS += \
 build_utalas_INCLUDEPATH += \
 $${build_ustara_INCLUDEPATH} \
 $${build_urete_INCLUDEPATH} \
+$${build_ucifra_INCLUDEPATH} \
 $${build_ucrono_INCLUDEPATH} \
 $${build_ufila_INCLUDEPATH} \
 $${build_unadir_INCLUDEPATH} \
 $${build_urostra_INCLUDEPATH} \
+$${build_ump_INCLUDEPATH} \
+$${build_ubn_INCLUDEPATH} \
 
 
 # build utalas DEFINES
 #
 build_utalas_DEFINES += \
+$${build_ubn_DEFINES} \
+$${build_ump_DEFINES} \
 $${build_urostra_DEFINES} \
 $${build_unadir_DEFINES} \
 $${build_ufila_DEFINES} \
 $${build_ucrono_DEFINES} \
+$${build_ucifra_DEFINES} \
 $${build_urete_DEFINES} \
 $${build_ustara_DEFINES} \
 
@@ -210,10 +282,13 @@ $${build_ustara_DEFINES} \
 build_utalas_FRAMEWORKS += \
 $${build_ustara_FRAMEWORKS} \
 $${build_urete_FRAMEWORKS} \
+$${build_ucifra_FRAMEWORKS} \
 $${build_ucrono_FRAMEWORKS} \
 $${build_ufila_FRAMEWORKS} \
 $${build_unadir_FRAMEWORKS} \
 $${build_urostra_FRAMEWORKS} \
+$${build_ump_FRAMEWORKS} \
+$${build_ubn_FRAMEWORKS} \
 
 
 # build utalas LIBS
@@ -221,9 +296,12 @@ $${build_urostra_FRAMEWORKS} \
 build_utalas_LIBS += \
 $${build_ustara_LIBS} \
 $${build_urete_LIBS} \
+$${build_ucifra_LIBS} \
 $${build_ucrono_LIBS} \
 $${build_ufila_LIBS} \
 $${build_unadir_LIBS} \
 $${build_urostra_LIBS} \
+$${build_ump_LIBS} \
+$${build_ubn_LIBS} \
 
 ########################################################################

@@ -16,7 +16,7 @@
 #   File: utalas.pri
 #
 # Author: $author$
-#   Date: 1/27/2022
+#   Date: 7/11/2022
 #
 # generic QtCreator project .pri file for framework utalas executable utalas
 ########################################################################
@@ -44,36 +44,37 @@ XOS_CONSOLE_MAIN_MAIN \
 # utalas_exe OBJECTIVE_HEADERS
 #
 #utalas_exe_OBJECTIVE_HEADERS += \
-#$${UTALAS_SRC}/xos/app/console/utalas/main.hh \
+#$${UTALAS_SRC}/xos/app/console/utalas/version/main.hh \
 
 # utalas_exe OBJECTIVE_SOURCES
 #
 #utalas_exe_OBJECTIVE_SOURCES += \
-#$${UTALAS_SRC}/xos/app/console/utalas/main.mm \
+#$${UTALAS_SRC}/xos/app/console/utalas/version/main.mm \
 
 ########################################################################
 # utalas_exe HEADERS
 #
 utalas_exe_HEADERS += \
-$${UTALAS_SRC}/xos/app/console/utalas/main.hpp \
+$${UTALAS_SRC}/xos/app/console/utalas/version/main_opt.hpp \
+$${UTALAS_SRC}/xos/app/console/utalas/version/main.hpp \
 
 # utalas_exe SOURCES
 #
 utalas_exe_SOURCES += \
-$${UTALAS_SRC}/xos/app/console/utalas/main.cpp \
+$${UTALAS_SRC}/xos/app/console/utalas/version/main_opt.cpp \
+$${UTALAS_SRC}/xos/app/console/utalas/version/main.cpp \
 
 ########################################################################
 # utalas_exe FRAMEWORKS
 #
 utalas_exe_FRAMEWORKS += \
-$${utalas_FRAMEWORKS} \
+$${utalas_rsa_FRAMEWORKS} \
 
 # utalas_exe LIBS
 #
 utalas_exe_LIBS += \
-$${utalas_LIBS} \
+$${utalas_rsa_LIBS} \
 
 ########################################################################
 # NO Qt
 QT -= gui core
-
